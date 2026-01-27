@@ -575,6 +575,124 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* ============ CHAOS VS SYSTEM SLIDE ============ */
+.chaos-system {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  width: 100%;
+  max-width: min(960px, 92vw);
+}
+
+.chaos-system__col {
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chaos-system__col--chaos {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.chaos-system__col--system {
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.chaos-system__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(20px, 2.5vw, 28px);
+}
+
+.chaos-system__icon {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1;
+}
+
+.chaos-system__label {
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chaos-system__col--chaos .chaos-system__label {
+  color: #ef4444;
+}
+
+.chaos-system__col--system .chaos-system__label {
+  color: #22c55e;
+}
+
+.chaos-system__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chaos-system__list li {
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  line-height: 1.5;
+  color: #ffffff;
+  padding-left: 28px;
+  position: relative;
+}
+
+.chaos-system__col--chaos .chaos-system__list li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.chaos-system__col--system .chaos-system__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.chaos-system__footer {
+  margin-top: clamp(28px, 3vw, 40px);
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.chaos-system__footer p {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  margin: 0;
+  padding: clamp(16px, 2vw, 24px) clamp(24px, 3vw, 40px);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.chaos-system__footer em {
+  font-style: normal;
+  background: linear-gradient(135deg, #22c55e, #7dd3fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .chaos-system {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ============ GIFT SLIDE ============ */
 .gift {
   position: relative;
@@ -2025,6 +2143,86 @@ body {
       <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
+    <!-- Slide: Myth #3 Programmers Only -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #fb923c; --accent-soft: rgba(251, 146, 60, 0.10); --accent-strong: rgba(251, 146, 60, 0.28);" id="slide-myth-programmers">
+      <div class="slide__inner">
+        <div class="kicker">Разрушаем миф #3</div>
+        <h2 class="title title--lg">«Удалёнка — это только для программистов»</h2>
+        <div class="myth-vs">
+          <div class="myth-card myth-card--false">
+            <div class="myth-card__glitch" aria-hidden="true">
+              <span class="myth-card__glitch-line"></span>
+              <span class="myth-card__glitch-line"></span>
+              <span class="myth-card__glitch-line"></span>
+            </div>
+            <div class="myth-card__icon">✕</div>
+            <div class="myth-card__label">Миф</div>
+            <ul class="list">
+              <li>Удалённая работа — только для программистов и дизайнеров</li>
+              <li>Нужны технические навыки</li>
+              <li>Только IT-специалисты могут работать удалённо</li>
+            </ul>
+          </div>
+          <div class="myth-vs__divider" aria-hidden="true">
+            <span class="myth-vs__divider-line"></span>
+            <span class="myth-vs__divider-text">VS</span>
+            <span class="myth-vs__divider-line"></span>
+          </div>
+          <div class="myth-card myth-card--true">
+            <div class="myth-card__icon">✓</div>
+            <div class="myth-card__label">Реальность</div>
+            <ul class="list">
+              <li>8 из 10 удалённых вакансий не требуют навыков программирования</li>
+              <li>Виртуальный ассистент</li>
+              <li>Менеджер соцсетей</li>
+              <li>Специалист по поддержке</li>
+              <li>И десятки других профессий</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide: Chaos vs System -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.10); --accent-strong: rgba(34, 211, 238, 0.28);" id="slide-chaos-system">
+      <div class="slide__inner">
+        <h2 class="title title--lg" style="text-align:center; margin-bottom: clamp(16px, 2vw, 28px);">Почему хаотичные попытки не работают<br><em style="font-style:normal; background:linear-gradient(135deg,#22c55e,#7dd3fc); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">(и что работает)</em></h2>
+        <div class="chaos-system">
+          <div class="chaos-system__col chaos-system__col--chaos">
+            <div class="chaos-system__header">
+              <span class="chaos-system__icon">🌀</span>
+              <span class="chaos-system__label">Хаос</span>
+            </div>
+            <ul class="chaos-system__list">
+              <li>100+ отправленных резюме</li>
+              <li>Выгорание, разочарование</li>
+              <li>Демпинг на фриланс-биржах</li>
+            </ul>
+          </div>
+          <div class="chaos-system__col chaos-system__col--system">
+            <div class="chaos-system__header">
+              <span class="chaos-system__icon">⚙️</span>
+              <span class="chaos-system__label">Система</span>
+            </div>
+            <ul class="chaos-system__list">
+              <li>Точечный поиск нужных клиентов</li>
+              <li>Чёткая «упаковка» себя (LinkedIn, видео)</li>
+              <li>Офферы со ставкой от $7/час ($1200+ в месяц)</li>
+            </ul>
+          </div>
+          <div class="chaos-system__footer">
+            <p>Мы дадим вам <em>проверенный алгоритм</em> вместо слепой удачи</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
     <!-- Slide 10: LinkedIn -->
     <section class="slide slide--light" data-variant="oasis" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-10">
       <div class="slide__inner">
@@ -2133,216 +2331,6 @@ body {
       <div class="slide__noise" aria-hidden="true"></div>
       <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
       <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 14: First 30 Days -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-14">
-      <div class="slide__inner">
-        <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
-        <div class="split">
-          <div class="split__col">
-            <div class="card">
-              <div class="card__title">Do ✓</div>
-              <ul class="list">
-                <li>Всегда сдавайте работу на час раньше срока</li>
-                <li>Ваши вопросы должны быть о результате</li>
-                <li>Говорите: "Разберусь и вернусь с решением"</li>
-              </ul>
-            </div>
-          </div>
-          <div class="split__col">
-            <div class="card card--accent">
-              <div class="card__title">Don't ✗</div>
-              <ul class="list">
-                <li>Никогда не нарушайте дедлайн</li>
-                <li>Не пропадайте без предупреждения</li>
-                <li>Не говорите: "Это невозможно"</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 15: Success Stories -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-15">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">Истории успеха</h2>
-          <p class="body body--dark">Они уже смогли. Теперь ваша очередь.</p>
-          <div class="story-grid" aria-hidden="true">
-            <div class="story-card story-card--woman" id="story-1"></div>
-            <div class="story-card story-card--man" id="story-2"></div>
-            <div class="story-card story-card--team" id="story-3"></div>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 16: Package -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-16">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">Smartworker Package</h2>
-          <h3 class="title title--md">Карьера в США:<br>Executive Virtual Assistant</h3>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 17: Social Media -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-17">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
-          <p class="body body--dark">Facebook: Ищите тематические группы ("Coaches & Consultants")</p>
-          <p class="body body--dark">Instagram: Ищите по хэштегам (#businesscoach, #realestateagent)</p>
-          <p class="body body--dark">Стратегия та же: Будьте полезны, а не навязчивы.</p>
-          <div class="social-logos" aria-hidden="true">
-            <span class="logo logo--fb"></span>
-            <span class="logo logo--ig"></span>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 18: CTA -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-18">
-      <div class="slide__inner">
-        <div class="split">
-          <div class="split__col">
-            <h2 class="title title--lg">Последняя возможность</h2>
-            <p class="body">Это лучшее соотношение цены и ценности. Цена для участников интенсива - 500$</p>
-            <p class="body">Жизнь наших студентов совершенно поменялась, когда они получили свой первый оффер с оплатой в долларах.</p>
-            <p class="body">👉 Пишите в Telegram: @thirsty_invest31<br>👉 Или whatsapp: +7 700 131 0304</p>
-            <p class="highlight">Напишите в чат «хочу» + номер телефона</p>
-          </div>
-          <div class="split__col" style="display: flex; justify-content: center;">
-            <div class="iphone-mockup">
-              <div class="iphone-mockup__notch"></div>
-              <div class="iphone-mockup__screen"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 19: Scaling -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-19">
-      <div class="slide__inner">
-        <h2 class="title title--lg">Масштабирование</h2>
-        <p class="body">Стартуете с $7/час ($1200+ в месяц)</p>
-        <p class="body">Через 12-18 месяцев: $15-$25/час ($2500-$4000 в месяц)</p>
-        <p class="body">Мы показали, что эта система позволяет выйти на $50/час (даже без IT-специальности).</p>
-        <p class="body body--muted">Это тот путь который прошёл наш основатель, и который доступен каждому, кто готов трудиться и прокачиваться.</p>
-        <div class="stats">
-          <div class="stat"><div class="stat__value">$7/час</div><div class="stat__label">Старт</div></div>
-          <div class="stat"><div class="stat__value">$25/час</div><div class="stat__label">Через 18 мес</div></div>
-          <div class="stat"><div class="stat__value">$50/час</div><div class="stat__label">Потенциал</div></div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 20: Dr Berg Case (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-20">
-      <div class="slide__inner">
-        <div class="split split--case">
-          <div class="split__col">
-            <div class="stack">
-              <div class="kicker">Откуда мы это знаем?</div>
-              <h2 class="title title--lg">Доктор Берг — один из крупнейших медицинских YouTube-блогеров (14M+ подписчиков)</h2>
-              <p class="body body--dark">Задача: Найти Виртуального Ассистента, который сможет управлять его сложным графиком и контентом.</p>
-              <p class="body body--dark">Результат: Мы доказали, что квалификация важнее географии. Наш подход позволил Нурсултану Адильханов обойти американских кандидатов и получить эту роль с оплатой $50/час.</p>
-            </div>
-          </div>
-          <div class="split__col">
-            <div class="poster-card">
-              <div class="poster-card__title">EASY KETO</div>
-              <div class="poster-card__subtitle">AND INTERMITTENT FASTING</div>
-              <div class="poster-card__figure poster-card__figure--drberg"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 21: Reputation -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-21">
-      <div class="slide__inner">
-        <h2 class="title title--lg">Ваша репутация — ваш актив</h2>
-        <div class="card">
-          <p class="body"><strong>Решение демпинга:</strong> Мы предлагаем надежность, а не самую низкую цену.</p>
-          <p class="body"><strong>Репутация СНГ:</strong> Работники из нашего региона имеют репутацию ответственных, лояльных и исполнительных специалистов.</p>
-          <p class="body"><strong>Ваша задача:</strong> Правильно подать себя в прямом контакте как квалифицированного специалиста, для которого $7/час — это справедливый старт за надежность.</p>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 22: Start Roles (with bg image) -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-22">
-      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
-      <div class="slide__inner">
-        <h2 class="title title--lg">С чего начать, если "ничего не умеешь"?</h2>
-        <p class="body">Выберите ОДНУ простую роль. Ваша цель — зайти на рынок.</p>
-        <div class="card-grid">
-          <div class="card"><p class="body"><strong>Virtual Assistant (VA):</strong> Организация задач, календаря, почты.</p></div>
-          <div class="card"><p class="body"><strong>Social Media Assistant:</strong> Помощь с контентом и сообщениями.</p></div>
-          <div class="card"><p class="body"><strong>Customer Support:</strong> Ответы на вопросы клиентов.</p></div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
