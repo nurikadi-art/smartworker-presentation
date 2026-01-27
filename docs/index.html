@@ -138,6 +138,16 @@ body {
 .slide__inner > *:nth-child(5) { transition-delay: 0.34s; }
 .slide__inner > *:nth-child(6) { transition-delay: 0.40s; }
 
+/* ============ HERO SHADER ============ */
+.hero-shader {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* ============ HERO ORBIT ============ */
 .hero-orbit {
   position: relative;
@@ -1047,6 +1057,7 @@ body {
     <section class="slide slide--hero" data-hero="true" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-1">
       <div class="slide__hero">
         <div class="hero-orbit">
+          <canvas class="hero-shader" id="hero-shader" aria-hidden="true"></canvas>
           <div class="hero-orbit__overlay" aria-hidden="true">
             <span class="hero-orbit__ring hero-orbit__ring--a"></span>
             <span class="hero-orbit__ring hero-orbit__ring--b"></span>
@@ -2313,6 +2324,93 @@ body {
       <span class="nav-hint__key">→</span>
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    // Hero shader background
+    (function() {
+      var canvas = document.getElementById('hero-shader');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      var scene = new THREE.Scene();
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: false });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(new THREE.Color(0x000000));
+
+      var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
+
+      var uniforms = {
+        resolution: { value: [canvas.clientWidth, canvas.clientHeight] },
+        time: { value: 0.0 },
+        xScale: { value: 1.0 },
+        yScale: { value: 0.5 },
+        distortion: { value: 0.05 }
+      };
+
+      var vertexShader = [
+        'attribute vec3 position;',
+        'void main() {',
+        '  gl_Position = vec4(position, 1.0);',
+        '}'
+      ].join('\n');
+
+      var fragmentShader = [
+        'precision highp float;',
+        'uniform vec2 resolution;',
+        'uniform float time;',
+        'uniform float xScale;',
+        'uniform float yScale;',
+        'uniform float distortion;',
+        '',
+        'void main() {',
+        '  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);',
+        '  float d = length(p) * distortion;',
+        '  float rx = p.x * (1.0 + d);',
+        '  float gx = p.x;',
+        '  float bx = p.x * (1.0 - d);',
+        '  float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);',
+        '  float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);',
+        '  float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);',
+        '  gl_FragColor = vec4(r, g, b, 1.0);',
+        '}'
+      ].join('\n');
+
+      var positions = new Float32Array([
+        -1, -1, 0,  1, -1, 0,  -1, 1, 0,
+         1, -1, 0, -1,  1, 0,   1, 1, 0
+      ]);
+      var geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      var material = new THREE.RawShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        uniforms: uniforms,
+        side: THREE.DoubleSide
+      });
+
+      var mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      function resize() {
+        var w = canvas.clientWidth;
+        var h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        uniforms.resolution.value = [w, h];
+      }
+
+      function animate() {
+        uniforms.time.value += 0.01;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      resize();
+      animate();
+      window.addEventListener('resize', resize);
+    })();
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
