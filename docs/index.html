@@ -1265,23 +1265,218 @@ body {
   transform: scale(1.02);
 }
 
-.poster-card {
-  width: min(320px, 100%);
-  padding: 28px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text);
-  text-align: center;
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+/* ============ DR BERG CASE STUDY ============ */
+.berg-case {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: center;
+  width: 100%;
 }
 
-.poster-card__title { font-weight: 700; letter-spacing: 0.12em; }
-.poster-card__subtitle { margin-top: 8px; font-size: 0.82rem; letter-spacing: 0.2em; color: var(--muted); }
-.poster-card__figure { margin-top: 18px; height: 220px; border-radius: 18px; background: linear-gradient(180deg, #27272a, #18181b); background-size: cover; background-position: center; }
-.poster-card__figure--drberg { background-image: url('https://placehold.co/400x220/1f2937/e2e8f0?text=Dr+Berg'); background-position: center top; }
+.berg-case__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.berg-case__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #f59e0b;
+  width: fit-content;
+}
+
+.berg-case__stat::before {
+  content: '▶';
+  font-size: 0.7em;
+}
+
+.berg-case__title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.berg-case__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.berg-case__body {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.65;
+  color: #ffffff;
+}
+
+.berg-case__highlight {
+  margin-top: 8px;
+  padding: clamp(16px, 2vw, 24px);
+  border-radius: 16px;
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.berg-case__highlight p {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+  color: #22c55e;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.berg-case__image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.berg-case__image {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(245, 158, 11, 0.08);
+  border: 2px solid rgba(245, 158, 11, 0.15);
+}
+
+.berg-case__kicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .berg-case {
+    grid-template-columns: 1fr;
+  }
+  .berg-case__image-wrap {
+    order: -1;
+  }
+  .berg-case__image {
+    max-width: 260px;
+  }
+}
+
+/* ============ SCALING SLIDE ============ */
+.scaling {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(28px, 3vw, 40px);
+  max-width: min(860px, 92vw);
+}
+
+.scaling__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+}
+
+.scaling__step {
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.scaling__step--start {
+  border-color: rgba(129, 140, 248, 0.2);
+  background: rgba(129, 140, 248, 0.05);
+}
+
+.scaling__step--mid {
+  border-color: rgba(34, 211, 238, 0.2);
+  background: rgba(34, 211, 238, 0.05);
+}
+
+.scaling__step--top {
+  border-color: rgba(34, 197, 94, 0.2);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.scaling__rate {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.scaling__step--start .scaling__rate { color: #818cf8; }
+.scaling__step--mid .scaling__rate { color: #22d3ee; }
+.scaling__step--top .scaling__rate { color: #22c55e; }
+
+.scaling__period {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scaling__income {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.scaling__arrow {
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.scaling__message {
+  padding: clamp(20px, 2.5vw, 32px) clamp(28px, 3vw, 44px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-width: 720px;
+}
+
+.scaling__message p {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+  color: #ffffff;
+  margin: 0;
+}
+
+.scaling__message em {
+  font-style: normal;
+  background: linear-gradient(135deg, #22c55e, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
 
 /* ============ iPHONE MOCKUP ============ */
 .iphone-mockup {
@@ -2223,53 +2418,6 @@ body {
       <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 10: LinkedIn -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-10">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">LinkedIn: Ваш путь к работодателям США</h2>
-          <div class="image-container">
-            <img src="https://placehold.co/800x500/1f2937/e2e8f0?text=LinkedIn+Search" alt="LinkedIn Search" class="linkedin-actual-image">
-          </div>
-          <p class="body body--dark">Поиск CEO и Owner компаний через фильтры LinkedIn</p>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 11: Connections -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-11">
-      <div class="slide__inner">
-        <div class="split split--connections">
-          <div class="split__col">
-            <div class="network" aria-hidden="true">
-              <span></span><span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="split__col">
-            <div class="stack">
-              <h2 class="title title--lg">Connections: Секрет прямого выхода на CEO</h2>
-              <p class="body body--dark">Connection (Связь) — это ваш контакт в LinkedIn. Это валюта платформы, определяющая вашу активность.</p>
-              <p class="body body--dark">Наш метод прямого поиска позволяет вам выйти напрямую на лиц, принимающих решения, минуя HR.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
     <!-- Slide 12: Roles -->
     <section class="slide slide--dark" data-variant="prism" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-12">
       <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
@@ -2305,33 +2453,63 @@ body {
     </section>
 
     <!-- Slide 13: Dr Berg Case -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-13">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f59e0b; --accent-soft: rgba(245, 158, 11, 0.10); --accent-strong: rgba(245, 158, 11, 0.28);" id="slide-13">
       <div class="slide__inner">
-        <div class="split split--case">
-          <div class="split__col">
-            <div class="stack">
-              <h2 class="title title--lg">Доктор Берг — один из крупнейших YouTube-блогеров (14M+ подписчиков)</h2>
-              <p class="body body--dark">Задача: Найти Виртуального Ассистента для управления его сложным графиком и контентом.</p>
-              <p class="body body--dark">Результат: Наш подход позволил Нурсултану обойти американских кандидатов и получить эту роль с оплатой $50/час.</p>
-              <div class="kicker">Откуда мы это знаем?</div>
+        <div class="berg-case">
+          <div class="berg-case__content">
+            <span class="berg-case__stat">14M+ подписчиков на YouTube</span>
+            <h2 class="berg-case__title">Доктор Берг — один из крупнейших <em>YouTube-блогеров</em></h2>
+            <p class="berg-case__body">Задача: Найти Виртуального Ассистента для управления его сложным графиком и контентом.</p>
+            <div class="berg-case__highlight">
+              <p>Наш подход позволил Нурсултану обойти американских кандидатов и получить эту роль с оплатой <strong>$50/час</strong></p>
             </div>
+            <div class="berg-case__kicker">Откуда мы это знаем?</div>
           </div>
-          <div class="split__col">
-            <div class="poster-card" aria-hidden="true" id="drberg-card">
-              <div class="poster-card__title">EASY KETO</div>
-              <div class="poster-card__subtitle">AND INTERMITTENT FASTING</div>
-              <div class="poster-card__figure poster-card__figure--drberg"></div>
-            </div>
+          <div class="berg-case__image-wrap">
+            <img src="drberg.png" alt="Dr. Berg" class="berg-case__image">
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
       <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide: Масштабирование -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.10); --accent-strong: rgba(34, 211, 238, 0.28);" id="slide-scaling">
+      <div class="slide__inner">
+        <div class="scaling">
+          <div class="kicker">Масштабирование</div>
+          <h2 class="title title--lg" style="text-align:center;">Ваш путь роста дохода</h2>
+          <div class="scaling__steps">
+            <div class="scaling__step scaling__step--start">
+              <span class="scaling__period">Старт</span>
+              <span class="scaling__rate">$7/час</span>
+              <span class="scaling__income">$1 200+ в месяц</span>
+              <span class="scaling__arrow">→</span>
+            </div>
+            <div class="scaling__step scaling__step--mid">
+              <span class="scaling__period">12–18 месяцев</span>
+              <span class="scaling__rate">$15–$25/час</span>
+              <span class="scaling__income">$2 500–$4 000 в месяц</span>
+              <span class="scaling__arrow">→</span>
+            </div>
+            <div class="scaling__step scaling__step--top">
+              <span class="scaling__period">Цель</span>
+              <span class="scaling__rate">$50/час</span>
+              <span class="scaling__income">Даже без IT-специальности</span>
+            </div>
+          </div>
+          <div class="scaling__message">
+            <p>Мы показали, что эта система позволяет выйти на <em>$50/час</em>. Это тот путь, который прошёл наш основатель, и который доступен каждому, кто готов трудиться и прокачиваться.</p>
+            <br>
+            <p>Система даёт не только старт, но и <em>возможность масштабирования дохода</em>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 23: Advanced Niches -->
