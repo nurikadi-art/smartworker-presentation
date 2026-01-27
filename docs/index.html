@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartWorker — презентация</title>
+  <meta name="description" content="SmartWorker — система удалённой работы на компании США из стран СНГ. Узнайте, как зарабатывать в долларах удалённо.">
   <meta name="theme-color" content="#09090b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +44,6 @@ body {
   position: relative;
   height: 100vh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
@@ -1070,7 +1070,7 @@ body {
     </section>
 
     <!-- Slide 2 -->
-    <section class="slide slide--dark is-active" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-2">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-2">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -2322,8 +2322,8 @@ body {
       const totalSlides = slides.length;
       let currentSlide = 0;
 
-      // Disable scroll snapping for smoother arrow navigation
-      deck.style.scrollSnapType = 'none';
+      // Note: scroll-snap-type is not set in CSS; navigation is handled
+      // entirely via scrollIntoView for consistent arrow-key behavior.
 
       // Update counter based on scroll position
       function updateCounter() {

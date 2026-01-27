@@ -1,49 +1,57 @@
 # SmartWorker Presentation
 
-This is a scroll-driven React presentation built with Vite.
+A scroll-driven presentation showcasing the SmartWorker system for remote work opportunities in USD from CIS countries.
 
-## Run locally
+## Project Structure
+
+| File | Purpose |
+|------|---------|
+| `docs/index.html` | Production build (57 slides) — deployed to GitHub Pages |
+| `presentation_backup.html` | Standalone backup (18 slides) with original design |
+| `index.html` | Vite dev server entry point (requires `src/` — see note below) |
+| `vite.config.js` | Vite build config (outputs to `docs/`) |
+
+> **Note:** The `src/` directory (React source files) is not currently in the repository.
+> The production build in `docs/index.html` and the backup HTML are the current sources of truth.
+> Running `npm run dev` or `npm run build` will fail until source files are restored.
+
+## View locally
+
+Open `docs/index.html` or `presentation_backup.html` directly in a browser — no build step needed.
+
+To serve via a local server:
 
 ```bash
-npm install
-npm run dev
+npx serve docs
 ```
 
-## Add custom images
+## Slide Variants
 
-1. Put images in `src/assets/`
-2. Import them in `src/App.jsx`
-3. Attach to a slide as `image: yourImage`
+Each slide supports visual theme variants via the `data-variant` attribute:
 
-Example:
+- `aurora` — cool teal gradients
+- `neon` — green/cyan accent
+- `prism` — indigo tones
+- `ember` — warm orange
+- `iris` — pink/magenta
+- `oasis` — sky blue
 
-```jsx
-import authorPhoto from "./assets/author.jpg";
+## Animations
 
-const slides = [
-  {
-    id: 4,
-    theme: "light",
-    accent: "#facc15",
-    image: authorPhoto,
-    content: (...)
-  }
-];
-```
+CSS animations activate via IntersectionObserver when slides enter the viewport.
+Key animation layers per slide:
 
-The slide will render the image as a soft background layer. If you want
-inline placement instead, you can also add your own `<img>` inside
-`slide.content` and style it with a custom class.
+- `.slide__inner > *` — content fade-in reveal
+- `.slide__sweep` — horizontal light sweep
+- `.slide__particles` — dot grid drift
+- `.slide__orb` — morphing blob shapes
+- `.slide__grid` — background grid pattern
 
-## Add new wow effects
+Respects `prefers-reduced-motion` for accessibility.
 
-- Change or add slide variants: `variant: "aurora" | "neon" | "prism" | "ember" | "iris" | "oasis"`
-- Edit animations in `src/styles.css` (`@keyframes sweep`, `pulse`, `drift`)
-- Adjust glow/particles with `--accent`, `--accent-soft`, `--accent-strong`
+## Keyboard Navigation (docs/index.html)
 
-Each slide uses an IntersectionObserver to animate in as it enters view.
-You can control the intensity from `src/styles.css` under:
-
-- `.slide__inner > *` (content reveal)
-- `.slide__sweep`, `.slide__particles`, `.slide__noise` (background layers)
-- `.card` and `.story-card` (cards and media)
+- `Arrow Down` / `Arrow Right` / `Space` — next slide
+- `Arrow Up` / `Arrow Left` — previous slide
+- `Home` — first slide
+- `End` — last slide
