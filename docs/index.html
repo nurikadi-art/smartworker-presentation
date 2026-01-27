@@ -1478,6 +1478,590 @@ body {
   font-weight: 700;
 }
 
+/* ============ STARTER ROLES ============ */
+.starter-roles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 3vw, 36px);
+  width: 100%;
+}
+
+.starter-roles__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+}
+
+.starter-roles__card {
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.starter-roles__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+}
+
+.starter-roles__card-icon {
+  font-size: clamp(36px, 5vw, 48px);
+  line-height: 1;
+}
+
+.starter-roles__card-title {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.starter-roles__card-body {
+  font-size: clamp(0.92rem, 1.15vw, 1.02rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* ============ ADVANCED NICHES REDESIGN ============ */
+.niches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+}
+
+.niche-card {
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.niche-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.25);
+}
+
+.niche-card--design {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.08), rgba(239, 68, 68, 0.04));
+  border: 1px solid rgba(251, 146, 60, 0.18);
+}
+
+.niche-card--sales {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(129, 140, 248, 0.04));
+  border: 1px solid rgba(34, 211, 238, 0.18);
+}
+
+.niche-card--leads {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(245, 158, 11, 0.04));
+  border: 1px solid rgba(34, 197, 94, 0.18);
+}
+
+.niche-card__icon {
+  font-size: clamp(36px, 5vw, 48px);
+  line-height: 1;
+}
+
+.niche-card__title {
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.niche-card__body {
+  font-size: clamp(0.92rem, 1.15vw, 1.02rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.niche-card__tag {
+  display: inline-flex;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.niche-card--design .niche-card__tag {
+  background: rgba(251, 146, 60, 0.12);
+  color: #fb923c;
+}
+
+.niche-card--sales .niche-card__tag {
+  background: rgba(34, 211, 238, 0.12);
+  color: #22d3ee;
+}
+
+.niche-card--leads .niche-card__tag {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.niche-card__glow {
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.niche-card--design .niche-card__glow { background: radial-gradient(circle, rgba(251, 146, 60, 0.12), transparent 70%); }
+.niche-card--sales .niche-card__glow { background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 70%); }
+.niche-card--leads .niche-card__glow { background: radial-gradient(circle, rgba(34, 197, 94, 0.12), transparent 70%); }
+
+/* ============ LINKEDIN LOGO CSS ============ */
+.linkedin-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+}
+
+.linkedin-logo {
+  width: clamp(80px, 12vw, 120px);
+  height: clamp(80px, 12vw, 120px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0077b5, #00a0dc);
+  display: grid;
+  place-items: center;
+  position: relative;
+  box-shadow:
+    0 0 60px rgba(0, 119, 181, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: linkedinPulse 3s ease-in-out infinite;
+}
+
+.linkedin-logo::before {
+  content: 'in';
+  font-family: inherit;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.linkedin-logo::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(0, 119, 181, 0.5), rgba(0, 160, 220, 0.2), rgba(0, 119, 181, 0.5));
+  z-index: -1;
+  animation: linkedinGlow 4s ease-in-out infinite;
+}
+
+@keyframes linkedinPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes linkedinGlow {
+  0%, 100% { opacity: 0.5; filter: blur(12px); }
+  50% { opacity: 1; filter: blur(20px); }
+}
+
+/* ============ CONNECTIONS REDESIGN ============ */
+.connections-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3.5vw, 48px);
+  align-items: center;
+  width: 100%;
+}
+
+.connections-layout__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.connections-layout__title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.connections-layout__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #0077b5, #00a0dc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.connections-layout__body {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.65;
+  color: #ffffff;
+  margin: 0;
+}
+
+.connections-layout__levels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.conn-level {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.conn-level__num {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.conn-level--1 .conn-level__num { background: rgba(129, 140, 248, 0.15); color: #818cf8; }
+.conn-level--2 .conn-level__num { background: rgba(34, 211, 238, 0.15); color: #22d3ee; }
+.conn-level--3 .conn-level__num { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+
+.conn-level__text {
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.connections-layout__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CSS Network Visualization */
+.network-viz {
+  width: clamp(220px, 28vw, 320px);
+  height: clamp(220px, 28vw, 320px);
+  position: relative;
+}
+
+.network-viz__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0077b5, #00a0dc);
+  display: grid;
+  place-items: center;
+  z-index: 3;
+  box-shadow: 0 0 30px rgba(0, 119, 181, 0.4);
+}
+
+.network-viz__center::after {
+  content: '👤';
+  font-size: 24px;
+}
+
+.network-viz__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringRotate 20s linear infinite;
+}
+
+.network-viz__ring--1 {
+  width: 120px;
+  height: 120px;
+  border-color: rgba(129, 140, 248, 0.25);
+}
+
+.network-viz__ring--2 {
+  width: 200px;
+  height: 200px;
+  border-color: rgba(34, 211, 238, 0.2);
+  animation-direction: reverse;
+  animation-duration: 30s;
+}
+
+.network-viz__ring--3 {
+  width: 280px;
+  height: 280px;
+  border-color: rgba(34, 197, 94, 0.15);
+  animation-duration: 40s;
+}
+
+.network-viz__node {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  animation: nodeFloat 4s ease-in-out infinite;
+}
+
+.network-viz__node--1 { top: 15%; left: 50%; background: rgba(129, 140, 248, 0.2); animation-delay: 0s; }
+.network-viz__node--2 { top: 35%; right: 10%; background: rgba(34, 211, 238, 0.2); animation-delay: 0.5s; }
+.network-viz__node--3 { bottom: 20%; right: 15%; background: rgba(34, 197, 94, 0.2); animation-delay: 1s; }
+.network-viz__node--4 { bottom: 15%; left: 15%; background: rgba(245, 158, 11, 0.2); animation-delay: 1.5s; }
+.network-viz__node--5 { top: 35%; left: 8%; background: rgba(196, 181, 253, 0.2); animation-delay: 2s; }
+.network-viz__node--6 { top: 5%; right: 25%; background: rgba(251, 146, 60, 0.2); animation-delay: 2.5s; }
+
+@keyframes ringRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes nodeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ============ WHO TO CONNECT ============ */
+.connect-targets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+  width: 100%;
+}
+
+.connect-target {
+  padding: clamp(28px, 3vw, 44px) clamp(20px, 2vw, 28px);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.connect-target:hover { transform: translateY(-6px); }
+
+.connect-target--owner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(251, 146, 60, 0.03));
+  border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+.connect-target--founder {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.06), rgba(196, 181, 253, 0.03));
+  border: 1px solid rgba(129, 140, 248, 0.18);
+}
+
+.connect-target--ceo {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06), rgba(34, 211, 238, 0.03));
+  border: 1px solid rgba(34, 197, 94, 0.18);
+}
+
+.connect-target__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.connect-target--owner .connect-target__icon { background: rgba(245, 158, 11, 0.12); }
+.connect-target--founder .connect-target__icon { background: rgba(129, 140, 248, 0.12); }
+.connect-target--ceo .connect-target__icon { background: rgba(34, 197, 94, 0.12); }
+
+.connect-target__role {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.connect-target__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.connect-target--owner .connect-target__label { color: #f59e0b; }
+.connect-target--founder .connect-target__label { color: #818cf8; }
+.connect-target--ceo .connect-target__label { color: #22c55e; }
+
+.connect-target__desc {
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.connect-target__glow {
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.connect-target--owner .connect-target__glow { background: radial-gradient(circle, rgba(245, 158, 11, 0.1), transparent 70%); }
+.connect-target--founder .connect-target__glow { background: radial-gradient(circle, rgba(129, 140, 248, 0.1), transparent 70%); }
+.connect-target--ceo .connect-target__glow { background: radial-gradient(circle, rgba(34, 197, 94, 0.1), transparent 70%); }
+
+@media (max-width: 768px) {
+  .connect-targets { grid-template-columns: 1fr; }
+  .connections-layout { grid-template-columns: 1fr; }
+  .connections-layout__visual { order: -1; }
+}
+
+/* ============ SECRET WEAPON ============ */
+.secret-weapon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: center;
+  width: 100%;
+}
+
+.secret-weapon__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.secret-weapon__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(196, 181, 253, 0.10);
+  border: 1px solid rgba(196, 181, 253, 0.25);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c4b5fd;
+  width: fit-content;
+}
+
+.secret-weapon__title {
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.secret-weapon__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #c4b5fd, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.secret-weapon__script {
+  padding: clamp(20px, 2.5vw, 32px);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: inherit;
+}
+
+.secret-weapon__script-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  margin-bottom: 14px;
+}
+
+.secret-weapon__script p {
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  line-height: 1.7;
+  color: #ffffff;
+  margin: 4px 0;
+}
+
+.secret-weapon__script em {
+  color: #c4b5fd;
+  font-style: italic;
+}
+
+.secret-weapon__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-cam-css {
+  width: clamp(160px, 22vw, 240px);
+  height: clamp(120px, 16vw, 180px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(129, 140, 248, 0.04));
+  border: 1px solid rgba(196, 181, 253, 0.18);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.video-cam-css__icon {
+  font-size: clamp(48px, 7vw, 72px);
+  animation: camPulse 3s ease-in-out infinite;
+}
+
+.video-cam-css__rec {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: recBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes camPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+  .secret-weapon { grid-template-columns: 1fr; }
+  .secret-weapon__visual { order: -1; }
+}
+
 /* ============ iPHONE MOCKUP ============ */
 .iphone-mockup {
   width: min(280px, 90%);
@@ -2418,68 +3002,11 @@ body {
       <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 12: Roles -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-12">
-      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
-      <div class="slide__inner">
-        <div class="split">
-          <div class="split__col">
-            <h2 class="title title--lg">С чего начать, если "ничего не умеешь"?</h2>
-            <p class="body">Выберите ОДНУ простую роль. Ваша цель — зайти на рынок.</p>
-            <div class="card-grid">
-              <div class="card">
-                <p class="body">Virtual Assistant (VA): Организация задач, календаря, почты.</p>
-              </div>
-              <div class="card">
-                <p class="body">Social Media Assistant: Помощь с контентом и сообщениями.</p>
-              </div>
-              <div class="card">
-                <p class="body">Customer Support: Ответы на вопросы клиентов.</p>
-              </div>
-            </div>
-          </div>
-          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
-            <img src="https://placehold.co/400x300/1f2937/e2e8f0?text=Designer+Laptop" alt="Remote Work" class="slide-image slide-image--medium" style="border-radius: 24px;">
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 13: Dr Berg Case -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f59e0b; --accent-soft: rgba(245, 158, 11, 0.10); --accent-strong: rgba(245, 158, 11, 0.28);" id="slide-13">
-      <div class="slide__inner">
-        <div class="berg-case">
-          <div class="berg-case__content">
-            <span class="berg-case__stat">14M+ подписчиков на YouTube</span>
-            <h2 class="berg-case__title">Доктор Берг — один из крупнейших <em>YouTube-блогеров</em></h2>
-            <p class="berg-case__body">Задача: Найти Виртуального Ассистента для управления его сложным графиком и контентом.</p>
-            <div class="berg-case__highlight">
-              <p>Наш подход позволил Нурсултану обойти американских кандидатов и получить эту роль с оплатой <strong>$50/час</strong></p>
-            </div>
-            <div class="berg-case__kicker">Откуда мы это знаем?</div>
-          </div>
-          <div class="berg-case__image-wrap">
-            <img src="drberg.png" alt="Dr. Berg" class="berg-case__image">
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__noise" aria-hidden="true"></div>
-    </section>
-
     <!-- Slide: Масштабирование -->
     <section class="slide slide--dark" data-variant="neon" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.10); --accent-strong: rgba(34, 211, 238, 0.28);" id="slide-scaling">
-      <div class="slide__inner">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
         <div class="scaling">
-          <div class="kicker">Масштабирование</div>
+          <div class="kicker" style="text-align:center;">Масштабирование</div>
           <h2 class="title title--lg" style="text-align:center;">Ваш путь роста дохода</h2>
           <div class="scaling__steps">
             <div class="scaling__step scaling__step--start">
@@ -2512,22 +3039,92 @@ body {
       <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 23: Advanced Niches -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-23">
+    <!-- Slide 13: Dr Berg Case -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f59e0b; --accent-soft: rgba(245, 158, 11, 0.10); --accent-strong: rgba(245, 158, 11, 0.28);" id="slide-13">
       <div class="slide__inner">
-        <h2 class="title title--lg">Ниши для продвинутых</h2>
-        <p class="body body--muted">Эти роли требуют наличия базовых навыков, но дают быстрый рост дохода</p>
-        <div class="card-grid">
-          <div class="card"><p class="body"><strong>Graphic Designer:</strong> Дизайн контента для соцсетей, простые креативы.</p></div>
-          <div class="card"><p class="body"><strong>Sales Closer:</strong> Закрытие сделок по скрипту (телефон/чат).</p></div>
-          <div class="card"><p class="body"><strong>Lead Generation Specialist:</strong> Поиск потенциальных клиентов (по готовому алгоритму).</p></div>
+        <div class="berg-case">
+          <div class="berg-case__content">
+            <span class="berg-case__stat">14M+ подписчиков на YouTube</span>
+            <h2 class="berg-case__title">Доктор Берг — один из крупнейших <em>YouTube-блогеров</em></h2>
+            <p class="berg-case__body">Задача: Найти Виртуального Ассистента для управления его сложным графиком и контентом.</p>
+            <div class="berg-case__highlight">
+              <p>Наш подход позволил Нурсултану обойти американских кандидатов и получить эту роль с оплатой <strong>$50/час</strong></p>
+            </div>
+            <div class="berg-case__kicker">Откуда мы это знаем?</div>
+          </div>
+          <div class="berg-case__image-wrap">
+            <img src="drberg.png" alt="Dr. Berg" class="berg-case__image">
+          </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide: С чего начать -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-starter-roles">
+      <div class="slide__inner">
+        <div class="starter-roles">
+          <h2 class="title title--lg" style="text-align:center;">С чего начать, если «ничего не умеешь»?</h2>
+          <p class="body" style="text-align:center; max-width: 600px;">Выберите <strong>ОДНУ</strong> простую роль. Ваша цель — зайти на рынок.</p>
+          <div class="starter-roles__cards">
+            <div class="starter-roles__card">
+              <span class="starter-roles__card-icon">📋</span>
+              <span class="starter-roles__card-title">Virtual Assistant (VA)</span>
+              <p class="starter-roles__card-body">Организация задач, календаря, почты.</p>
+            </div>
+            <div class="starter-roles__card">
+              <span class="starter-roles__card-icon">📱</span>
+              <span class="starter-roles__card-title">Social Media Assistant</span>
+              <p class="starter-roles__card-body">Помощь с контентом и сообщениями.</p>
+            </div>
+            <div class="starter-roles__card">
+              <span class="starter-roles__card-icon">🎧</span>
+              <span class="starter-roles__card-title">Customer Support</span>
+              <p class="starter-roles__card-body">Ответы на вопросы клиентов.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 23: Advanced Niches -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-23">
+      <div class="slide__inner">
+        <div class="kicker" style="text-align:center;">Следующий уровень</div>
+        <h2 class="title title--lg" style="text-align:center;">Ниши для продвинутых</h2>
+        <p class="body" style="text-align:center; max-width:600px; margin:0 auto clamp(20px,2vw,28px);">Эти роли требуют наличия базовых навыков, но дают быстрый рост дохода</p>
+        <div class="niches-grid">
+          <div class="niche-card niche-card--design">
+            <div class="niche-card__glow" aria-hidden="true"></div>
+            <span class="niche-card__icon">🎨</span>
+            <span class="niche-card__title">Graphic Designer</span>
+            <p class="niche-card__body">Дизайн контента для соцсетей, простые креативы.</p>
+            <span class="niche-card__tag">Креатив</span>
+          </div>
+          <div class="niche-card niche-card--sales">
+            <div class="niche-card__glow" aria-hidden="true"></div>
+            <span class="niche-card__icon">🎯</span>
+            <span class="niche-card__title">Sales Closer</span>
+            <p class="niche-card__body">Закрытие сделок по скрипту (телефон/чат).</p>
+            <span class="niche-card__tag">Продажи</span>
+          </div>
+          <div class="niche-card niche-card--leads">
+            <div class="niche-card__glow" aria-hidden="true"></div>
+            <span class="niche-card__icon">🔍</span>
+            <span class="niche-card__title">Lead Generation Specialist</span>
+            <p class="niche-card__body">Поиск потенциальных клиентов (по готовому алгоритму).</p>
+            <span class="niche-card__tag">Лидогенерация</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 24: LinkedIn Intro -->
@@ -2565,79 +3162,141 @@ body {
     </section>
 
     <!-- Slide 26: Final Touches -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-26">
-      <div class="slide__inner">
-        <h2 class="title title--lg">Последние штрихи перед стартом</h2>
-        <ul class="list">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #0077b5; --accent-soft: rgba(0, 119, 181, 0.10); --accent-strong: rgba(0, 119, 181, 0.28);" id="slide-26">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="linkedin-logo-wrap">
+          <div class="linkedin-logo"></div>
+        </div>
+        <h2 class="title title--lg" style="text-align:center;">Последние штрихи перед стартом</h2>
+        <ul class="list" style="max-width:720px;">
           <li><strong>Фото:</strong> Профессиональное, улыбчивое фото (никаких селфи или фото в солнцезащитных очках).</li>
           <li><strong>Summary:</strong> 3-4 предложения о том, кому вы помогаете и какие проблемы решаете.</li>
-          <li><strong>Опыт:</strong> Описывайте не "должности", а РЕЗУЛЬТАТЫ своих действий.</li>
+          <li><strong>Опыт:</strong> Описывайте не «должности», а РЕЗУЛЬТАТЫ своих действий.</li>
           <li><strong>Навыки:</strong> Укажите ключевые навыки (Trello, Google Calendar, Customer Service).</li>
         </ul>
-        <p class="highlight">Профиль готов. Теперь мы можем начать отправлять запросы на Connections</p>
+        <p class="highlight" style="text-align:center;">Профиль готов. Теперь мы можем начать отправлять запросы на Connections</p>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 27: Connections (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-27">
+    <!-- Slide 27: Connections -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #0077b5; --accent-soft: rgba(0, 119, 181, 0.10); --accent-strong: rgba(0, 119, 181, 0.28);" id="slide-27">
       <div class="slide__inner">
-        <div class="split split--connections">
-          <div class="split__col">
-            <div class="network" aria-hidden="true">
-              <span></span><span></span><span></span><span></span>
+        <div class="connections-layout">
+          <div class="connections-layout__content">
+            <h2 class="connections-layout__title">Connections: Секрет прямого выхода на <em>CEO</em></h2>
+            <p class="connections-layout__body"><strong>Connection (Связь)</strong> — это ваш контакт в LinkedIn. Это валюта платформы.</p>
+            <div class="connections-layout__levels">
+              <div class="conn-level conn-level--1">
+                <span class="conn-level__num">1</span>
+                <span class="conn-level__text">Прямые контакты — люди, с которыми вы связаны</span>
+              </div>
+              <div class="conn-level conn-level--2">
+                <span class="conn-level__num">2</span>
+                <span class="conn-level__text">Контакты контактов — один шаг до них</span>
+              </div>
+              <div class="conn-level conn-level--3">
+                <span class="conn-level__num">3</span>
+                <span class="conn-level__text">За пределами сети — выход напрямую на CEO, минуя HR</span>
+              </div>
             </div>
           </div>
-          <div class="split__col">
-            <div class="stack">
-              <h2 class="title title--lg">Connections: Секрет прямого выхода на CEO</h2>
-              <p class="body body--dark"><strong>Connection (Связь)</strong> — это ваш контакт в LinkedIn. Это валюта платформы.</p>
-              <p class="body body--dark"><strong>3 Уровня:</strong> 1-й — прямые контакты, 2-й — контакты контактов, 3-й — за пределами сети.</p>
-              <p class="body body--dark">Наш метод основан на работе со 2-м и 3-м уровнями — выход напрямую на CEO, минуя HR.</p>
+          <div class="connections-layout__visual">
+            <div class="network-viz">
+              <div class="network-viz__ring network-viz__ring--1"></div>
+              <div class="network-viz__ring network-viz__ring--2"></div>
+              <div class="network-viz__ring network-viz__ring--3"></div>
+              <div class="network-viz__center"></div>
+              <div class="network-viz__node network-viz__node--1">👤</div>
+              <div class="network-viz__node network-viz__node--2">👤</div>
+              <div class="network-viz__node network-viz__node--3">👤</div>
+              <div class="network-viz__node network-viz__node--4">👤</div>
+              <div class="network-viz__node network-viz__node--5">👤</div>
+              <div class="network-viz__node network-viz__node--6">👤</div>
             </div>
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 28: Who to Connect -->
     <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-28">
       <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">С кем надо коннектиться в LinkedIn?</h2>
-          <div class="stats">
-            <div class="stat"><div class="stat__value">Owner</div><div class="stat__label">Владельцы</div></div>
-            <div class="stat"><div class="stat__value">Founder</div><div class="stat__label">Основатели</div></div>
-            <div class="stat"><div class="stat__value">CEO</div><div class="stat__label">Президенты</div></div>
+        <h2 class="title title--lg" style="text-align:center; margin-bottom:clamp(16px,2vw,28px);">С кем надо коннектиться в LinkedIn?</h2>
+        <div class="connect-targets">
+          <div class="connect-target connect-target--owner">
+            <div class="connect-target__glow" aria-hidden="true"></div>
+            <div class="connect-target__icon">👑</div>
+            <span class="connect-target__role">Owner</span>
+            <span class="connect-target__label">Владельцы</span>
+            <p class="connect-target__desc">Владельцы бизнеса, которые сами принимают решения о найме</p>
+          </div>
+          <div class="connect-target connect-target--founder">
+            <div class="connect-target__glow" aria-hidden="true"></div>
+            <div class="connect-target__icon">🚀</div>
+            <span class="connect-target__role">Founder</span>
+            <span class="connect-target__label">Основатели</span>
+            <p class="connect-target__desc">Основатели стартапов, которым нужна помощь прямо сейчас</p>
+          </div>
+          <div class="connect-target connect-target--ceo">
+            <div class="connect-target__glow" aria-hidden="true"></div>
+            <div class="connect-target__icon">💼</div>
+            <span class="connect-target__role">CEO</span>
+            <span class="connect-target__label">Президенты</span>
+            <p class="connect-target__desc">Руководители компаний, минуя HR и рекрутеров</p>
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 29: LinkedIn Search (with image placeholder) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-29">
+    <!-- Slide 29: LinkedIn Search -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-29">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <h2 class="title title--lg" style="text-align:center; margin-bottom:clamp(16px,2vw,24px);">Поиск через фильтры LinkedIn</h2>
+        <div class="image-container" style="max-width:800px; width:100%;">
+          <img src="Linkedin%20Search%20Image.png" alt="LinkedIn Search Filters" style="width:100%; border-radius:20px; box-shadow:0 24px 48px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.08);">
+        </div>
+        <p class="body" style="text-align:center; margin-top:clamp(16px,2vw,24px);">Фильтры: People → United States → 1st/2nd/3rd connections</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide: Ваше секретное оружие -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-secret-weapon">
       <div class="slide__inner">
-        <div class="stack center">
-          <div class="image-container">
-            <img src="https://placehold.co/800x500/1f2937/e2e8f0?text=LinkedIn+Search" alt="LinkedIn Search Filters" class="linkedin-actual-image">
+        <div class="secret-weapon">
+          <div class="secret-weapon__content">
+            <span class="secret-weapon__badge">🎬 Секретное оружие</span>
+            <h2 class="secret-weapon__title">30-секундное <em>видео-резюме</em></h2>
+            <div class="secret-weapon__script">
+              <div class="secret-weapon__script-label">Простой скрипт</div>
+              <p>"Hi, <em>[Имя клиента]</em>, thank you for connecting.</p>
+              <p>I help <em>[тип клиента]</em> with <em>[задача]</em></p>
+              <p>I saw your profile and would love to help you with <em>[конкретная идея]</em></p>
+              <p>Let me know if you are open to a quick chat."</p>
+            </div>
           </div>
-          <p class="body body--dark">Фильтры: People → United States → 1st/2nd/3rd connections</p>
+          <div class="secret-weapon__visual">
+            <div class="video-cam-css">
+              <span class="video-cam-css__icon">🎥</span>
+              <span class="video-cam-css__rec"></span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 30: Key Insight -->
@@ -2650,35 +3309,7 @@ body {
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
-    </section>
-
-    <!-- Slide 31: Video Resume -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-31">
-      <div class="slide__inner">
-        <div class="split">
-          <div class="split__col">
-            <h2 class="title title--lg">Ваше секретное оружие: 30-секундное видео-резюме</h2>
-            <div class="card card--accent">
-              <p class="body body--muted">Простой скрипт:</p>
-              <p class="body">"Hi, [Имя клиента], thank you for connecting.</p>
-              <p class="body">I help [тип клиента] with [задача]</p>
-              <p class="body">I saw your profile and would love to help you with [конкретная идея]</p>
-              <p class="body">Let me know if you are open to a quick chat."</p>
-            </div>
-          </div>
-          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
-            <img src="https://placehold.co/180x180/1f2937/e2e8f0?text=Video+Camera" alt="Video Camera" class="video-camera-icon">
-          </div>
-        </div>
-      </div>
-      <div class="slide__frame" aria-hidden="true"></div>
-      <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 32: Why Video -->
