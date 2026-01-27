@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartWorker — презентация</title>
-  <meta name="theme-color" content="#0b0f1f">
+  <meta name="theme-color" content="#09090b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,18 +17,19 @@
 
 :root {
   color-scheme: dark;
-  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --bg: #0b0f1f;
-  --bg-strong: #070a14;
-  --text: #f8fafc;
-  --muted: #a1a8c3;
-  --card: rgba(15, 23, 42, 0.72);
-  --card-border: rgba(148, 163, 184, 0.2);
-  --accent: #22d3ee;
-  --accent-soft: rgba(34, 211, 238, 0.22);
-  --accent-strong: rgba(34, 211, 238, 0.6);
+  -moz-osx-font-smoothing: grayscale;
+  --bg: #09090b;
+  --bg-strong: #050507;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.07);
+  --accent: #818cf8;
+  --accent-soft: rgba(129, 140, 248, 0.10);
+  --accent-strong: rgba(129, 140, 248, 0.30);
 }
 
 body {
@@ -37,6 +38,7 @@ body {
   color: var(--text);
 }
 
+/* ============ DECK ============ */
 .deck {
   position: relative;
   height: 100vh;
@@ -45,22 +47,19 @@ body {
   scroll-behavior: smooth;
 }
 
-.deck::-webkit-scrollbar {
-  width: 0;
-}
+.deck::-webkit-scrollbar { width: 0; }
 
+/* ============ SLIDES ============ */
 .slide {
   position: relative;
   min-height: 100vh;
-  padding: clamp(32px, 6vw, 96px);
+  padding: clamp(40px, 6vw, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
   scroll-snap-align: start;
   isolation: isolate;
-  background: radial-gradient(circle at 18% 18%, var(--accent-soft), transparent 45%),
-    radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.18), transparent 50%),
-    linear-gradient(160deg, var(--bg-strong), var(--bg));
+  background: var(--bg);
   overflow: hidden;
 }
 
@@ -72,7 +71,7 @@ body {
 
 .slide[data-hero="true"] {
   padding: 0;
-  background: #02040a;
+  background: var(--bg-strong);
 }
 
 .slide[data-hero="true"] .slide__frame,
@@ -84,68 +83,62 @@ body {
   display: none;
 }
 
-.slide[data-variant="aurora"] {
-  background: radial-gradient(circle at 20% 20%, var(--accent-strong), transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(94, 234, 212, 0.18), transparent 50%),
-    linear-gradient(150deg, #05070f, #101834);
-}
-
-.slide[data-variant="neon"] {
-  background: radial-gradient(circle at 30% 25%, rgba(34, 197, 94, 0.2), transparent 50%),
-    radial-gradient(circle at 70% 20%, var(--accent-soft), transparent 45%),
-    linear-gradient(150deg, #070912, #0f172a);
-}
-
-.slide[data-variant="prism"] {
-  background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.22), transparent 45%),
-    radial-gradient(circle at 80% 40%, var(--accent-soft), transparent 48%),
-    linear-gradient(165deg, #0b1022, #111827);
-}
-
-.slide[data-variant="ember"] {
-  background: radial-gradient(circle at 18% 18%, rgba(251, 146, 60, 0.25), transparent 50%),
-    radial-gradient(circle at 82% 22%, var(--accent-soft), transparent 50%),
-    linear-gradient(160deg, #0b0f1f, #1f1020);
-}
-
-.slide[data-variant="iris"] {
-  background: radial-gradient(circle at 16% 30%, rgba(236, 72, 153, 0.2), transparent 48%),
-    radial-gradient(circle at 78% 20%, var(--accent-soft), transparent 45%),
-    linear-gradient(160deg, #0a0f1d, #0f172a);
-}
-
+/* Variants — subtle ambient tint only */
+.slide[data-variant="aurora"],
+.slide[data-variant="neon"],
+.slide[data-variant="prism"],
+.slide[data-variant="ember"],
+.slide[data-variant="iris"],
 .slide[data-variant="oasis"] {
-  background: radial-gradient(circle at 22% 20%, rgba(14, 165, 233, 0.22), transparent 45%),
-    radial-gradient(circle at 75% 30%, var(--accent-soft), transparent 48%),
-    linear-gradient(160deg, #060c1a, #0b1120);
+  background: var(--bg);
 }
 
 .slide--hero {
-  background: radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.35), transparent 50%),
-    radial-gradient(circle at 85% 40%, rgba(250, 204, 21, 0.25), transparent 55%),
-    linear-gradient(140deg, #05070f, #101631);
+  background: var(--bg-strong);
 }
 
 .slide--light {
-  color: #0f172a;
-  background: radial-gradient(circle at 18% 18%, var(--accent-soft), transparent 55%),
-    radial-gradient(circle at 82% 32%, rgba(250, 204, 21, 0.18), transparent 55%),
-    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  color: #18181b;
+  background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%);
 }
 
-.slide--light .slide__grid {
-  opacity: 0.2;
-}
+.slide--light .slide__grid { opacity: 0.06; }
+.slide--light .slide__sweep { mix-blend-mode: multiply; opacity: 0.06; }
+.slide--light .slide__frame { border-color: rgba(0, 0, 0, 0.04); }
+.slide--light .title { color: #18181b; }
+.slide--light .highlight { color: var(--accent); }
+.slide--light .kicker { color: var(--accent); }
 
+/* ============ SLIDE INNER ============ */
 .slide__inner {
   position: relative;
   z-index: 4;
   width: min(1200px, 100%);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
+.slide__inner > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide.is-active .slide__inner > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide__inner > *:nth-child(1) { transition-delay: 0.06s; }
+.slide__inner > *:nth-child(2) { transition-delay: 0.13s; }
+.slide__inner > *:nth-child(3) { transition-delay: 0.20s; }
+.slide__inner > *:nth-child(4) { transition-delay: 0.27s; }
+.slide__inner > *:nth-child(5) { transition-delay: 0.34s; }
+.slide__inner > *:nth-child(6) { transition-delay: 0.40s; }
+
+/* ============ HERO ORBIT ============ */
 .hero-orbit {
   position: relative;
   width: 100%;
@@ -153,7 +146,7 @@ body {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: radial-gradient(ellipse at center, #0a0f20 0%, #02040a 100%);
+  background: radial-gradient(ellipse at center, #0f0f14 0%, var(--bg-strong) 100%);
 }
 
 .hero-orbit__overlay {
@@ -166,9 +159,9 @@ body {
 .hero-orbit__ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px dashed rgba(226, 232, 240, 0.35);
-  box-shadow: 0 0 80px rgba(34, 211, 238, 0.18);
-  animation: orbitSpin 28s linear infinite;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 100px var(--accent-soft);
+  animation: orbitSpin 44s linear infinite;
   transform: translate(-50%, -50%) rotate(var(--orbit-rotate, 0deg));
 }
 
@@ -176,48 +169,46 @@ body {
   --orbit-rotate: 0deg;
   width: clamp(320px, 60vw, 740px);
   height: clamp(320px, 60vw, 740px);
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
 }
 
 .hero-orbit__ring--b {
   --orbit-rotate: 35deg;
   width: clamp(420px, 70vw, 980px);
   height: clamp(420px, 70vw, 980px);
-  top: 50%;
-  left: 50%;
-  animation-duration: 36s;
+  top: 50%; left: 50%;
+  animation-duration: 56s;
 }
 
 .hero-orbit__ring--c {
   --orbit-rotate: -25deg;
   width: clamp(260px, 50vw, 640px);
   height: clamp(260px, 50vw, 640px);
-  top: 50%;
-  left: 50%;
-  animation-duration: 24s;
-  opacity: 0.6;
+  top: 50%; left: 50%;
+  animation-duration: 38s;
+  opacity: 0.35;
 }
 
 .hero-orbit__spark {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: radial-gradient(circle, #facc15, transparent 60%);
-  box-shadow: 0 0 20px rgba(250, 204, 21, 0.8);
-  animation: sparkFloat 6s ease-in-out infinite;
+  background: var(--accent);
+  box-shadow: 0 0 24px var(--accent-soft);
+  opacity: 0.5;
+  animation: sparkFloat 10s ease-in-out infinite;
 }
 
 .hero-orbit__spark--1 { top: 18%; left: 22%; }
-.hero-orbit__spark--2 { top: 32%; right: 18%; animation-delay: -1.4s; }
-.hero-orbit__spark--3 { bottom: 22%; left: 30%; animation-delay: -2.6s; }
-.hero-orbit__spark--4 { bottom: 28%; right: 26%; animation-delay: -3.2s; }
+.hero-orbit__spark--2 { top: 32%; right: 18%; animation-delay: -2.5s; }
+.hero-orbit__spark--3 { bottom: 22%; left: 30%; animation-delay: -4.5s; }
+.hero-orbit__spark--4 { bottom: 28%; right: 26%; animation-delay: -6s; }
 
 .hero-orbit__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(2, 6, 23, 0) 30%, rgba(2, 6, 23, 0.85) 80%);
+  background: radial-gradient(circle at center, transparent 20%, rgba(5, 5, 7, 0.92) 72%);
   z-index: 1;
   pointer-events: none;
 }
@@ -228,24 +219,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
   text-align: center;
-  max-width: min(960px, 90vw);
-  padding: clamp(20px, 4vw, 40px);
-  border-radius: clamp(20px, 3vw, 32px);
-  background: rgba(2, 6, 23, 0.68);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 40px 120px rgba(2, 6, 23, 0.6);
-  animation: fadeInUp 1s ease forwards;
+  max-width: min(880px, 88vw);
+  padding: clamp(32px, 5vw, 60px);
+  border-radius: clamp(24px, 3vw, 44px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  box-shadow: 0 48px 120px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero-orbit__content::before {
   content: "";
   position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle, rgba(250, 204, 21, 0.18), transparent 65%);
-  opacity: 0.9;
+  inset: -50%;
+  background: radial-gradient(circle, var(--accent-soft), transparent 55%);
+  opacity: 0.5;
   z-index: -1;
 }
 
@@ -253,58 +246,39 @@ body {
   display: block;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
-  text-shadow: 0 10px 40px rgba(2, 6, 23, 0.6);
+  background-clip: text;
 }
 
 .hero-orbit__line--warm {
-  background-image: linear-gradient(90deg, #fdba74, #facc15, #f59e0b);
+  background-image: linear-gradient(90deg, #e2c9a6, #d4a574, #c09060);
 }
 
 .hero-orbit__line--hot {
-  background-image: linear-gradient(90deg, #fde047, #fb923c, #f97316);
+  background-image: linear-gradient(90deg, #d4a574, #c09060, #b07850);
 }
 
 .hero-orbit .pill {
-  background: rgba(15, 23, 42, 0.65);
-  border-color: rgba(148, 163, 184, 0.4);
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.10);
 }
 
-.slide__inner > * {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.8s ease, transform 0.9s ease;
-}
-
-.slide.is-active .slide__inner > * {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.slide__inner > *:nth-child(1) { transition-delay: 0.05s; }
-.slide__inner > *:nth-child(2) { transition-delay: 0.12s; }
-.slide__inner > *:nth-child(3) { transition-delay: 0.18s; }
-.slide__inner > *:nth-child(4) { transition-delay: 0.24s; }
-.slide__inner > *:nth-child(5) { transition-delay: 0.3s; }
-.slide__inner > *:nth-child(6) { transition-delay: 0.36s; }
-
+/* ============ SLIDE LAYERS ============ */
 .slide__image {
   position: absolute;
   inset: 0;
   background-image: var(--image);
   background-size: cover;
   background-position: center;
-  opacity: 0.35;
-  filter: saturate(1.2) contrast(1.1);
+  opacity: 0.15;
+  filter: saturate(0.7) contrast(1.05);
   z-index: 0;
 }
 
 .slide__frame {
   position: absolute;
-  inset: clamp(14px, 2vw, 22px);
-  border-radius: clamp(18px, 3vw, 32px);
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  box-shadow: inset 0 0 60px rgba(15, 23, 42, 0.4);
+  inset: clamp(16px, 2vw, 24px);
+  border-radius: clamp(20px, 3vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   pointer-events: none;
   z-index: 3;
 }
@@ -314,12 +288,12 @@ body {
   inset: -30%;
   background: linear-gradient(
     120deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.14) 50%,
-    transparent 70%
+    transparent 38%,
+    rgba(255, 255, 255, 0.025) 50%,
+    transparent 62%
   );
-  opacity: 0.35;
-  animation: sweep 12s linear infinite;
+  opacity: 0.6;
+  animation: sweep 22s linear infinite;
   z-index: 2;
   mix-blend-mode: screen;
 }
@@ -327,133 +301,148 @@ body {
 .slide__particles {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
-  background-size: 120px 120px;
-  opacity: 0.12;
-  animation: drift 24s linear infinite;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 140px 140px;
+  opacity: 0.05;
+  animation: drift 36s linear infinite;
   z-index: 1;
 }
 
 .slide__noise {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 3px 3px;
-  opacity: 0.05;
+  opacity: 0.02;
   mix-blend-mode: soft-light;
   z-index: 2;
 }
 
 .slide__orb {
   position: absolute;
-  border-radius: 999px;
-  filter: blur(20px);
-  opacity: 0.6;
-  animation: morphBlob 8s ease-in-out infinite, float 12s ease-in-out infinite;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.18;
+  animation: float 24s ease-in-out infinite;
   background: radial-gradient(circle, var(--accent-strong), transparent 70%);
-  width: clamp(140px, 22vw, 300px);
-  height: clamp(140px, 22vw, 300px);
-  z-index: 1;
+  width: clamp(240px, 34vw, 560px);
+  height: clamp(240px, 34vw, 560px);
+  z-index: 0;
 }
 
-.slide__orb--a { top: -60px; left: -40px; }
-.slide__orb--b { bottom: -80px; right: -40px; animation-delay: -6s; }
+.slide__orb--a { top: -120px; left: -100px; }
+.slide__orb--b { bottom: -140px; right: -100px; animation-delay: -12s; }
 
 .slide__grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 80px 80px;
   opacity: 0.25;
-  mix-blend-mode: screen;
   z-index: 1;
 }
 
-.slide--light .slide__sweep {
-  mix-blend-mode: multiply;
-  opacity: 0.2;
+/* Ambient glow particles (pseudo-elements) */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.15;
+  box-shadow: 0 0 24px var(--accent-soft);
+  animation: sparkFloat 12s ease-in-out infinite;
+  z-index: 5;
+  pointer-events: none;
 }
 
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.slide::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  right: 15%;
+  width: 3px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.10;
+  box-shadow: 0 0 20px var(--accent-soft);
+  animation: sparkFloat 16s ease-in-out infinite reverse;
+  z-index: 5;
+  pointer-events: none;
 }
 
-.stack.center {
-  align-items: center;
-  text-align: center;
-}
+/* ============ TYPOGRAPHY ============ */
+.stack { display: flex; flex-direction: column; gap: 20px; }
+.stack.center { align-items: center; text-align: center; }
 
 .title {
   margin: 0;
   font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
 
 .title span { display: block; }
 
-.title--xl { font-size: clamp(2.6rem, 4.8vw, 5.2rem); }
-.title--lg { font-size: clamp(2rem, 3.4vw, 3.6rem); }
-.title--md { font-size: clamp(1.4rem, 2.4vw, 2.4rem); font-weight: 600; }
+.title--xl { font-size: clamp(2.6rem, 4.8vw, 5rem); font-weight: 800; }
+.title--lg { font-size: clamp(1.9rem, 3.4vw, 3.4rem); }
+.title--md { font-size: clamp(1.3rem, 2.4vw, 2.2rem); font-weight: 600; }
 
 .body {
   margin: 0;
-  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .body--muted { color: var(--muted); }
-.body--dark { color: #1f2937; }
+.body--dark { color: #52525b; }
 .body--accent { color: var(--accent); font-weight: 600; }
 
 .highlight {
   margin: 0;
-  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-size: clamp(1.15rem, 1.8vw, 1.7rem);
   font-weight: 700;
   color: var(--accent);
 }
 
 .kicker {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-weight: 700;
+  letter-spacing: 0.3em;
+  font-weight: 600;
   color: var(--accent);
+  opacity: 0.85;
 }
 
 .pill {
   width: fit-content;
-  padding: 10px 18px;
+  padding: 10px 22px;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #e2e8f0;
-  position: relative;
-  overflow: hidden;
+  color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-.pill::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  animation: pillShimmer 3s infinite;
-}
-
+/* ============ LAYOUT ============ */
 .split {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(28px, 4vw, 56px);
   align-items: center;
 }
 
@@ -462,192 +451,186 @@ body {
 .split__col {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
+/* ============ GLASS CARDS ============ */
 .card {
-  padding: clamp(18px, 2.5vw, 28px);
-  border-radius: 18px;
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(14px);
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 20px 50px -12px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
-  transform: translateY(18px);
-  opacity: 0.96;
-  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease, box-shadow 0.7s ease;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.8s ease,
+              box-shadow 0.5s ease;
 }
 
 .slide.is-active .card {
   transform: translateY(0);
   opacity: 1;
-  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.45);
-  animation: borderGlow 3s ease-in-out infinite;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: conic-gradient(from 120deg, transparent, var(--accent-soft), transparent);
-  opacity: 0.5;
-  animation: rotateGlow 16s linear infinite;
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), transparent);
-}
-
+.card::before { display: none; }
+.card::after { display: none; }
 .card > * { position: relative; z-index: 1; }
 
 .card--accent {
-  border-color: rgba(34, 211, 238, 0.4);
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(15, 23, 42, 0.8));
+  border-color: rgba(255, 255, 255, 0.10);
+  background: linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.03));
 }
 
 .card__title {
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   color: var(--accent);
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 32px 64px -16px rgba(0, 0, 0, 0.4);
 }
 
+.card-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ============ LISTS ============ */
 .list {
   margin: 0;
   padding-left: 0;
   display: grid;
-  gap: 12px;
+  gap: 14px;
   list-style: none;
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
 }
 
 .list li {
   position: relative;
   padding-left: 28px;
-  animation: slideInLeft 0.6s ease-out forwards;
   opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slide.is-active .list li { opacity: 1; }
-.slide.is-active .list li:nth-child(1) { animation-delay: 0.2s; }
-.slide.is-active .list li:nth-child(2) { animation-delay: 0.35s; }
-.slide.is-active .list li:nth-child(3) { animation-delay: 0.5s; }
-.slide.is-active .list li:nth-child(4) { animation-delay: 0.65s; }
-.slide.is-active .list li:nth-child(5) { animation-delay: 0.8s; }
+.slide.is-active .list li { opacity: 1; transform: translateX(0); }
+.slide.is-active .list li:nth-child(1) { transition-delay: 0.15s; }
+.slide.is-active .list li:nth-child(2) { transition-delay: 0.25s; }
+.slide.is-active .list li:nth-child(3) { transition-delay: 0.35s; }
+.slide.is-active .list li:nth-child(4) { transition-delay: 0.45s; }
+.slide.is-active .list li:nth-child(5) { transition-delay: 0.55s; }
 
 .list li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.5em;
-  width: 14px;
-  height: 14px;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-soft);
-  animation: pulse 2s ease-in-out infinite;
+  opacity: 0.6;
+  box-shadow: 0 0 14px var(--accent-soft);
 }
 
-.list--large li { font-size: clamp(1.1rem, 1.5vw, 1.4rem); font-weight: 600; }
+.list--large li { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 500; }
 
+/* ============ STATS ============ */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
 }
 
 .stat {
-  padding: 18px 20px;
-  border-radius: 16px;
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   position: relative;
-  overflow: visible;
 }
 
-.stat::before {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 20px;
-  border: 2px solid var(--accent);
-  animation: pulseRing 2s ease-out infinite;
-  pointer-events: none;
-}
-
+.stat::before { display: none; }
 .stat--inline { width: fit-content; }
 
 .stat__value {
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
   font-weight: 700;
   color: var(--accent);
 }
 
 .stat__value span { display: block; }
-.stat__prefix { font-size: 0.9rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
-.stat__label { color: var(--muted); }
+.stat__prefix { font-size: 0.82rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.stat__label { color: var(--muted); font-size: 0.92rem; }
 
+/* ============ CHART ============ */
 .chart {
-  padding: clamp(18px, 2.5vw, 28px);
-  border-radius: 20px;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 }
 
 .chart__axis {
   display: flex;
   justify-content: space-between;
   color: var(--muted);
-  font-size: 0.9rem;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  margin-bottom: 16px;
 }
 
-.chart__bars { display: grid; gap: 16px; }
-
-.bar__label { font-size: 0.95rem; margin-bottom: 6px; color: #e2e8f0; }
+.chart__bars { display: grid; gap: 20px; }
+.bar__label { font-size: 0.92rem; margin-bottom: 8px; color: rgba(255, 255, 255, 0.75); }
 
 .bar__track {
-  height: 12px;
+  height: 8px;
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.06);
   overflow: hidden;
 }
 
 .bar__fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), #a855f7);
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
   transform-origin: left;
   transform: scaleX(0);
-  transition: transform 1.2s ease;
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slide.is-active .bar__fill {
-  animation: barFillGlow 1.5s ease-out forwards;
-}
+.slide.is-active .bar__fill { transform: scaleX(1); }
 
-.chart__source { margin-top: 16px; color: var(--muted); font-size: 0.9rem; }
+.chart__source { margin-top: 18px; color: var(--muted); font-size: 0.82rem; }
 
-.icon-row { display: flex; gap: 16px; }
+/* ============ ICON ROW ============ */
+.icon-row { display: flex; gap: 14px; }
 
 .icon-row span {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: linear-gradient(140deg, #facc15, #fb7185);
-  box-shadow: 0 10px 30px rgba(250, 204, 21, 0.35);
-  animation: pulse 4s ease-in-out infinite;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  opacity: 0.6;
 }
 
 .icon-row span:nth-child(2) { animation-delay: 0.4s; }
@@ -656,25 +639,26 @@ body {
 .icon-row span:nth-child(5) { animation-delay: 1.6s; }
 .icon-row span:nth-child(6) { animation-delay: 2s; }
 
+/* ============ PHOTO & POSTER CARDS ============ */
 .photo-card {
-  padding: 20px;
+  padding: 14px;
   border-radius: 28px;
-  background: #facc15;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.35);
-  animation: floatSlow 10s ease-in-out infinite;
-  perspective: 1000px;
-  transform-style: preserve-3d;
+  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
 }
 
 .photo-card__figure {
   width: 100%;
   height: 360px;
-  border-radius: 24px;
-  background: linear-gradient(180deg, #111827, #334155);
-  transition: transform 0.6s ease;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #18181b, #27272a);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   background-size: cover;
   background-position: center;
 }
@@ -686,35 +670,37 @@ body {
 }
 
 .photo-card:hover .photo-card__figure {
-  transform: rotateY(5deg) rotateX(-5deg);
+  transform: scale(1.02);
 }
 
 .poster-card {
   width: min(320px, 100%);
-  padding: 24px;
+  padding: 28px;
   border-radius: 24px;
-  background: #facc15;
-  color: #0f172a;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
   text-align: center;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
-  animation: floatSlow 12s ease-in-out infinite;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
 }
 
-.poster-card__title { font-weight: 800; letter-spacing: 0.12em; }
-.poster-card__subtitle { margin-top: 8px; font-size: 0.9rem; letter-spacing: 0.2em; }
-.poster-card__figure { margin-top: 18px; height: 220px; border-radius: 18px; background: linear-gradient(180deg, #94a3b8, #1f2937); background-size: cover; background-position: center; }
+.poster-card__title { font-weight: 700; letter-spacing: 0.12em; }
+.poster-card__subtitle { margin-top: 8px; font-size: 0.82rem; letter-spacing: 0.2em; color: var(--muted); }
+.poster-card__figure { margin-top: 18px; height: 220px; border-radius: 18px; background: linear-gradient(180deg, #27272a, #18181b); background-size: cover; background-position: center; }
 .poster-card__figure--drberg { background-image: url('https://placehold.co/400x220/1f2937/e2e8f0?text=Dr+Berg'); background-position: center top; }
 
-/* iPhone mockup styles */
+/* ============ iPHONE MOCKUP ============ */
 .iphone-mockup {
   width: min(280px, 90%);
   height: 380px;
   border-radius: 40px;
-  background: #1a1a1a;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 3px #333;
+  background: #18181b;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5),
+              inset 0 0 0 2px rgba(255, 255, 255, 0.06);
   position: relative;
-  padding: 12px;
-  animation: floatSlow 8s ease-in-out infinite;
+  padding: 10px;
 }
 
 .iphone-mockup__screen {
@@ -729,22 +715,23 @@ body {
 
 .iphone-mockup__notch {
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 28px;
-  background: #1a1a1a;
-  border-radius: 0 0 16px 16px;
+  width: 100px;
+  height: 24px;
+  background: #18181b;
+  border-radius: 0 0 14px 14px;
   z-index: 10;
 }
 
+/* ============ BACKGROUND IMAGES ============ */
 .slide__bg-image {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.25;
+  opacity: 0.10;
   z-index: 0;
 }
 
@@ -756,16 +743,12 @@ body {
   background-image: url('https://placehold.co/1920x1080/0b0f1f/e2e8f0?text=Stressed+BG');
 }
 
-.card-grid {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
+/* ============ MISC COMPONENTS ============ */
 .formula {
   padding: 18px 22px;
   border-radius: 18px;
-  border: 1px dashed rgba(148, 163, 184, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .network {
@@ -773,82 +756,76 @@ body {
   width: 220px;
   height: 220px;
   border-radius: 50%;
-  border: 2px dashed rgba(15, 23, 42, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   display: grid;
   place-items: center;
-  background: rgba(250, 204, 21, 0.15);
+  background: var(--accent-soft);
 }
 
 .network span {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: #0f172a;
-  animation: networkPulse 3s ease-in-out infinite;
+  background: var(--accent);
+  opacity: 0.5;
+  animation: float 5s ease-in-out infinite;
 }
 
-.network span:nth-child(1) { top: 20px; left: 50%; animation-delay: 0s; }
-.network span:nth-child(2) { top: 50%; left: 24px; animation-delay: 0.5s; }
-.network span:nth-child(3) { bottom: 30px; right: 30px; animation-delay: 1s; }
-.network span:nth-child(4) { right: 22px; top: 30px; animation-delay: 1.5s; }
+.network span:nth-child(1) { top: 20px; left: 50%; }
+.network span:nth-child(2) { top: 50%; left: 24px; animation-delay: 1.2s; }
+.network span:nth-child(3) { bottom: 30px; right: 30px; animation-delay: 2.4s; }
+.network span:nth-child(4) { right: 22px; top: 30px; animation-delay: 3.6s; }
 
 .linkedin-shot {
   width: min(900px, 100%);
-  background: #ffffff;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 22px;
   padding: 24px;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
   display: grid;
   gap: 16px;
   position: relative;
   overflow: hidden;
 }
 
-.linkedin-shot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(14, 165, 233, 0.2), transparent);
-  transform: translateX(-100%);
-  animation: sweep 8s linear infinite;
-}
+.linkedin-shot::after { display: none; }
 
-.linkedin-shot__top { height: 50px; border-radius: 12px; background: #e2e8f0; }
+.linkedin-shot__top { height: 50px; border-radius: 12px; background: #e4e4e7; }
 .linkedin-shot__filters { display: flex; gap: 12px; }
-.linkedin-shot__filters span { flex: 1; height: 32px; border-radius: 999px; background: #fecaca; }
+.linkedin-shot__filters span { flex: 1; height: 32px; border-radius: 999px; background: #fecdd3; }
 .linkedin-shot__results { display: grid; gap: 12px; }
-.linkedin-shot__results div { height: 44px; border-radius: 12px; background: #f1f5f9; }
+.linkedin-shot__results div { height: 44px; border-radius: 12px; background: #f4f4f5; }
 
-.social-logos { display: flex; gap: 24px; margin-top: 12px; }
+.social-logos { display: flex; gap: 20px; margin-top: 16px; }
 
 .logo {
-  width: 70px;
-  height: 70px;
-  border-radius: 18px;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
-  transition: transform 0.3s ease;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.logo:hover { animation: logoBounce 0.8s ease; }
-.logo--fb { background: linear-gradient(140deg, #2563eb, #60a5fa); }
-.logo--ig { background: linear-gradient(135deg, #f472b6, #fb923c); }
+.logo:hover { transform: translateY(-3px); }
+.logo--fb { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.logo--ig { background: linear-gradient(135deg, #ec4899, #f97316); }
 
-/* PDF Image Styles */
+/* ============ FLAGS & IMAGES ============ */
 .flag-row {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 24px 0;
+  margin: 28px 0;
 }
 
 .flag-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .flag-img {
@@ -856,50 +833,30 @@ body {
   height: 80px;
   object-fit: cover;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.flag-img:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 16px 32px rgba(0,0,0,0.4);
-}
+.flag-img:hover { transform: translateY(-3px); }
 
 .flag-label {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: var(--muted);
   font-weight: 500;
 }
 
 .slide-image {
   max-width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-  transition: transform 0.4s ease;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slide-image:hover {
-  transform: scale(1.02);
-}
-
-.slide-image--rounded {
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
-
-.slide-image--small {
-  max-width: 280px;
-}
-
-.slide-image--medium {
-  max-width: 400px;
-}
-
-.slide-image--large {
-  max-width: 600px;
-}
+.slide-image:hover { transform: scale(1.01); }
+.slide-image--rounded { border-radius: 50%; width: 200px; height: 200px; object-fit: cover; }
+.slide-image--small { max-width: 280px; }
+.slide-image--medium { max-width: 400px; }
+.slide-image--large { max-width: 600px; }
 
 .image-container {
   display: flex;
@@ -911,45 +868,43 @@ body {
 .linkedin-actual-image {
   width: 100%;
   max-width: 800px;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
 }
 
 .video-camera-icon {
   width: 180px;
   height: auto;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-  animation: floatSlow 6s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
 }
 
 .handshake-img {
   width: 280px;
   height: auto;
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-  animation: pulse 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
 }
 
 .phone-hand-img {
   width: 240px;
   height: auto;
-  filter: drop-shadow(0 15px 40px rgba(0,0,0,0.4));
-  animation: floatSlow 6s ease-in-out infinite;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.25));
 }
 
+/* ============ STORY CARDS ============ */
 .story-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  gap: 16px;
   width: 100%;
 }
 
 .story-card {
   height: 260px;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #111827, #475569);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
-  animation: pulse 6s ease-in-out infinite;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #18181b, #27272a);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s ease;
   cursor: pointer;
   background-size: cover;
   background-position: center top;
@@ -974,36 +929,32 @@ body {
 }
 
 .story-card:hover {
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.4), 0 0 40px var(--accent-soft);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-/* Navigation dots - HIDDEN */
-.deck__nav {
-  display: none !important;
-}
+/* ============ NAVIGATION ============ */
+.deck__nav { display: none !important; }
 
-/* Slide counter */
 .slide-counter {
   position: fixed;
   top: 24px;
   right: 24px;
-  padding: 10px 18px;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 999px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   z-index: 100;
-  font-size: 0.95rem;
-  color: var(--text);
-  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 500;
 }
 
-.slide-counter__current {
-  color: var(--accent);
-}
+.slide-counter__current { color: var(--text); }
 
-/* Arrow navigation hint */
 .nav-hint {
   position: fixed;
   bottom: 24px;
@@ -1011,49 +962,43 @@ body {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 14px 24px;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  gap: 10px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 999px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   z-index: 100;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: var(--muted);
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .nav-hint__key {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 10px;
-  background: rgba(34, 211, 238, 0.15);
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1.1rem;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 /* ============ ANIMATIONS ============ */
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(30px); }
+  0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(18px); }
-}
-
-@keyframes morphBlob {
-  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
-  75% { border-radius: 60% 40% 60% 30% / 60% 40% 70% 30%; }
+  50% { transform: translateY(10px); }
 }
 
 @keyframes orbitSpin {
@@ -1062,13 +1007,8 @@ body {
 }
 
 @keyframes sparkFloat {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
-  50% { transform: translateY(-12px) scale(1.2); opacity: 0.6; }
-}
-
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { transform: translateY(-8px) scale(1.08); opacity: 0.25; }
 }
 
 @keyframes sweep {
@@ -1078,132 +1018,11 @@ body {
 
 @keyframes drift {
   0% { transform: translateY(0); }
-  50% { transform: translateY(-40px); }
+  50% { transform: translateY(-24px); }
   100% { transform: translateY(0); }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-6px) scale(1.04); }
-}
-
-@keyframes rotateGlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes borderGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px var(--accent-soft), 0 20px 60px rgba(15, 23, 42, 0.35), inset 0 1px 0 rgba(255,255,255,0.1);
-  }
-  50% {
-    box-shadow: 0 0 40px var(--accent-strong), 0 30px 80px rgba(15, 23, 42, 0.5), inset 0 1px 0 rgba(255,255,255,0.2);
-  }
-}
-
-@keyframes pulseRing {
-  0% { transform: scale(0.9); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 0.4; }
-  100% { transform: scale(1.3); opacity: 0; }
-}
-
-@keyframes slideInLeft {
-  0% { opacity: 0; transform: translateX(-30px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes barFillGlow {
-  0% { transform: scaleX(0); box-shadow: 0 0 0 transparent; }
-  60% { box-shadow: 0 0 30px var(--accent); }
-  100% { transform: scaleX(1); box-shadow: 0 0 15px var(--accent-soft); }
-}
-
-@keyframes networkPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0,0,0,0.3); }
-  50% { transform: scale(1.2); box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
-}
-
-@keyframes logoBounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-10px); }
-  60% { transform: translateY(-5px); }
-}
-
-@keyframes pillShimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-@keyframes textShimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Text shimmer for titles */
-.title--lg, .title--xl {
-  background: linear-gradient(90deg, var(--text) 0%, var(--accent) 25%, var(--text) 50%, var(--accent) 75%, var(--text) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: textShimmer 4s linear infinite;
-}
-
-.slide--light .title--lg,
-.slide--light .title--xl {
-  background: linear-gradient(90deg, #0f172a 0%, #f97316 25%, #0f172a 50%, #facc15 75%, #0f172a 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-/* Floating particles */
-.slide::before {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 15px var(--accent);
-  animation: sparkFloat 6s ease-in-out infinite;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.slide::after {
-  content: '';
-  position: absolute;
-  top: 60%;
-  right: 15%;
-  width: 4px;
-  height: 4px;
-  background: #facc15;
-  border-radius: 50%;
-  box-shadow: 0 0 12px #facc15;
-  animation: sparkFloat 8s ease-in-out infinite reverse;
-  z-index: 5;
-  pointer-events: none;
-}
-
-/* Gradient border for frame */
-.slide__frame {
-  background: linear-gradient(90deg, var(--accent-soft), rgba(168, 85, 247, 0.2), var(--accent-soft), rgba(250, 204, 21, 0.2), var(--accent-soft));
-  background-size: 300% 100%;
-  animation: gradientBorder 6s ease infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1px;
-}
-
-@keyframes gradientBorder {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+/* ============ RESPONSIVE ============ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -1216,14 +1035,16 @@ body {
 
 @media (max-width: 900px) {
   .deck__nav { display: none; }
-  .slide { padding: 32px 24px; }
+  .slide { padding: 32px 20px; }
+  .split { gap: 24px; }
 }
+
   </style>
 </head>
 <body>
   <div class="deck" id="deck">
     <!-- Slide 1: Hero -->
-    <section class="slide slide--hero" data-hero="true" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-1">
+    <section class="slide slide--hero" data-hero="true" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-1">
       <div class="slide__hero">
         <div class="hero-orbit">
           <div class="hero-orbit__overlay" aria-hidden="true">
@@ -1249,7 +1070,7 @@ body {
     </section>
 
     <!-- Slide 2 -->
-    <section class="slide slide--dark is-active" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-2">
+    <section class="slide slide--dark is-active" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-2">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -1273,7 +1094,7 @@ body {
     </section>
 
     <!-- Slide 3 -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-3">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-3">
       <div class="slide__inner">
         <h2 class="title title--lg">Кто мы и почему нас стоит слушать?</h2>
         <p class="body">Recrutu (США): Наша основная компания, рекрутинговое агентство, которое находит идеальных работников для американских работодателей.</p>
@@ -1307,7 +1128,7 @@ body {
     </section>
 
     <!-- Slide 4: Author -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-4">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-4">
       <div class="slide__inner">
         <div class="split split--author">
           <div class="split__col">
@@ -1334,7 +1155,7 @@ body {
     </section>
 
     <!-- Slide 5 -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-5">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-5">
       <div class="slide__bg-image slide__bg-image--stressed" aria-hidden="true"></div>
       <div class="slide__inner">
         <h2 class="title title--lg">Рынок удалённой работы в странах СНГ и Средней Азии не так развит.</h2>
@@ -1352,7 +1173,7 @@ body {
     </section>
 
     <!-- Slide 6: Stats -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-6">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-6">
       <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
       <div class="slide__inner">
         <h2 class="title title--lg">Решение: Прямой выход на рынок США</h2>
@@ -1381,7 +1202,7 @@ body {
     </section>
 
     <!-- Slide 7: Chart -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-7">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-7">
       <div class="slide__inner">
         <div class="chart">
           <div class="chart__axis">
@@ -1415,7 +1236,7 @@ body {
     </section>
 
     <!-- Slide 8: What you'll learn -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-8">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-8">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -1442,7 +1263,7 @@ body {
     </section>
 
     <!-- Slide 9: Cards comparison -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-9">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-9">
       <div class="slide__inner">
         <h2 class="title title--lg">Миф: "Мне нужен востребованный диплом топового вуза"</h2>
         <div class="split">
@@ -1477,7 +1298,7 @@ body {
     </section>
 
     <!-- Slide 10: LinkedIn -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-10">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-10">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">LinkedIn: Ваш путь к работодателям США</h2>
@@ -1497,7 +1318,7 @@ body {
     </section>
 
     <!-- Slide 11: Connections -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-11">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-11">
       <div class="slide__inner">
         <div class="split split--connections">
           <div class="split__col">
@@ -1524,7 +1345,7 @@ body {
     </section>
 
     <!-- Slide 12: Roles -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-12">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-12">
       <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
       <div class="slide__inner">
         <div class="split">
@@ -1558,7 +1379,7 @@ body {
     </section>
 
     <!-- Slide 13: Dr Berg Case -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-13">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-13">
       <div class="slide__inner">
         <div class="split split--case">
           <div class="split__col">
@@ -1588,7 +1409,7 @@ body {
     </section>
 
     <!-- Slide 14: First 30 Days -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-14">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-14">
       <div class="slide__inner">
         <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
         <div class="split">
@@ -1624,7 +1445,7 @@ body {
     </section>
 
     <!-- Slide 15: Success Stories -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-15">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-15">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Истории успеха</h2>
@@ -1646,7 +1467,7 @@ body {
     </section>
 
     <!-- Slide 16: Package -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-16">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-16">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Smartworker Package</h2>
@@ -1663,7 +1484,7 @@ body {
     </section>
 
     <!-- Slide 17: Social Media -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-17">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-17">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
@@ -1686,7 +1507,7 @@ body {
     </section>
 
     <!-- Slide 18: CTA -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-18">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-18">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -1714,7 +1535,7 @@ body {
     </section>
 
     <!-- Slide 19: Scaling -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-19">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-19">
       <div class="slide__inner">
         <h2 class="title title--lg">Масштабирование</h2>
         <p class="body">Стартуете с $7/час ($1200+ в месяц)</p>
@@ -1736,7 +1557,7 @@ body {
     </section>
 
     <!-- Slide 20: Dr Berg Case (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-20">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-20">
       <div class="slide__inner">
         <div class="split split--case">
           <div class="split__col">
@@ -1763,7 +1584,7 @@ body {
     </section>
 
     <!-- Slide 21: Reputation -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-21">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-21">
       <div class="slide__inner">
         <h2 class="title title--lg">Ваша репутация — ваш актив</h2>
         <div class="card">
@@ -1780,7 +1601,7 @@ body {
     </section>
 
     <!-- Slide 22: Start Roles (with bg image) -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-22">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-22">
       <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
       <div class="slide__inner">
         <h2 class="title title--lg">С чего начать, если "ничего не умеешь"?</h2>
@@ -1798,7 +1619,7 @@ body {
     </section>
 
     <!-- Slide 23: Advanced Niches -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-23">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-23">
       <div class="slide__inner">
         <h2 class="title title--lg">Ниши для продвинутых</h2>
         <p class="body body--muted">Эти роли требуют наличия базовых навыков, но дают быстрый рост дохода</p>
@@ -1816,7 +1637,7 @@ body {
     </section>
 
     <!-- Slide 24: LinkedIn Intro -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-24">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-24">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Как настроить профиль и находить работодателей в LinkedIn</h2>
@@ -1832,7 +1653,7 @@ body {
     </section>
 
     <!-- Slide 25: LinkedIn Profile -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-25">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-25">
       <div class="slide__inner">
         <h2 class="title title--lg">Превращаем профиль LinkedIn из "невидимки" в "магнит для клиентов"</h2>
         <div class="card">
@@ -1850,7 +1671,7 @@ body {
     </section>
 
     <!-- Slide 26: Final Touches -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-26">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-26">
       <div class="slide__inner">
         <h2 class="title title--lg">Последние штрихи перед стартом</h2>
         <ul class="list">
@@ -1868,7 +1689,7 @@ body {
     </section>
 
     <!-- Slide 27: Connections (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-27">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-27">
       <div class="slide__inner">
         <div class="split split--connections">
           <div class="split__col">
@@ -1892,7 +1713,7 @@ body {
     </section>
 
     <!-- Slide 28: Who to Connect -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-28">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-28">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">С кем надо коннектиться в LinkedIn?</h2>
@@ -1911,7 +1732,7 @@ body {
     </section>
 
     <!-- Slide 29: LinkedIn Search (with image placeholder) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-29">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-29">
       <div class="slide__inner">
         <div class="stack center">
           <div class="image-container">
@@ -1926,7 +1747,7 @@ body {
     </section>
 
     <!-- Slide 30: Key Insight -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-30">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-30">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--xl">Мы ищем не вакансии.</h2>
@@ -1942,7 +1763,7 @@ body {
     </section>
 
     <!-- Slide 31: Video Resume -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-31">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-31">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -1967,7 +1788,7 @@ body {
     </section>
 
     <!-- Slide 32: Why Video -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-32">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-32">
       <div class="slide__inner">
         <h2 class="title title--lg">Зачем мы записываем видео?</h2>
         <p class="body body--muted">Это видео мы отправляем тем людям, которые с нами "законнектились".</p>
@@ -1985,7 +1806,7 @@ body {
     </section>
 
     <!-- Slide 33: Message Template -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-33">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-33">
       <div class="slide__inner">
         <h2 class="title title--lg">Шаблон, который работает</h2>
         <p class="kicker">Что делать дальше, когда с вами "законнектились"?</p>
@@ -2003,7 +1824,7 @@ body {
     </section>
 
     <!-- Slide 34: No Projects? -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-34">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-34">
       <div class="slide__inner">
         <h2 class="title title--lg">"Но у меня нет проектов!"</h2>
         <p class="body">Вам не нужны реальные клиенты, чтобы сделать портфолио.</p>
@@ -2021,7 +1842,7 @@ body {
     </section>
 
     <!-- Slide 35: Four Pillars -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-35">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-35">
       <div class="slide__inner">
         <h2 class="title title--lg">Итог: Четыре столпа прямого поиска</h2>
         <div class="card-grid">
@@ -2042,7 +1863,7 @@ body {
     </section>
 
     <!-- Slide 36: Facebook & Instagram (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-36">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-36">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
@@ -2061,7 +1882,7 @@ body {
     </section>
 
     <!-- Slide 37: Interview Intro -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-37">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-37">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--xl">Собеседование:</h2>
@@ -2077,7 +1898,7 @@ body {
     </section>
 
     <!-- Slide 38: Main Rule -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-38">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-38">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Главное правило</h2>
@@ -2093,7 +1914,7 @@ body {
     </section>
 
     <!-- Slide 39: No Experience -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-39">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-39">
       <div class="slide__inner">
         <h2 class="title title--lg">Что говорить, если опыта нет?</h2>
         <p class="kicker">Формула ответа на "Расскажите о своем опыте"</p>
@@ -2110,7 +1931,7 @@ body {
     </section>
 
     <!-- Slide 40: STAR Method -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-40">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-40">
       <div class="slide__inner">
         <h2 class="title title--lg">Что говорить, если опыт ЕСТЬ? Формула STAR</h2>
         <div class="card-grid">
@@ -2128,7 +1949,7 @@ body {
     </section>
 
     <!-- Slide 41: Talking Money -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-41">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-41">
       <div class="slide__inner">
         <h2 class="title title--lg">Как говорить о деньгах уверенно</h2>
         <div class="card card--accent">
@@ -2145,7 +1966,7 @@ body {
     </section>
 
     <!-- Slide 42: Got Offer -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-42">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-42">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--xl">Вы получили оффер!</h2>
@@ -2161,7 +1982,7 @@ body {
     </section>
 
     <!-- Slide 43: First 30 Days (with bg image) -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-43">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-43">
       <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
       <div class="slide__inner">
         <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
@@ -2195,7 +2016,7 @@ body {
     </section>
 
     <!-- Slide 44: Scaling Growth -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-44">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-44">
       <div class="slide__inner">
         <h2 class="title title--lg">Масштабирование: Ваша зарплата может вырасти в 2-3 раза за 1.5 года!</h2>
         <div class="stats">
@@ -2212,7 +2033,7 @@ body {
     </section>
 
     <!-- Slide 45: Success Stories (with images) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-45">
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-45">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--lg">Истории успеха</h2>
@@ -2230,7 +2051,7 @@ body {
     </section>
 
     <!-- Slide 46: Problems -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-46">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-46">
       <div class="slide__bg-image slide__bg-image--stressed" aria-hidden="true"></div>
       <div class="slide__inner">
         <h2 class="title title--lg">Если у вас возникли проблемы с самостоятельным поиском работы</h2>
@@ -2249,7 +2070,7 @@ body {
     </section>
 
     <!-- Slide 47: Package Title -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-47">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-47">
       <div class="slide__inner">
         <div class="stack center">
           <h2 class="title title--xl">Smartworker Package</h2>
@@ -2265,7 +2086,7 @@ body {
     </section>
 
     <!-- Slide 48: Module 1 -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-48">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-48">
       <div class="slide__inner">
         <div class="kicker">Модуль 1</div>
         <h2 class="title title--lg">Обучение</h2>
@@ -2282,7 +2103,7 @@ body {
     </section>
 
     <!-- Slide 49: Module 2 -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-49">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-49">
       <div class="slide__inner">
         <div class="kicker">Модуль 2</div>
         <h2 class="title title--lg">Сопровождение</h2>
@@ -2298,7 +2119,7 @@ body {
     </section>
 
     <!-- Slide 50: Bonus 1 -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-50">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-50">
       <div class="slide__inner">
         <div class="kicker">БОНУС #1</div>
         <h2 class="title title--lg">Прямой Мост к Работодателям: Эксклюзивные Showcase Ивенты</h2>
@@ -2315,7 +2136,7 @@ body {
     </section>
 
     <!-- Slide 51: Bonus 2 -->
-    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-51">
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-51">
       <div class="slide__inner">
         <div class="kicker">БОНУС #2</div>
         <h2 class="title title--lg">Доступ к нашей закрытой базе вакансий</h2>
@@ -2333,7 +2154,7 @@ body {
     </section>
 
     <!-- Slide 52: Bonus 3 -->
-    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-52">
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-52">
       <div class="slide__inner">
         <div class="kicker">БОНУС #3</div>
         <h2 class="title title--lg">Закрытый Telegram-канал Ассистентов</h2>
@@ -2350,7 +2171,7 @@ body {
     </section>
 
     <!-- Slide 53: Bonus 4 -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-53">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-53">
       <div class="slide__inner">
         <div class="kicker">БОНУС #4</div>
         <h2 class="title title--lg">Авторская книга-гайд Нурсултана (PDF)</h2>
@@ -2367,7 +2188,7 @@ body {
     </section>
 
     <!-- Slide 54: Pricing Comparison -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-54">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-54">
       <div class="slide__inner">
         <h2 class="title title--lg">Сколько стоят подобные услуги у ДРУГИХ рекрутинговых агентств:</h2>
         <div class="card">
@@ -2387,7 +2208,7 @@ body {
     </section>
 
     <!-- Slide 55: Our Goal -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-55">
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-55">
       <div class="slide__inner">
         <h2 class="title title--xl">НАША ГЛАВНАЯ ЦЕЛЬ: ТРУДОУСТРОЙСТВО СТУДЕНТА.</h2>
         <div class="card">
@@ -2409,7 +2230,7 @@ body {
     </section>
 
     <!-- Slide 56: Final CTA (with iPhone) -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-56">
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-56">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
@@ -2435,7 +2256,7 @@ body {
     </section>
 
     <!-- Slide 57: Final Bonus (with iPhone) -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-57">
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-57">
       <div class="slide__inner">
         <div class="split">
           <div class="split__col">
