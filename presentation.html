@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartWorker — презентация</title>
+  <meta name="theme-color" content="#0b0f1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --bg: #0b0f1f;
+  --bg-strong: #070a14;
+  --text: #f8fafc;
+  --muted: #a1a8c3;
+  --card: rgba(15, 23, 42, 0.72);
+  --card-border: rgba(148, 163, 184, 0.2);
+  --accent: #22d3ee;
+  --accent-soft: rgba(34, 211, 238, 0.22);
+  --accent-strong: rgba(34, 211, 238, 0.6);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.deck {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.deck::-webkit-scrollbar {
+  width: 0;
+}
+
+.slide {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(32px, 6vw, 96px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  isolation: isolate;
+  background: radial-gradient(circle at 18% 18%, var(--accent-soft), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.18), transparent 50%),
+    linear-gradient(160deg, var(--bg-strong), var(--bg));
+  overflow: hidden;
+}
+
+.slide__hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.slide[data-hero="true"] {
+  padding: 0;
+  background: #02040a;
+}
+
+.slide[data-hero="true"] .slide__frame,
+.slide[data-hero="true"] .slide__sweep,
+.slide[data-hero="true"] .slide__particles,
+.slide[data-hero="true"] .slide__noise,
+.slide[data-hero="true"] .slide__orb,
+.slide[data-hero="true"] .slide__grid {
+  display: none;
+}
+
+.slide[data-variant="aurora"] {
+  background: radial-gradient(circle at 20% 20%, var(--accent-strong), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(94, 234, 212, 0.18), transparent 50%),
+    linear-gradient(150deg, #05070f, #101834);
+}
+
+.slide[data-variant="neon"] {
+  background: radial-gradient(circle at 30% 25%, rgba(34, 197, 94, 0.2), transparent 50%),
+    radial-gradient(circle at 70% 20%, var(--accent-soft), transparent 45%),
+    linear-gradient(150deg, #070912, #0f172a);
+}
+
+.slide[data-variant="prism"] {
+  background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.22), transparent 45%),
+    radial-gradient(circle at 80% 40%, var(--accent-soft), transparent 48%),
+    linear-gradient(165deg, #0b1022, #111827);
+}
+
+.slide[data-variant="ember"] {
+  background: radial-gradient(circle at 18% 18%, rgba(251, 146, 60, 0.25), transparent 50%),
+    radial-gradient(circle at 82% 22%, var(--accent-soft), transparent 50%),
+    linear-gradient(160deg, #0b0f1f, #1f1020);
+}
+
+.slide[data-variant="iris"] {
+  background: radial-gradient(circle at 16% 30%, rgba(236, 72, 153, 0.2), transparent 48%),
+    radial-gradient(circle at 78% 20%, var(--accent-soft), transparent 45%),
+    linear-gradient(160deg, #0a0f1d, #0f172a);
+}
+
+.slide[data-variant="oasis"] {
+  background: radial-gradient(circle at 22% 20%, rgba(14, 165, 233, 0.22), transparent 45%),
+    radial-gradient(circle at 75% 30%, var(--accent-soft), transparent 48%),
+    linear-gradient(160deg, #060c1a, #0b1120);
+}
+
+.slide--hero {
+  background: radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.35), transparent 50%),
+    radial-gradient(circle at 85% 40%, rgba(250, 204, 21, 0.25), transparent 55%),
+    linear-gradient(140deg, #05070f, #101631);
+}
+
+.slide--light {
+  color: #0f172a;
+  background: radial-gradient(circle at 18% 18%, var(--accent-soft), transparent 55%),
+    radial-gradient(circle at 82% 32%, rgba(250, 204, 21, 0.18), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+.slide--light .slide__grid {
+  opacity: 0.2;
+}
+
+.slide__inner {
+  position: relative;
+  z-index: 4;
+  width: min(1200px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-orbit {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #0a0f20 0%, #02040a 100%);
+}
+
+.hero-orbit__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-orbit__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(226, 232, 240, 0.35);
+  box-shadow: 0 0 80px rgba(34, 211, 238, 0.18);
+  animation: orbitSpin 28s linear infinite;
+  transform: translate(-50%, -50%) rotate(var(--orbit-rotate, 0deg));
+}
+
+.hero-orbit__ring--a {
+  --orbit-rotate: 0deg;
+  width: clamp(320px, 60vw, 740px);
+  height: clamp(320px, 60vw, 740px);
+  top: 50%;
+  left: 50%;
+}
+
+.hero-orbit__ring--b {
+  --orbit-rotate: 35deg;
+  width: clamp(420px, 70vw, 980px);
+  height: clamp(420px, 70vw, 980px);
+  top: 50%;
+  left: 50%;
+  animation-duration: 36s;
+}
+
+.hero-orbit__ring--c {
+  --orbit-rotate: -25deg;
+  width: clamp(260px, 50vw, 640px);
+  height: clamp(260px, 50vw, 640px);
+  top: 50%;
+  left: 50%;
+  animation-duration: 24s;
+  opacity: 0.6;
+}
+
+.hero-orbit__spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #facc15, transparent 60%);
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.8);
+  animation: sparkFloat 6s ease-in-out infinite;
+}
+
+.hero-orbit__spark--1 { top: 18%; left: 22%; }
+.hero-orbit__spark--2 { top: 32%; right: 18%; animation-delay: -1.4s; }
+.hero-orbit__spark--3 { bottom: 22%; left: 30%; animation-delay: -2.6s; }
+.hero-orbit__spark--4 { bottom: 28%; right: 26%; animation-delay: -3.2s; }
+
+.hero-orbit__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(2, 6, 23, 0) 30%, rgba(2, 6, 23, 0.85) 80%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-orbit__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  max-width: min(960px, 90vw);
+  padding: clamp(20px, 4vw, 40px);
+  border-radius: clamp(20px, 3vw, 32px);
+  background: rgba(2, 6, 23, 0.68);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 40px 120px rgba(2, 6, 23, 0.6);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-orbit__content::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle, rgba(250, 204, 21, 0.18), transparent 65%);
+  opacity: 0.9;
+  z-index: -1;
+}
+
+.hero-orbit__title span {
+  display: block;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  text-shadow: 0 10px 40px rgba(2, 6, 23, 0.6);
+}
+
+.hero-orbit__line--warm {
+  background-image: linear-gradient(90deg, #fdba74, #facc15, #f59e0b);
+}
+
+.hero-orbit__line--hot {
+  background-image: linear-gradient(90deg, #fde047, #fb923c, #f97316);
+}
+
+.hero-orbit .pill {
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(148, 163, 184, 0.4);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.25);
+}
+
+.slide__inner > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s ease, transform 0.9s ease;
+}
+
+.slide.is-active .slide__inner > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide__inner > *:nth-child(1) { transition-delay: 0.05s; }
+.slide__inner > *:nth-child(2) { transition-delay: 0.12s; }
+.slide__inner > *:nth-child(3) { transition-delay: 0.18s; }
+.slide__inner > *:nth-child(4) { transition-delay: 0.24s; }
+.slide__inner > *:nth-child(5) { transition-delay: 0.3s; }
+.slide__inner > *:nth-child(6) { transition-delay: 0.36s; }
+
+.slide__image {
+  position: absolute;
+  inset: 0;
+  background-image: var(--image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+  filter: saturate(1.2) contrast(1.1);
+  z-index: 0;
+}
+
+.slide__frame {
+  position: absolute;
+  inset: clamp(14px, 2vw, 22px);
+  border-radius: clamp(18px, 3vw, 32px);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: inset 0 0 60px rgba(15, 23, 42, 0.4);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.slide__sweep {
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 70%
+  );
+  opacity: 0.35;
+  animation: sweep 12s linear infinite;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+.slide__particles {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.12;
+  animation: drift 24s linear infinite;
+  z-index: 1;
+}
+
+.slide__noise {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+  z-index: 2;
+}
+
+.slide__orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: morphBlob 8s ease-in-out infinite, float 12s ease-in-out infinite;
+  background: radial-gradient(circle, var(--accent-strong), transparent 70%);
+  width: clamp(140px, 22vw, 300px);
+  height: clamp(140px, 22vw, 300px);
+  z-index: 1;
+}
+
+.slide__orb--a { top: -60px; left: -40px; }
+.slide__orb--b { bottom: -80px; right: -40px; animation-delay: -6s; }
+
+.slide__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.25;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+.slide--light .slide__sweep {
+  mix-blend-mode: multiply;
+  opacity: 0.2;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stack.center {
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.title span { display: block; }
+
+.title--xl { font-size: clamp(2.6rem, 4.8vw, 5.2rem); }
+.title--lg { font-size: clamp(2rem, 3.4vw, 3.6rem); }
+.title--md { font-size: clamp(1.4rem, 2.4vw, 2.4rem); font-weight: 600; }
+
+.body {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.body--muted { color: var(--muted); }
+.body--dark { color: #1f2937; }
+.body--accent { color: var(--accent); font-weight: 600; }
+
+.highlight {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.kicker {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.pill {
+  width: fit-content;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: pillShimmer 3s infinite;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+
+.split--author { align-items: stretch; }
+
+.split__col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  padding: clamp(18px, 2.5vw, 28px);
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(18px);
+  opacity: 0.96;
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease, box-shadow 0.7s ease;
+}
+
+.slide.is-active .card {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.45);
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 120deg, transparent, var(--accent-soft), transparent);
+  opacity: 0.5;
+  animation: rotateGlow 16s linear infinite;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), transparent);
+}
+
+.card > * { position: relative; z-index: 1; }
+
+.card--accent {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(15, 23, 42, 0.8));
+}
+
+.card__title {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.list {
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.list li {
+  position: relative;
+  padding-left: 28px;
+  animation: slideInLeft 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.slide.is-active .list li { opacity: 1; }
+.slide.is-active .list li:nth-child(1) { animation-delay: 0.2s; }
+.slide.is-active .list li:nth-child(2) { animation-delay: 0.35s; }
+.slide.is-active .list li:nth-child(3) { animation-delay: 0.5s; }
+.slide.is-active .list li:nth-child(4) { animation-delay: 0.65s; }
+.slide.is-active .list li:nth-child(5) { animation-delay: 0.8s; }
+
+.list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-soft);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.list--large li { font-size: clamp(1.1rem, 1.5vw, 1.4rem); font-weight: 600; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  position: relative;
+  overflow: visible;
+}
+
+.stat::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 20px;
+  border: 2px solid var(--accent);
+  animation: pulseRing 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.stat--inline { width: fit-content; }
+
+.stat__value {
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat__value span { display: block; }
+.stat__prefix { font-size: 0.9rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+.stat__label { color: var(--muted); }
+
+.chart {
+  padding: clamp(18px, 2.5vw, 28px);
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.chart__axis {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.chart__bars { display: grid; gap: 16px; }
+
+.bar__label { font-size: 0.95rem; margin-bottom: 6px; color: #e2e8f0; }
+
+.bar__track {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.2);
+  overflow: hidden;
+}
+
+.bar__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), #a855f7);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s ease;
+}
+
+.slide.is-active .bar__fill {
+  animation: barFillGlow 1.5s ease-out forwards;
+}
+
+.chart__source { margin-top: 16px; color: var(--muted); font-size: 0.9rem; }
+
+.icon-row { display: flex; gap: 16px; }
+
+.icon-row span {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(140deg, #facc15, #fb7185);
+  box-shadow: 0 10px 30px rgba(250, 204, 21, 0.35);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.icon-row span:nth-child(2) { animation-delay: 0.4s; }
+.icon-row span:nth-child(3) { animation-delay: 0.8s; }
+.icon-row span:nth-child(4) { animation-delay: 1.2s; }
+.icon-row span:nth-child(5) { animation-delay: 1.6s; }
+.icon-row span:nth-child(6) { animation-delay: 2s; }
+
+.photo-card {
+  padding: 20px;
+  border-radius: 28px;
+  background: #facc15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.35);
+  animation: floatSlow 10s ease-in-out infinite;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.photo-card__figure {
+  width: 100%;
+  height: 360px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #111827, #334155);
+  transition: transform 0.6s ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.photo-card__figure--author {
+  background-image: url('images/author-nursultan.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.photo-card:hover .photo-card__figure {
+  transform: rotateY(5deg) rotateX(-5deg);
+}
+
+.poster-card {
+  width: min(320px, 100%);
+  padding: 24px;
+  border-radius: 24px;
+  background: #facc15;
+  color: #0f172a;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  animation: floatSlow 12s ease-in-out infinite;
+}
+
+.poster-card__title { font-weight: 800; letter-spacing: 0.12em; }
+.poster-card__subtitle { margin-top: 8px; font-size: 0.9rem; letter-spacing: 0.2em; }
+.poster-card__figure { margin-top: 18px; height: 220px; border-radius: 18px; background: linear-gradient(180deg, #94a3b8, #1f2937); background-size: cover; background-position: center; }
+.poster-card__figure--drberg { background-image: url('images/dr-berg.jpg'); background-position: center top; }
+
+/* iPhone mockup styles */
+.iphone-mockup {
+  width: min(280px, 90%);
+  height: 380px;
+  border-radius: 40px;
+  background: #1a1a1a;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 3px #333;
+  position: relative;
+  padding: 12px;
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.iphone-mockup__screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_2zhNfDMPAvhOC1BPXAA1PY900xl/hf_20260125_183132_1833870d-a6f8-48da-a1ad-637fe90a03a3.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.iphone-mockup__notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+.slide__bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  z-index: 0;
+}
+
+.slide__bg-image--remote {
+  background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_2zhNfDMPAvhOC1BPXAA1PY900xl/hf_20260125_183301_c35fbd33-9ed7-46ab-8d12-ee513bff09af.png');
+}
+
+.slide__bg-image--stressed {
+  background-image: url('https://d8j0ntlcm91z4.cloudfront.net/user_2zhNfDMPAvhOC1BPXAA1PY900xl/hf_20260125_081755_f339a70c-b926-444a-9a3a-8fdb27efbc3d_min.webp');
+}
+
+.card-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.formula {
+  padding: 18px 22px;
+  border-radius: 18px;
+  border: 1px dashed rgba(148, 163, 184, 0.5);
+}
+
+.network {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px dashed rgba(15, 23, 42, 0.2);
+  display: grid;
+  place-items: center;
+  background: rgba(250, 204, 21, 0.15);
+}
+
+.network span {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0f172a;
+  animation: networkPulse 3s ease-in-out infinite;
+}
+
+.network span:nth-child(1) { top: 20px; left: 50%; animation-delay: 0s; }
+.network span:nth-child(2) { top: 50%; left: 24px; animation-delay: 0.5s; }
+.network span:nth-child(3) { bottom: 30px; right: 30px; animation-delay: 1s; }
+.network span:nth-child(4) { right: 22px; top: 30px; animation-delay: 1.5s; }
+
+.linkedin-shot {
+  width: min(900px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
+  display: grid;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.linkedin-shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(14, 165, 233, 0.2), transparent);
+  transform: translateX(-100%);
+  animation: sweep 8s linear infinite;
+}
+
+.linkedin-shot__top { height: 50px; border-radius: 12px; background: #e2e8f0; }
+.linkedin-shot__filters { display: flex; gap: 12px; }
+.linkedin-shot__filters span { flex: 1; height: 32px; border-radius: 999px; background: #fecaca; }
+.linkedin-shot__results { display: grid; gap: 12px; }
+.linkedin-shot__results div { height: 44px; border-radius: 12px; background: #f1f5f9; }
+
+.social-logos { display: flex; gap: 24px; margin-top: 12px; }
+
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover { animation: logoBounce 0.8s ease; }
+.logo--fb { background: linear-gradient(140deg, #2563eb, #60a5fa); }
+.logo--ig { background: linear-gradient(135deg, #f472b6, #fb923c); }
+
+/* PDF Image Styles */
+.flag-row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+.flag-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.flag-img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flag-img:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+}
+
+.flag-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.slide-image {
+  max-width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+}
+
+.slide-image:hover {
+  transform: scale(1.02);
+}
+
+.slide-image--rounded {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.slide-image--small {
+  max-width: 280px;
+}
+
+.slide-image--medium {
+  max-width: 400px;
+}
+
+.slide-image--large {
+  max-width: 600px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.linkedin-actual-image {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.3);
+}
+
+.video-camera-icon {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.handshake-img {
+  width: 280px;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.phone-hand-img {
+  width: 240px;
+  height: auto;
+  filter: drop-shadow(0 15px 40px rgba(0,0,0,0.4));
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.story-card {
+  height: 260px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #111827, #475569);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+  animation: pulse 6s ease-in-out infinite;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center top;
+}
+
+.story-card--woman {
+  background-image: url('images/success-story-1.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.story-card--man {
+  background-image: url('images/success-story-2.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.story-card--team {
+  background-image: url('images/success-story-3.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.story-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.4), 0 0 40px var(--accent-soft);
+}
+
+/* Navigation dots - HIDDEN */
+.deck__nav {
+  display: none !important;
+}
+
+/* Slide counter */
+.slide-counter {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 10px 18px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.slide-counter__current {
+  color: var(--accent);
+}
+
+/* Arrow navigation hint */
+.nav-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: opacity 0.3s ease;
+}
+
+.nav-hint__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  background: rgba(34, 211, 238, 0.15);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(18px); }
+}
+
+@keyframes morphBlob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+  75% { border-radius: 60% 40% 60% 30% / 60% 40% 70% 30%; }
+}
+
+@keyframes orbitSpin {
+  0% { transform: translate(-50%, -50%) rotate(var(--orbit-rotate, 0deg)); }
+  100% { transform: translate(-50%, -50%) rotate(calc(var(--orbit-rotate, 0deg) + 360deg)); }
+}
+
+@keyframes sparkFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
+  50% { transform: translateY(-12px) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-60%); }
+  100% { transform: translateX(60%); }
+}
+
+@keyframes drift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.04); }
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--accent-soft), 0 20px 60px rgba(15, 23, 42, 0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--accent-strong), 0 30px 80px rgba(15, 23, 42, 0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes barFillGlow {
+  0% { transform: scaleX(0); box-shadow: 0 0 0 transparent; }
+  60% { box-shadow: 0 0 30px var(--accent); }
+  100% { transform: scaleX(1); box-shadow: 0 0 15px var(--accent-soft); }
+}
+
+@keyframes networkPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+  50% { transform: scale(1.2); box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+}
+
+@keyframes logoBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@keyframes pillShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes textShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Text shimmer for titles */
+.title--lg, .title--xl {
+  background: linear-gradient(90deg, var(--text) 0%, var(--accent) 25%, var(--text) 50%, var(--accent) 75%, var(--text) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: textShimmer 4s linear infinite;
+}
+
+.slide--light .title--lg,
+.slide--light .title--xl {
+  background: linear-gradient(90deg, #0f172a 0%, #f97316 25%, #0f172a 50%, #facc15 75%, #0f172a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Floating particles */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--accent);
+  animation: sparkFloat 6s ease-in-out infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.slide::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  right: 15%;
+  width: 4px;
+  height: 4px;
+  background: #facc15;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #facc15;
+  animation: sparkFloat 8s ease-in-out infinite reverse;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Gradient border for frame */
+.slide__frame {
+  background: linear-gradient(90deg, var(--accent-soft), rgba(168, 85, 247, 0.2), var(--accent-soft), rgba(250, 204, 21, 0.2), var(--accent-soft));
+  background-size: 300% 100%;
+  animation: gradientBorder 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+@keyframes gradientBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .slide__inner > * { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+  .deck__nav { display: none; }
+  .slide { padding: 32px 24px; }
+}
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <!-- Slide 1: Hero -->
+    <section class="slide slide--hero" data-hero="true" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-1">
+      <div class="slide__hero">
+        <div class="hero-orbit">
+          <div class="hero-orbit__overlay" aria-hidden="true">
+            <span class="hero-orbit__ring hero-orbit__ring--a"></span>
+            <span class="hero-orbit__ring hero-orbit__ring--b"></span>
+            <span class="hero-orbit__ring hero-orbit__ring--c"></span>
+            <span class="hero-orbit__spark hero-orbit__spark--1"></span>
+            <span class="hero-orbit__spark hero-orbit__spark--2"></span>
+            <span class="hero-orbit__spark hero-orbit__spark--3"></span>
+            <span class="hero-orbit__spark hero-orbit__spark--4"></span>
+          </div>
+          <div class="hero-orbit__vignette" aria-hidden="true"></div>
+          <div class="hero-orbit__content">
+            <h1 class="title title--xl hero-orbit__title">
+              <span class="hero-orbit__line--warm">Как зарабатывать Удалённо в</span>
+              <span class="hero-orbit__line--hot">долларах из СНГ,</span>
+              <span class="hero-orbit__line--warm">работая на компании США</span>
+            </h1>
+            <div class="pill">Система "SmartWorker"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide slide--dark is-active" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-2">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Хотите Узнать, Как Быстро Начать Получать Зарплату в $USD, Работая Удалённо на Компании из США?</h2>
+            <p class="highlight">Эксклюзивный Бонус<br>для Участников Интенсива!</p>
+            <p class="body">Прямо сейчас оставьте свой номер телефона и получите БОНУС, который мы подготовили только для вас!</p>
+            <p class="body">Оставьте телефон и Заберите Свой Бонус!</p>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
+            <img src="images/phone-hand.jpg" alt="Mobile Phone" class="phone-hand-img">
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-3">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Кто мы и почему нас стоит слушать?</h2>
+        <p class="body">Recrutu (США): Наша основная компания, рекрутинговое агентство, которое находит идеальных работников для американских работодателей.</p>
+        <p class="body">SmartWorker (СНГ): Наша миссия - показать как вам, квалифицированным специалистам из СНГ, получить прямой доступ к этим долларовым возможностям.</p>
+        <div class="flag-row">
+          <div class="flag-item">
+            <img src="images/flag-usa.jpg" alt="USA" class="flag-img">
+            <span class="flag-label">США</span>
+          </div>
+          <div class="flag-item">
+            <img src="images/flag-kazakhstan.jpg" alt="Kazakhstan" class="flag-img">
+            <span class="flag-label">Казахстан</span>
+          </div>
+          <div class="flag-item">
+            <img src="images/flag-kyrgyzstan.jpg" alt="Kyrgyzstan" class="flag-img">
+            <span class="flag-label">Кыргызстан</span>
+          </div>
+          <div class="flag-item">
+            <img src="images/flag-uzbekistan.jpg" alt="Uzbekistan" class="flag-img">
+            <span class="flag-label">Узбекистан</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 4: Author -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-4">
+      <div class="slide__inner">
+        <div class="split split--author">
+          <div class="split__col">
+            <div class="photo-card" aria-hidden="true">
+              <div class="photo-card__figure photo-card__figure--author" id="author-photo"></div>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="stack">
+              <div class="kicker">Автор системы</div>
+              <h2 class="title title--lg">Нурсултан Адильханов<br>(Основатель Recrutu & SmartWorker)</h2>
+              <p class="body body--dark">Наш основатель — Нурсултан Адильханов. Он провел более 8 лет в США, изучив культуру найма изнутри. Эти практики позволили ему получить должность виртуального ассистента у доктора Эрика Берга, чьи YouTube-каналы насчитывают более 14 миллионов подписчиков.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-5">
+      <div class="slide__bg-image slide__bg-image--stressed" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <h2 class="title title--lg">Рынок удалённой работы в странах СНГ и Средней Азии не так развит.</h2>
+        <p class="body">В результате люди даже не задумываются о такой возможности или сталкиваются с мифами, которые их останавливают.</p>
+        <p class="body">В то время как у нас много образованных людей и специалистов, которым эта возможность доступна.</p>
+        <div class="kicker">Почему появился проект</div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 6: Stats -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-6">
+      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <h2 class="title title--lg">Решение: Прямой выход на рынок США</h2>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__value">$1260+</div>
+            <div class="stat__label">в месяц за неполный день</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">$2520+</div>
+            <div class="stat__label">при полной занятости</div>
+          </div>
+        </div>
+        <div class="stat stat--inline">
+          <div class="stat__value"><span class="stat__prefix">от</span><span>$7/час</span></div>
+        </div>
+        <div class="kicker">Будущее удалённого специалиста</div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 7: Chart -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-7">
+      <div class="slide__inner">
+        <div class="chart">
+          <div class="chart__axis">
+            <span>0</span><span>500</span><span>1000</span><span>1500</span><span>2000</span>
+          </div>
+          <div class="chart__bars">
+            <div class="bar">
+              <div class="bar__label">Зарплата офис-менеджера в регионе ($)</div>
+              <div class="bar__track"><div class="bar__fill" style="width: 35%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar__label">Зарплата офис-менеджера в Бишкеке/Алматы ($)</div>
+              <div class="bar__track"><div class="bar__fill" style="width: 55%"></div></div>
+            </div>
+            <div class="bar">
+              <div class="bar__label">Зарплата Executive Assistant на удалёнке ($)</div>
+              <div class="bar__track"><div class="bar__fill" style="width: 90%"></div></div>
+            </div>
+          </div>
+          <div class="chart__source">Источник: hh.kz</div>
+        </div>
+        <h2 class="title title--lg">Разница, которую вы увидите уже через месяц работы</h2>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 8: What you'll learn -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-8">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Что вы узнаете сегодня</h2>
+            <ul class="list list--large">
+              <li>I - Почему это РЕАЛЬНО для вас (даже без опыта и диплома)</li>
+              <li>II - Как "упаковать" себя, чтобы вас захотели нанять</li>
+              <li>III - Пошаговая система подготовки к поиску первого клиента</li>
+              <li>IV - Вы нашли работу. Что дальше?</li>
+            </ul>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
+            <img src="images/typing-keyboard.jpg" alt="Remote Working" class="slide-image slide-image--medium" style="border-radius: 24px;">
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 9: Cards comparison -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-9">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Миф: "Мне нужен востребованный диплом топового вуза"</h2>
+        <div class="split">
+          <div class="split__col">
+            <div class="card">
+              <div class="card__title">Что НЕ ВАЖНО</div>
+              <ul class="list">
+                <li>Ваша "корочка"</li>
+                <li>Опыт работы в местной компании</li>
+              </ul>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="card card--accent">
+              <div class="card__title">Что ДЕЙСТВИТЕЛЬНО ВАЖНО</div>
+              <ul class="list">
+                <li>Ваши реальные навыки</li>
+                <li>Ваша надежность и адекватность</li>
+                <li>Способность решать задачи</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 10: LinkedIn -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-10">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">LinkedIn: Ваш путь к работодателям США</h2>
+          <div class="image-container">
+            <img src="images/linkedin-search.jpg" alt="LinkedIn Search" class="linkedin-actual-image">
+          </div>
+          <p class="body body--dark">Поиск CEO и Owner компаний через фильтры LinkedIn</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 11: Connections -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-11">
+      <div class="slide__inner">
+        <div class="split split--connections">
+          <div class="split__col">
+            <div class="network" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="stack">
+              <h2 class="title title--lg">Connections: Секрет прямого выхода на CEO</h2>
+              <p class="body body--dark">Connection (Связь) — это ваш контакт в LinkedIn. Это валюта платформы, определяющая вашу активность.</p>
+              <p class="body body--dark">Наш метод прямого поиска позволяет вам выйти напрямую на лиц, принимающих решения, минуя HR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 12: Roles -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.22); --accent-strong: rgba(56, 189, 248, 0.6);" id="slide-12">
+      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">С чего начать, если "ничего не умеешь"?</h2>
+            <p class="body">Выберите ОДНУ простую роль. Ваша цель — зайти на рынок.</p>
+            <div class="card-grid">
+              <div class="card">
+                <p class="body">Virtual Assistant (VA): Организация задач, календаря, почты.</p>
+              </div>
+              <div class="card">
+                <p class="body">Social Media Assistant: Помощь с контентом и сообщениями.</p>
+              </div>
+              <div class="card">
+                <p class="body">Customer Support: Ответы на вопросы клиентов.</p>
+              </div>
+            </div>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
+            <img src="images/designer-laptop.jpg" alt="Remote Work" class="slide-image slide-image--medium" style="border-radius: 24px;">
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 13: Dr Berg Case -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-13">
+      <div class="slide__inner">
+        <div class="split split--case">
+          <div class="split__col">
+            <div class="stack">
+              <h2 class="title title--lg">Доктор Берг — один из крупнейших YouTube-блогеров (14M+ подписчиков)</h2>
+              <p class="body body--dark">Задача: Найти Виртуального Ассистента для управления его сложным графиком и контентом.</p>
+              <p class="body body--dark">Результат: Наш подход позволил Нурсултану обойти американских кандидатов и получить эту роль с оплатой $50/час.</p>
+              <div class="kicker">Откуда мы это знаем?</div>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="poster-card" aria-hidden="true" id="drberg-card">
+              <div class="poster-card__title">EASY KETO</div>
+              <div class="poster-card__subtitle">AND INTERMITTENT FASTING</div>
+              <div class="poster-card__figure poster-card__figure--drberg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 14: First 30 Days -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-14">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
+        <div class="split">
+          <div class="split__col">
+            <div class="card">
+              <div class="card__title">Do ✓</div>
+              <ul class="list">
+                <li>Всегда сдавайте работу на час раньше срока</li>
+                <li>Ваши вопросы должны быть о результате</li>
+                <li>Говорите: "Разберусь и вернусь с решением"</li>
+              </ul>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="card card--accent">
+              <div class="card__title">Don't ✗</div>
+              <ul class="list">
+                <li>Никогда не нарушайте дедлайн</li>
+                <li>Не пропадайте без предупреждения</li>
+                <li>Не говорите: "Это невозможно"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 15: Success Stories -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-15">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Истории успеха</h2>
+          <p class="body body--dark">Они уже смогли. Теперь ваша очередь.</p>
+          <div class="story-grid" aria-hidden="true">
+            <div class="story-card story-card--woman" id="story-1"></div>
+            <div class="story-card story-card--man" id="story-2"></div>
+            <div class="story-card story-card--team" id="story-3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 16: Package -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-16">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Smartworker Package</h2>
+          <h3 class="title title--md">Карьера в США:<br>Executive Virtual Assistant</h3>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 17: Social Media -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-17">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
+          <p class="body body--dark">Facebook: Ищите тематические группы ("Coaches & Consultants")</p>
+          <p class="body body--dark">Instagram: Ищите по хэштегам (#businesscoach, #realestateagent)</p>
+          <p class="body body--dark">Стратегия та же: Будьте полезны, а не навязчивы.</p>
+          <div class="social-logos" aria-hidden="true">
+            <span class="logo logo--fb"></span>
+            <span class="logo logo--ig"></span>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 18: CTA -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-18">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Последняя возможность</h2>
+            <p class="body">Это лучшее соотношение цены и ценности. Цена для участников интенсива - 500$</p>
+            <p class="body">Жизнь наших студентов совершенно поменялась, когда они получили свой первый оффер с оплатой в долларах.</p>
+            <p class="body">👉 Пишите в Telegram: @thirsty_invest31<br>👉 Или whatsapp: +7 700 131 0304</p>
+            <p class="highlight">Напишите в чат «хочу» + номер телефона</p>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center;">
+            <div class="iphone-mockup">
+              <div class="iphone-mockup__notch"></div>
+              <div class="iphone-mockup__screen"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 19: Scaling -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-19">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Масштабирование</h2>
+        <p class="body">Стартуете с $7/час ($1200+ в месяц)</p>
+        <p class="body">Через 12-18 месяцев: $15-$25/час ($2500-$4000 в месяц)</p>
+        <p class="body">Мы показали, что эта система позволяет выйти на $50/час (даже без IT-специальности).</p>
+        <p class="body body--muted">Это тот путь который прошёл наш основатель, и который доступен каждому, кто готов трудиться и прокачиваться.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat__value">$7/час</div><div class="stat__label">Старт</div></div>
+          <div class="stat"><div class="stat__value">$25/час</div><div class="stat__label">Через 18 мес</div></div>
+          <div class="stat"><div class="stat__value">$50/час</div><div class="stat__label">Потенциал</div></div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 20: Dr Berg Case (with image) -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-20">
+      <div class="slide__inner">
+        <div class="split split--case">
+          <div class="split__col">
+            <div class="stack">
+              <div class="kicker">Откуда мы это знаем?</div>
+              <h2 class="title title--lg">Доктор Берг — один из крупнейших медицинских YouTube-блогеров (14M+ подписчиков)</h2>
+              <p class="body body--dark">Задача: Найти Виртуального Ассистента, который сможет управлять его сложным графиком и контентом.</p>
+              <p class="body body--dark">Результат: Мы доказали, что квалификация важнее географии. Наш подход позволил Нурсултану Адильханов обойти американских кандидатов и получить эту роль с оплатой $50/час.</p>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="poster-card">
+              <div class="poster-card__title">EASY KETO</div>
+              <div class="poster-card__subtitle">AND INTERMITTENT FASTING</div>
+              <div class="poster-card__figure poster-card__figure--drberg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 21: Reputation -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-21">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Ваша репутация — ваш актив</h2>
+        <div class="card">
+          <p class="body"><strong>Решение демпинга:</strong> Мы предлагаем надежность, а не самую низкую цену.</p>
+          <p class="body"><strong>Репутация СНГ:</strong> Работники из нашего региона имеют репутацию ответственных, лояльных и исполнительных специалистов.</p>
+          <p class="body"><strong>Ваша задача:</strong> Правильно подать себя в прямом контакте как квалифицированного специалиста, для которого $7/час — это справедливый старт за надежность.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 22: Start Roles (with bg image) -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-22">
+      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <h2 class="title title--lg">С чего начать, если "ничего не умеешь"?</h2>
+        <p class="body">Выберите ОДНУ простую роль. Ваша цель — зайти на рынок.</p>
+        <div class="card-grid">
+          <div class="card"><p class="body"><strong>Virtual Assistant (VA):</strong> Организация задач, календаря, почты.</p></div>
+          <div class="card"><p class="body"><strong>Social Media Assistant:</strong> Помощь с контентом и сообщениями.</p></div>
+          <div class="card"><p class="body"><strong>Customer Support:</strong> Ответы на вопросы клиентов.</p></div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 23: Advanced Niches -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-23">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Ниши для продвинутых</h2>
+        <p class="body body--muted">Эти роли требуют наличия базовых навыков, но дают быстрый рост дохода</p>
+        <div class="card-grid">
+          <div class="card"><p class="body"><strong>Graphic Designer:</strong> Дизайн контента для соцсетей, простые креативы.</p></div>
+          <div class="card"><p class="body"><strong>Sales Closer:</strong> Закрытие сделок по скрипту (телефон/чат).</p></div>
+          <div class="card"><p class="body"><strong>Lead Generation Specialist:</strong> Поиск потенциальных клиентов (по готовому алгоритму).</p></div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 24: LinkedIn Intro -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-24">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Как настроить профиль и находить работодателей в LinkedIn</h2>
+          <p class="body body--muted">Мы коснемся также поиска работы в Facebook и Instagram, где эти принципы тоже будут работать</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 25: LinkedIn Profile -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-25">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Превращаем профиль LinkedIn из "невидимки" в "магнит для клиентов"</h2>
+        <div class="card">
+          <p class="body body--muted">Вместо:</p>
+          <p class="body">I am an Executive Assistant</p>
+          <p class="body body--muted">Напишите:</p>
+          <p class="body body--accent">I am a [ваша желаемая должность] and I help [целевой клиент] to [результат] by [ваш навык]</p>
+        </div>
+        <p class="body body--muted">Не расписывайте слишком длинно, иначе ваш профиль могут просто не прочитать. Пишите коротко, но по существу.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 26: Final Touches -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-26">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Последние штрихи перед стартом</h2>
+        <ul class="list">
+          <li><strong>Фото:</strong> Профессиональное, улыбчивое фото (никаких селфи или фото в солнцезащитных очках).</li>
+          <li><strong>Summary:</strong> 3-4 предложения о том, кому вы помогаете и какие проблемы решаете.</li>
+          <li><strong>Опыт:</strong> Описывайте не "должности", а РЕЗУЛЬТАТЫ своих действий.</li>
+          <li><strong>Навыки:</strong> Укажите ключевые навыки (Trello, Google Calendar, Customer Service).</li>
+        </ul>
+        <p class="highlight">Профиль готов. Теперь мы можем начать отправлять запросы на Connections</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 27: Connections (with image) -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-27">
+      <div class="slide__inner">
+        <div class="split split--connections">
+          <div class="split__col">
+            <div class="network" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="stack">
+              <h2 class="title title--lg">Connections: Секрет прямого выхода на CEO</h2>
+              <p class="body body--dark"><strong>Connection (Связь)</strong> — это ваш контакт в LinkedIn. Это валюта платформы.</p>
+              <p class="body body--dark"><strong>3 Уровня:</strong> 1-й — прямые контакты, 2-й — контакты контактов, 3-й — за пределами сети.</p>
+              <p class="body body--dark">Наш метод основан на работе со 2-м и 3-м уровнями — выход напрямую на CEO, минуя HR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 28: Who to Connect -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-28">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">С кем надо коннектиться в LinkedIn?</h2>
+          <div class="stats">
+            <div class="stat"><div class="stat__value">Owner</div><div class="stat__label">Владельцы</div></div>
+            <div class="stat"><div class="stat__value">Founder</div><div class="stat__label">Основатели</div></div>
+            <div class="stat"><div class="stat__value">CEO</div><div class="stat__label">Президенты</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 29: LinkedIn Search (with image placeholder) -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #0ea5e9; --accent-soft: rgba(14, 165, 233, 0.22); --accent-strong: rgba(14, 165, 233, 0.6);" id="slide-29">
+      <div class="slide__inner">
+        <div class="stack center">
+          <div class="image-container">
+            <img src="images/linkedin-search.jpg" alt="LinkedIn Search Filters" class="linkedin-actual-image">
+          </div>
+          <p class="body body--dark">Фильтры: People → United States → 1st/2nd/3rd connections</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 30: Key Insight -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-30">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--xl">Мы ищем не вакансии.</h2>
+          <h2 class="title title--lg">Мы ищем людей, которые принимают решения.</h2>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 31: Video Resume -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-31">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Ваше секретное оружие: 30-секундное видео-резюме</h2>
+            <div class="card card--accent">
+              <p class="body body--muted">Простой скрипт:</p>
+              <p class="body">"Hi, [Имя клиента], thank you for connecting.</p>
+              <p class="body">I help [тип клиента] with [задача]</p>
+              <p class="body">I saw your profile and would love to help you with [конкретная идея]</p>
+              <p class="body">Let me know if you are open to a quick chat."</p>
+            </div>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
+            <img src="images/video-camera.jpg" alt="Video Camera" class="video-camera-icon">
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 32: Why Video -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-32">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Зачем мы записываем видео?</h2>
+        <p class="body body--muted">Это видео мы отправляем тем людям, которые с нами "законнектились".</p>
+        <ul class="list list--large">
+          <li><strong>Эмоциональный Коннект:</strong> Помогает клиенту увидеть вашу адекватность и улыбку.</li>
+          <li><strong>Демонстрация Английского:</strong> Сразу снимает вопросы о вашем уровне B1.</li>
+          <li><strong>Выделяетесь:</strong> 99% кандидатов этого не делают. Вы — 1% избранных.</li>
+        </ul>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 33: Message Template -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-33">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Шаблон, который работает</h2>
+        <p class="kicker">Что делать дальше, когда с вами "законнектились"?</p>
+        <div class="card">
+          <p class="body">"Hi, [Имя], thank you for connecting.</p>
+          <p class="body">I help [тип клиента] with [задача]</p>
+          <p class="body">I've recorded a short video with an idea for your business: [ссылка на видео]</p>
+          <p class="body">Would you be open to a 10-minute chat next week?"</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 34: No Projects? -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-34">
+      <div class="slide__inner">
+        <h2 class="title title--lg">"Но у меня нет проектов!"</h2>
+        <p class="body">Вам не нужны реальные клиенты, чтобы сделать портфолио.</p>
+        <div class="card">
+          <p class="body"><strong>Идея:</strong> Сделайте "учебный" проект.</p>
+          <p class="body"><strong>Пример:</strong> Для VA — скриншот идеально организованного Google Календаря на неделю.</p>
+          <p class="body body--accent"><strong>Главное:</strong> Показать не опыт, а ваш подход к работе.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 35: Four Pillars -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-35">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Итог: Четыре столпа прямого поиска</h2>
+        <div class="card-grid">
+          <div class="card"><p class="body"><strong>1. Точность</strong><br>Мы ищем только CEO, Owner, Founder.</p></div>
+          <div class="card"><p class="body"><strong>2. Ценность</strong><br>Предлагаем решение, а не просим работу.</p></div>
+          <div class="card"><p class="body"><strong>3. Контакт</strong><br>Обходим HR через Connections.</p></div>
+          <div class="card"><p class="body"><strong>4. Доверие</strong><br>Профиль и видео снимают возражения.</p></div>
+        </div>
+        <div class="image-container">
+          <img src="images/handshake.jpg" alt="Partnership Handshake" class="handshake-img">
+        </div>
+        <p class="highlight">Вы получаете ответ, потому что вы — не один из тысяч, а предложенное решение.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 36: Facebook & Instagram (with image) -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-36">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
+          <p class="body body--dark"><strong>Facebook:</strong> Ищите тематические группы ("Coaches & Consultants")</p>
+          <p class="body body--dark"><strong>Instagram:</strong> Ищите по хэштегам (#businesscoach, #realestateagent)</p>
+          <p class="body body--dark"><strong>Стратегия та же:</strong> Будьте полезны, а не навязчивы.</p>
+          <div class="social-logos">
+            <span class="logo logo--fb"></span>
+            <span class="logo logo--ig"></span>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 37: Interview Intro -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-37">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--xl">Собеседование:</h2>
+          <h2 class="title title--lg">Как получить "Да"</h2>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 38: Main Rule -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-38">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Главное правило</h2>
+          <h2 class="title title--xl">Это не экзамен, а деловой разговор</h2>
+          <p class="body">Ваша цель — показать, что вы адекватный и надежный человек, с которым приятно работать</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 39: No Experience -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-39">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Что говорить, если опыта нет?</h2>
+        <p class="kicker">Формула ответа на "Расскажите о своем опыте"</p>
+        <ul class="list">
+          <li><strong>Свяжите с их задачей:</strong> "Да, у меня нет опыта, но я отлично справляюсь с [задача из их профиля]."</li>
+          <li><strong>Покажите навыки:</strong> "Умею организовывать календарь, работать с Google Docs и т.д."</li>
+          <li><strong>Предложите тест:</strong> "Я буду рад выполнить небольшое тестовое задание."</li>
+        </ul>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 40: STAR Method -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-40">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Что говорить, если опыт ЕСТЬ? Формула STAR</h2>
+        <div class="card-grid">
+          <div class="card"><p class="body"><strong>S (Situation):</strong> Кратко опишите ситуацию.</p></div>
+          <div class="card"><p class="body"><strong>T (Task):</strong> Опишите задачу (свяжите с их проблемой!).</p></div>
+          <div class="card"><p class="body"><strong>A (Action):</strong> Опишите свои действия.</p></div>
+          <div class="card"><p class="body"><strong>R (Result):</strong> Измеримый результат ("снизил время на 15%").</p></div>
+        </div>
+        <p class="highlight">Работодателей интересуют не ваши обязанности, а ваши достижения.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 41: Talking Money -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-41">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Как говорить о деньгах уверенно</h2>
+        <div class="card card--accent">
+          <p class="body body--accent">Фраза:</p>
+          <p class="body">"My starting rate is $7/hour. I'm open to a paid trial period for the first week to make sure we're a great fit for each other."</p>
+        </div>
+        <p class="body body--muted">Почему это работает: Называете ставку, но сразу показываете фокус на результате.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 42: Got Offer -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-42">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--xl">Вы получили оффер!</h2>
+          <h2 class="title title--lg">Как все не испортить</h2>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 43: First 30 Days (with bg image) -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-43">
+      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
+        <div class="split">
+          <div class="split__col">
+            <div class="card">
+              <div class="card__title">Do ✓</div>
+              <ul class="list">
+                <li>Сдавайте работу на час раньше срока</li>
+                <li>Вопросы о результате, а не о процессе</li>
+                <li>Говорите: "Разберусь и вернусь с решением"</li>
+              </ul>
+            </div>
+          </div>
+          <div class="split__col">
+            <div class="card card--accent">
+              <div class="card__title">Don't ✗</div>
+              <ul class="list">
+                <li>Никогда не нарушайте дедлайн</li>
+                <li>Не пропадайте без предупреждения</li>
+                <li>Не говорите: "Это невозможно"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 44: Scaling Growth -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-44">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Масштабирование: Ваша зарплата может вырасти в 2-3 раза за 1.5 года!</h2>
+        <div class="stats">
+          <div class="stat"><div class="stat__value">$7/час</div><div class="stat__label">Старт → $1200</div></div>
+          <div class="stat"><div class="stat__value">$15/час</div><div class="stat__label">Эксперт → $2580</div></div>
+          <div class="stat"><div class="stat__value">$25/час</div><div class="stat__label">2-й клиент → $4300</div></div>
+        </div>
+        <p class="body body--muted">Американский рынок ценит трудовую этику выше всего. Если вы следуете правилам первых 30 дней, ваш рост будет быстрым.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 45: Success Stories (with images) -->
+    <section class="slide slide--light" data-variant="oasis" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-45">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--lg">Истории успеха</h2>
+          <p class="body body--dark">Они уже смогли. Теперь ваша очередь.</p>
+          <div class="story-grid">
+            <div class="story-card story-card--woman"></div>
+            <div class="story-card story-card--man"></div>
+            <div class="story-card story-card--team"></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 46: Problems -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-46">
+      <div class="slide__bg-image slide__bg-image--stressed" aria-hidden="true"></div>
+      <div class="slide__inner">
+        <h2 class="title title--lg">Если у вас возникли проблемы с самостоятельным поиском работы</h2>
+        <ul class="list">
+          <li>Вы не уверены в оформлении профиля LinkedIn?</li>
+          <li>Вы не можете найти подходящего работодателя?</li>
+          <li>Вы боитесь собеседований или не знаете, что говорить о ставке?</li>
+          <li>Вы чувствуете, что вашего скиллсета не хватает?</li>
+        </ul>
+        <p class="body body--muted">Мы знаем, что все это - реальные преграды. И мы помогли уже больше сотни специалистов из СНГ их преодолеть.</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 47: Package Title -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-47">
+      <div class="slide__inner">
+        <div class="stack center">
+          <h2 class="title title--xl">Smartworker Package</h2>
+          <h3 class="title title--lg">Карьера в США:<br>Executive Virtual Assistant</h3>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 48: Module 1 -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-48">
+      <div class="slide__inner">
+        <div class="kicker">Модуль 1</div>
+        <h2 class="title title--lg">Обучение</h2>
+        <div class="card">
+          <p class="body">Сначала мы дадим вам профессию. Вы пройдете полный курс "Executive Virtual Assistant", где освоите все главные платформы и задачи, которые требуются прямо сейчас на рынке США.</p>
+          <p class="body body--accent">Вы станете специалистом, за которым охотятся.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 49: Module 2 -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-49">
+      <div class="slide__inner">
+        <div class="kicker">Модуль 2</div>
+        <h2 class="title title--lg">Сопровождение</h2>
+        <div class="card">
+          <p class="body">Мы не бросим вас после обучения. Вы получаете персональное ведение от команды Smartworker.</p>
+          <p class="body">Наша задача — довести вас до результата. Полная поддержка в чате и по email, разбор ваших резюме, помощь в переговорах.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 50: Bonus 1 -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-50">
+      <div class="slide__inner">
+        <div class="kicker">БОНУС #1</div>
+        <h2 class="title title--lg">Прямой Мост к Работодателям: Эксклюзивные Showcase Ивенты</h2>
+        <div class="card card--accent">
+          <p class="body">Это наша «секретная разработка». Мы сами организуем ивенты, куда приводим американских работодателей, жаждущих нанять таланты.</p>
+          <p class="body">А вы получаете эксклюзивную возможность представить себя и свои навыки напрямую этим CEO.</p>
+          <p class="body body--accent">Это самый короткий путь к офферу.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 51: Bonus 2 -->
+    <section class="slide slide--dark" data-variant="prism" style="--accent: #a855f7; --accent-soft: rgba(168, 85, 247, 0.22); --accent-strong: rgba(168, 85, 247, 0.6);" id="slide-51">
+      <div class="slide__inner">
+        <div class="kicker">БОНУС #2</div>
+        <h2 class="title title--lg">Доступ к нашей закрытой базе вакансий</h2>
+        <div class="card">
+          <p class="body">Мы не просто учим вас, 'где искать'. Мы даем вам рыбу.</p>
+          <p class="body">Вы получаете полный доступ к нашей внутренней базе американских работодателей, с которыми мы уже работаем.</p>
+          <p class="body body--accent">Это проверенные компании, которые доверяют нам и ищут именно наших выпускников.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 52: Bonus 3 -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #22d3ee; --accent-soft: rgba(34, 211, 238, 0.22); --accent-strong: rgba(34, 211, 238, 0.6);" id="slide-52">
+      <div class="slide__inner">
+        <div class="kicker">БОНУС #3</div>
+        <h2 class="title title--lg">Закрытый Telegram-канал Ассистентов</h2>
+        <div class="card">
+          <p class="body">В одиночку идти сложно. Поэтому мы немедленно добавим вас в наше сообщество.</p>
+          <p class="body">Это закрытый Telegram-канал, где «старички», которые уже работают в США, делятся опытом и поддерживают «новичков».</p>
+          <p class="body body--accent">Вы найдете партнеров, получите инсайды и поймете, что вы не одни.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 53: Bonus 4 -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-53">
+      <div class="slide__inner">
+        <div class="kicker">БОНУС #4</div>
+        <h2 class="title title--lg">Авторская книга-гайд Нурсултана (PDF)</h2>
+        <div class="card">
+          <p class="body">Чтобы у вас с первого дня была полная ясность, вы получаете личный учебник от Нурсултана.</p>
+          <p class="body">Это пошаговый план действий, все наши проверенные стратегии и шаблоны писем.</p>
+          <p class="body body--accent">Вы не будете гадать, что делать дальше — у вас будет четкая дорожная карта к быстрому старту.</p>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 54: Pricing Comparison -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-54">
+      <div class="slide__inner">
+        <h2 class="title title--lg">Сколько стоят подобные услуги у ДРУГИХ рекрутинговых агентств:</h2>
+        <div class="card">
+          <ul class="list">
+            <li>Флагманская программа «Карьера в США» — <strong>$897</strong></li>
+            <li>БОНУС: Showcase Ивенты — <strong>$497</strong></li>
+            <li>БОНУС: Доступ к базе вакансий — <strong>$397</strong></li>
+            <li>БОНУС: Закрытый Telegram-канал — <strong>$247</strong></li>
+            <li>БОНУС: Книга-гайд Нурсултана — <strong>$97</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 55: Our Goal -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e879f9; --accent-soft: rgba(232, 121, 249, 0.22); --accent-strong: rgba(232, 121, 249, 0.6);" id="slide-55">
+      <div class="slide__inner">
+        <h2 class="title title--xl">НАША ГЛАВНАЯ ЦЕЛЬ: ТРУДОУСТРОЙСТВО СТУДЕНТА.</h2>
+        <div class="card">
+          <p class="body">Чтобы гарантировать это, вы получаете полный пакет:</p>
+          <ul class="list">
+            <li>Программа «Карьера в США» + Ведение</li>
+            <li>Бонус: Showcase Ивенты с работодателями</li>
+            <li>Бонус: Доступ к закрытой базе вакансий</li>
+            <li>Бонус: Закрытый Telegram-канал</li>
+            <li>Бонус: Книга-гайд Нурсултана</li>
+          </ul>
+        </div>
+        <p class="highlight">Во сколько бы вы оценили это предложение?</p>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 56: Final CTA (with iPhone) -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f97316; --accent-soft: rgba(249, 115, 22, 0.22); --accent-strong: rgba(249, 115, 22, 0.6);" id="slide-56">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Последняя возможность</h2>
+            <p class="body">Это лучшее соотношение цены и ценности, которое вы найдете сегодня.</p>
+            <p class="highlight">Цена для участников интенсива - 500$</p>
+            <p class="body">Жизнь наших студентов совершенно поменялась, когда они получили свой первый оффер с оплатой в долларах. Вы можете стать следующими.</p>
+            <p class="body">👉 Пишите в Telegram: @thirsty_invest31<br>👉 Или whatsapp: +7 700 131 0304</p>
+            <p class="body body--accent">Напишите в чат «хочу» + номер телефона (WhatsApp), чтобы забронировать своё место</p>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center;">
+            <div class="iphone-mockup">
+              <div class="iphone-mockup__notch"></div>
+              <div class="iphone-mockup__screen"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 57: Final Bonus (with iPhone) -->
+    <section class="slide slide--dark" data-variant="neon" style="--accent: #facc15; --accent-soft: rgba(250, 204, 21, 0.22); --accent-strong: rgba(250, 204, 21, 0.6);" id="slide-57">
+      <div class="slide__inner">
+        <div class="split">
+          <div class="split__col">
+            <h2 class="title title--lg">Хотите Узнать, Как Быстро Начать Получать Зарплату в $USD, Работая Удалённо на Компании из США?</h2>
+            <p class="highlight">Эксклюзивный Бонус для Участников Интенсива!</p>
+            <p class="body">Прямо сейчас оставьте свой номер телефона и получите БОНУС, который мы подготовили только для вас - участников этого интенсива!</p>
+            <p class="body">Этот бонус поможет вам сделать первый шаг к вашей цели!</p>
+            <p class="body body--accent">Оставьте телефон и заберите свой бонус!</p>
+            <p class="body body--muted">Не упустите свой шанс! Предложение действует только в рамках интенсива.</p>
+          </div>
+          <div class="split__col" style="display: flex; justify-content: center;">
+            <div class="iphone-mockup">
+              <div class="iphone-mockup__notch"></div>
+              <div class="iphone-mockup__screen"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__particles" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
+      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
+      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Navigation dots (hidden on mobile, shows slide count) -->
+    <div class="deck__nav" aria-hidden="true">
+      <a href="#slide-1"><span></span></a><a href="#slide-2"><span></span></a><a href="#slide-3"><span></span></a><a href="#slide-4"><span></span></a><a href="#slide-5"><span></span></a>
+      <a href="#slide-6"><span></span></a><a href="#slide-7"><span></span></a><a href="#slide-8"><span></span></a><a href="#slide-9"><span></span></a><a href="#slide-10"><span></span></a>
+      <a href="#slide-11"><span></span></a><a href="#slide-12"><span></span></a><a href="#slide-13"><span></span></a><a href="#slide-14"><span></span></a><a href="#slide-15"><span></span></a>
+      <a href="#slide-16"><span></span></a><a href="#slide-17"><span></span></a><a href="#slide-18"><span></span></a><a href="#slide-19"><span></span></a><a href="#slide-20"><span></span></a>
+      <a href="#slide-21"><span></span></a><a href="#slide-22"><span></span></a><a href="#slide-23"><span></span></a><a href="#slide-24"><span></span></a><a href="#slide-25"><span></span></a>
+      <a href="#slide-26"><span></span></a><a href="#slide-27"><span></span></a><a href="#slide-28"><span></span></a><a href="#slide-29"><span></span></a><a href="#slide-30"><span></span></a>
+      <a href="#slide-31"><span></span></a><a href="#slide-32"><span></span></a><a href="#slide-33"><span></span></a><a href="#slide-34"><span></span></a><a href="#slide-35"><span></span></a>
+      <a href="#slide-36"><span></span></a><a href="#slide-37"><span></span></a><a href="#slide-38"><span></span></a><a href="#slide-39"><span></span></a><a href="#slide-40"><span></span></a>
+      <a href="#slide-41"><span></span></a><a href="#slide-42"><span></span></a><a href="#slide-43"><span></span></a><a href="#slide-44"><span></span></a><a href="#slide-45"><span></span></a>
+      <a href="#slide-46"><span></span></a><a href="#slide-47"><span></span></a><a href="#slide-48"><span></span></a><a href="#slide-49"><span></span></a><a href="#slide-50"><span></span></a>
+      <a href="#slide-51"><span></span></a><a href="#slide-52"><span></span></a><a href="#slide-53"><span></span></a><a href="#slide-54"><span></span></a><a href="#slide-55"><span></span></a>
+      <a href="#slide-56"><span></span></a><a href="#slide-57"><span></span></a>
+    </div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter">
+      <span class="slide-counter__current">1</span> / 57
+    </div>
+
+    <!-- Navigation Hint -->
+    <div class="nav-hint">
+      <span class="nav-hint__key">↑</span>
+      <span class="nav-hint__key">↓</span>
+      <span>или</span>
+      <span class="nav-hint__key">←</span>
+      <span class="nav-hint__key">→</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const deck = document.getElementById('deck');
+      const slides = document.querySelectorAll('.slide');
+      const counter = document.querySelector('.slide-counter__current');
+      const totalSlides = slides.length;
+      let currentSlide = 0;
+
+      // Disable scroll snapping for smoother arrow navigation
+      deck.style.scrollSnapType = 'none';
+
+      // Update counter based on scroll position
+      function updateCounter() {
+        const scrollTop = deck.scrollTop;
+        const slideHeight = window.innerHeight;
+        currentSlide = Math.round(scrollTop / slideHeight);
+        counter.textContent = Math.min(currentSlide + 1, totalSlides);
+      }
+
+      // Navigate to specific slide
+      function goToSlide(index) {
+        if (index < 0) index = 0;
+        if (index >= totalSlides) index = totalSlides - 1;
+        currentSlide = index;
+
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+        counter.textContent = index + 1;
+      }
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          goToSlide(currentSlide + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          goToSlide(currentSlide - 1);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides - 1);
+        }
+      });
+
+      // Update counter on scroll
+      deck.addEventListener('scroll', updateCounter);
+
+      // Intersection Observer for slide animations
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReduced) {
+        slides.forEach(slide => slide.classList.add('is-active'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active');
+          } else {
+            entry.target.classList.remove('is-active');
+          }
+        });
+      }, { threshold: 0.35 });
+
+      slides.forEach(slide => observer.observe(slide));
+
+      // Initial state
+      updateCounter();
+    });
+  </script>
+</body>
+</html>
