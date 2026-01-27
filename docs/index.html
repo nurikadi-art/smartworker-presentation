@@ -296,6 +296,168 @@ body {
   .hero__scroll { display: none; }
 }
 
+/* ============ GIFT SLIDE ============ */
+.gift {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(24px, 3vw, 36px);
+  max-width: min(720px, 90vw);
+  z-index: 4;
+}
+
+.gift__icon {
+  position: relative;
+  width: clamp(72px, 10vw, 96px);
+  height: clamp(72px, 10vw, 96px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
+  display: grid;
+  place-items: center;
+  font-size: clamp(36px, 5vw, 48px);
+  box-shadow:
+    0 0 60px rgba(245, 158, 11, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: giftBounce 3s ease-in-out infinite;
+}
+
+.gift__icon::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 27px;
+  background: linear-gradient(135deg, #fbbf24, #f97316, #ef4444, #fbbf24);
+  z-index: -1;
+  opacity: 0.5;
+  animation: giftGlow 2s ease-in-out infinite alternate;
+}
+
+.gift__ribbon {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.gift__ribbon--h {
+  width: 100%;
+  height: 4px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.gift__kicker {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+}
+
+.gift__title {
+  font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.gift__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gift__body {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.gift__highlight {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  color: #fbbf24;
+  margin: 0;
+}
+
+.gift__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #000000;
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  letter-spacing: 0.03em;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0 0 40px rgba(245, 158, 11, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.gift__cta:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 0 60px rgba(245, 158, 11, 0.35),
+    0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.gift__sparkles {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.gift__spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fbbf24;
+  opacity: 0;
+  animation: giftSparkle 3s ease-in-out infinite;
+}
+
+.gift__spark:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+.gift__spark:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; }
+.gift__spark:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 1s; }
+.gift__spark:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 1.5s; }
+.gift__spark:nth-child(5) { top: 45%; left: 5%; animation-delay: 0.7s; }
+.gift__spark:nth-child(6) { top: 50%; right: 5%; animation-delay: 2s; }
+
+@keyframes giftBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes giftGlow {
+  0% { opacity: 0.3; filter: blur(8px); }
+  100% { opacity: 0.6; filter: blur(12px); }
+}
+
+@keyframes giftSparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
 /* ============ SLIDE LAYERS ============ */
 .slide__image {
   position: absolute;
@@ -1097,19 +1259,29 @@ body {
       </div>
     </section>
 
-    <!-- Slide 2 -->
-    <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-2">
-      <div class="slide__inner">
-        <div class="split">
-          <div class="split__col">
-            <h2 class="title title--lg">Хотите Узнать, Как Быстро Начать Получать Зарплату в $USD, Работая Удалённо на Компании из США?</h2>
-            <p class="highlight">Эксклюзивный Бонус<br>для Участников Интенсива!</p>
-            <p class="body">Прямо сейчас оставьте свой номер телефона и получите БОНУС, который мы подготовили только для вас!</p>
-            <p class="body">Оставьте телефон и Заберите Свой Бонус!</p>
+    <!-- Slide 2: Gift / Bonus -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #f59e0b; --accent-soft: rgba(245, 158, 11, 0.10); --accent-strong: rgba(245, 158, 11, 0.28);" id="slide-2">
+      <div class="slide__inner" style="align-items: center;">
+        <div class="gift">
+          <div class="gift__sparkles" aria-hidden="true">
+            <span class="gift__spark"></span>
+            <span class="gift__spark"></span>
+            <span class="gift__spark"></span>
+            <span class="gift__spark"></span>
+            <span class="gift__spark"></span>
+            <span class="gift__spark"></span>
           </div>
-          <div class="split__col" style="display: flex; justify-content: center; align-items: center;">
-            <img src="https://placehold.co/240x320/1f2937/e2e8f0?text=Phone" alt="Mobile Phone" class="phone-hand-img">
+          <div class="gift__icon" aria-hidden="true">
+            🎁
+            <span class="gift__ribbon"></span>
+            <span class="gift__ribbon gift__ribbon--h"></span>
           </div>
+          <span class="gift__kicker">Эксклюзивный Бонус</span>
+          <h2 class="gift__title"><em>Бонус</em> для Участников Интенсива</h2>
+          <p class="gift__body">Хотите узнать, как быстро начать получать зарплату в <strong>$USD</strong>, работая удалённо на компании из США?</p>
+          <p class="gift__body">Прямо сейчас оставьте свой номер телефона и получите <strong>БОНУС</strong>, который мы подготовили только для вас — участников этого интенсива!</p>
+          <p class="gift__highlight">Этот бонус поможет вам сделать первый шаг к вашей цели!</p>
+          <div class="gift__cta">Оставьте телефон и Заберите Свой Бонус!</div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
