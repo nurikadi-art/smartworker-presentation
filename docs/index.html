@@ -296,6 +296,285 @@ body {
   .hero__scroll { display: none; }
 }
 
+/* ============ PULSE GRID (Slide 6) ============ */
+.pulse-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pulse-grid__line {
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.04;
+}
+
+.pulse-grid__line--h {
+  width: 100%;
+  height: 1px;
+  left: 0;
+  animation: pulseLineH 4s ease-in-out infinite;
+}
+
+.pulse-grid__line--h:nth-child(1) { top: 20%; animation-delay: 0s; }
+.pulse-grid__line--h:nth-child(2) { top: 40%; animation-delay: 0.8s; }
+.pulse-grid__line--h:nth-child(3) { top: 60%; animation-delay: 1.6s; }
+.pulse-grid__line--h:nth-child(4) { top: 80%; animation-delay: 2.4s; }
+
+.pulse-grid__line--v {
+  height: 100%;
+  width: 1px;
+  top: 0;
+  animation: pulseLineV 5s ease-in-out infinite;
+}
+
+.pulse-grid__line--v:nth-child(5) { left: 15%; animation-delay: 0.3s; }
+.pulse-grid__line--v:nth-child(6) { left: 35%; animation-delay: 1.1s; }
+.pulse-grid__line--v:nth-child(7) { left: 55%; animation-delay: 1.9s; }
+.pulse-grid__line--v:nth-child(8) { left: 75%; animation-delay: 2.7s; }
+.pulse-grid__line--v:nth-child(9) { left: 90%; animation-delay: 0.6s; }
+
+.pulse-grid__dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  animation: gridDotPulse 3s ease-in-out infinite;
+}
+
+.pulse-grid__dot:nth-child(10) { top: 20%; left: 15%; animation-delay: 0.3s; }
+.pulse-grid__dot:nth-child(11) { top: 40%; left: 55%; animation-delay: 1.0s; }
+.pulse-grid__dot:nth-child(12) { top: 60%; left: 35%; animation-delay: 1.8s; }
+.pulse-grid__dot:nth-child(13) { top: 80%; left: 75%; animation-delay: 0.7s; }
+.pulse-grid__dot:nth-child(14) { top: 20%; left: 90%; animation-delay: 2.2s; }
+
+.slide__alert-icon {
+  font-size: clamp(48px, 7vw, 64px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+@keyframes pulseLineH {
+  0%, 100% { opacity: 0.03; transform: scaleX(0.8); }
+  50% { opacity: 0.08; transform: scaleX(1); }
+}
+
+@keyframes pulseLineV {
+  0%, 100% { opacity: 0.03; transform: scaleY(0.8); }
+  50% { opacity: 0.08; transform: scaleY(1); }
+}
+
+@keyframes gridDotPulse {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.4; transform: scale(1.5); }
+}
+
+/* ============ MYTH SLIDE (Slide 9) ============ */
+.myth-vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+}
+
+.myth-vs__divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(12px, 2vw, 28px);
+  position: relative;
+}
+
+.myth-vs__divider-line {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+
+.myth-vs__divider-text {
+  padding: 12px 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.myth-card {
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.myth-card--false {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.myth-card--false .myth-card__icon {
+  color: #ef4444;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.myth-card--true {
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.myth-card--true .myth-card__icon {
+  color: #22c55e;
+  text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.myth-card__icon {
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 16px;
+}
+
+.myth-card__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.myth-card--false .myth-card__label { color: #ef4444; }
+.myth-card--true .myth-card__label { color: #22c55e; }
+
+.myth-card__glitch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.myth-card__glitch-line {
+  position: absolute;
+  height: 1px;
+  width: 60%;
+  background: rgba(239, 68, 68, 0.15);
+  animation: glitchLine 4s ease-in-out infinite;
+}
+
+.myth-card__glitch-line:nth-child(1) { top: 25%; left: 10%; animation-delay: 0s; }
+.myth-card__glitch-line:nth-child(2) { top: 55%; left: 30%; animation-delay: 1.5s; }
+.myth-card__glitch-line:nth-child(3) { top: 78%; left: 5%; animation-delay: 3s; }
+
+@keyframes glitchLine {
+  0%, 100% { opacity: 0; transform: translateX(-20px); }
+  10%, 12% { opacity: 0.6; transform: translateX(0); }
+  14% { opacity: 0; transform: translateX(10px); }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .myth-vs {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .myth-vs__divider {
+    flex-direction: row;
+    padding: clamp(8px, 1.5vw, 12px) 0;
+  }
+  .myth-vs__divider-line { width: auto; height: 2px; flex: 1; }
+}
+
+/* ============ WHY US COMPANIES SLIDE ============ */
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(20px, 3vw, 32px);
+  width: 100%;
+}
+
+.why-card {
+  padding: clamp(28px, 3vw, 40px);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+}
+
+.why-card__icon {
+  font-size: clamp(36px, 5vw, 48px);
+  line-height: 1;
+}
+
+.why-card__title {
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.why-card__body {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.why-card__glow {
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============ MYTHS INTRO SLIDE ============ */
+.myths-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(24px, 3vw, 40px);
+  max-width: min(800px, 90vw);
+}
+
+.myths-intro__icon {
+  font-size: clamp(56px, 8vw, 80px);
+  line-height: 1;
+  animation: float 4s ease-in-out infinite;
+}
+
+.myths-intro__title {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.myths-intro__title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #e2a37a, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* ============ GIFT SLIDE ============ */
 .gift {
   position: relative;
@@ -1508,27 +1787,38 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 6 -->
-    <section class="slide slide--dark" data-variant="ember" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-5">
-      <div class="slide__bg-image slide__bg-image--stressed" aria-hidden="true"></div>
+    <!-- Slide 6: Problem -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #93c5fd; --accent-soft: rgba(147, 197, 253, 0.10); --accent-strong: rgba(147, 197, 253, 0.28);" id="slide-6">
+      <div class="pulse-grid" aria-hidden="true">
+        <span class="pulse-grid__line pulse-grid__line--h"></span>
+        <span class="pulse-grid__line pulse-grid__line--h"></span>
+        <span class="pulse-grid__line pulse-grid__line--h"></span>
+        <span class="pulse-grid__line pulse-grid__line--h"></span>
+        <span class="pulse-grid__line pulse-grid__line--v"></span>
+        <span class="pulse-grid__line pulse-grid__line--v"></span>
+        <span class="pulse-grid__line pulse-grid__line--v"></span>
+        <span class="pulse-grid__line pulse-grid__line--v"></span>
+        <span class="pulse-grid__line pulse-grid__line--v"></span>
+        <span class="pulse-grid__dot"></span>
+        <span class="pulse-grid__dot"></span>
+        <span class="pulse-grid__dot"></span>
+        <span class="pulse-grid__dot"></span>
+        <span class="pulse-grid__dot"></span>
+      </div>
       <div class="slide__inner">
+        <div class="slide__alert-icon">⚡</div>
+        <div class="kicker">Почему появился проект</div>
         <h2 class="title title--lg">Рынок удалённой работы в странах СНГ и Средней Азии не так развит.</h2>
         <p class="body">В результате люди даже не задумываются о такой возможности или сталкиваются с мифами, которые их останавливают.</p>
         <p class="body">В то время как у нас много образованных людей и специалистов, которым эта возможность доступна.</p>
-        <div class="kicker">Почему появился проект</div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
       <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 6: Stats -->
-    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-6">
-      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
+    <!-- Slide 7: Stats -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-7">
       <div class="slide__inner">
         <h2 class="title title--lg">Решение: Прямой выход на рынок США</h2>
         <div class="stats">
@@ -1616,39 +1906,82 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 9: Cards comparison -->
+    <!-- Slide 9: Myth vs Reality -->
     <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-9">
       <div class="slide__inner">
-        <h2 class="title title--lg">Миф: "Мне нужен востребованный диплом топового вуза"</h2>
-        <div class="split">
-          <div class="split__col">
-            <div class="card">
-              <div class="card__title">Что НЕ ВАЖНО</div>
-              <ul class="list">
-                <li>Ваша "корочка"</li>
-                <li>Опыт работы в местной компании</li>
-              </ul>
+        <div class="kicker">Разрушаем миф #1</div>
+        <h2 class="title title--lg">«Мне нужен востребованный диплом топового вуза»</h2>
+        <div class="myth-vs">
+          <div class="myth-card myth-card--false">
+            <div class="myth-card__glitch" aria-hidden="true">
+              <span class="myth-card__glitch-line"></span>
+              <span class="myth-card__glitch-line"></span>
+              <span class="myth-card__glitch-line"></span>
             </div>
+            <div class="myth-card__icon">✕</div>
+            <div class="myth-card__label">Не важно</div>
+            <ul class="list">
+              <li>Ваша «корочка»</li>
+              <li>Опыт работы в местной компании</li>
+            </ul>
           </div>
-          <div class="split__col">
-            <div class="card card--accent">
-              <div class="card__title">Что ДЕЙСТВИТЕЛЬНО ВАЖНО</div>
-              <ul class="list">
-                <li>Ваши реальные навыки</li>
-                <li>Ваша надежность и адекватность</li>
-                <li>Способность решать задачи</li>
-              </ul>
-            </div>
+          <div class="myth-vs__divider" aria-hidden="true">
+            <span class="myth-vs__divider-line"></span>
+            <span class="myth-vs__divider-text">VS</span>
+            <span class="myth-vs__divider-line"></span>
+          </div>
+          <div class="myth-card myth-card--true">
+            <div class="myth-card__icon">✓</div>
+            <div class="myth-card__label">Действительно важно</div>
+            <ul class="list">
+              <li>Ваши реальные навыки</li>
+              <li>Ваша надежность и адекватность</li>
+              <li>Способность решать задачи</li>
+            </ul>
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
       <div class="slide__noise" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 10: Why US companies hire YOU -->
+    <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-10a">
+      <div class="slide__inner" style="align-items: center;">
+        <div class="kicker">Обратная сторона</div>
+        <h2 class="title title--lg" style="text-align: center;">Почему американским компаниям выгодно нанимать <span class="highlight">ВАС</span>?</h2>
+        <div class="why-cards">
+          <div class="why-card">
+            <div class="why-card__glow" aria-hidden="true"></div>
+            <div class="why-card__icon">🌍</div>
+            <div class="why-card__title">Доступ к талантам</div>
+            <p class="why-card__body">Находят мотивированных специалистов за пределами своего дорогого рынка.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-card__glow" aria-hidden="true"></div>
+            <div class="why-card__icon">💰</div>
+            <div class="why-card__title">Экономическая выгода</div>
+            <p class="why-card__body">Умное бизнес-решение, которое экономит им деньги.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
+    </section>
+
+    <!-- Slide 11: Myths Intro -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-11a">
+      <div class="slide__inner" style="align-items: center;">
+        <div class="myths-intro">
+          <div class="myths-intro__icon">🧱</div>
+          <h2 class="myths-intro__title">Какие <em>мифы</em> останавливают потенциального удалённого работника в наших странах?</h2>
+        </div>
+      </div>
+      <div class="slide__frame" aria-hidden="true"></div>
+      <div class="slide__sweep" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 10: LinkedIn -->
