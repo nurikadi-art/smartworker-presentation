@@ -1023,21 +1023,150 @@ body {
   gap: 10px;
 }
 
-.flag-img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+.flag-emoji {
+  font-size: clamp(48px, 7vw, 72px);
+  line-height: 1;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.flag-img:hover { transform: translateY(-3px); }
+.flag-item:hover .flag-emoji { transform: translateY(-4px) scale(1.1); }
 
 .flag-label {
+  font-size: 0.88rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ============ AUTHOR LUXURY ============ */
+.author-slide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  width: min(1100px, 100%);
+}
+
+.author-slide__text {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+.author-slide__name {
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.author-slide__name em {
+  font-style: normal;
+  background: linear-gradient(135deg, #d4a574, #f5c791, #d4a574);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.author-slide__role {
+  font-size: clamp(0.75rem, 1vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #d4a574;
+}
+
+.author-slide__bio {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.author-slide__tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.author-slide__tag {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(212, 165, 116, 0.1);
+  border: 1px solid rgba(212, 165, 116, 0.2);
   font-size: 0.82rem;
-  color: var(--muted);
-  font-weight: 500;
+  font-weight: 600;
+  color: #d4a574;
+}
+
+.author-slide__photo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.author-slide__img-wrap {
+  position: relative;
+  width: min(380px, 100%);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 0 80px rgba(212, 165, 116, 0.12),
+    0 32px 64px rgba(0, 0, 0, 0.4);
+}
+
+.author-slide__img-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.4), transparent 50%, rgba(212, 165, 116, 0.2));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.author-slide__img-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(180deg, transparent 60%, rgba(5, 5, 7, 0.5) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.author-slide__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.author-slide__glow {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.08), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .author-slide {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .author-slide__text { order: 1; align-items: center; }
+  .author-slide__photo { order: 2; }
+  .author-slide__tags { justify-content: center; }
+  .author-slide__img-wrap { max-width: 280px; }
 }
 
 .slide-image {
@@ -1301,19 +1430,19 @@ body {
         <p class="body">SmartWorker (СНГ): Наша миссия - показать как вам, квалифицированным специалистам из СНГ, получить прямой доступ к этим долларовым возможностям.</p>
         <div class="flag-row">
           <div class="flag-item">
-            <img src="https://placehold.co/120x80/1f2937/e2e8f0?text=USA" alt="USA" class="flag-img">
+            <span class="flag-emoji">🇺🇸</span>
             <span class="flag-label">США</span>
           </div>
           <div class="flag-item">
-            <img src="https://placehold.co/120x80/1f2937/e2e8f0?text=Kazakhstan" alt="Kazakhstan" class="flag-img">
+            <span class="flag-emoji">🇰🇿</span>
             <span class="flag-label">Казахстан</span>
           </div>
           <div class="flag-item">
-            <img src="https://placehold.co/120x80/1f2937/e2e8f0?text=Kyrgyzstan" alt="Kyrgyzstan" class="flag-img">
+            <span class="flag-emoji">🇰🇬</span>
             <span class="flag-label">Кыргызстан</span>
           </div>
           <div class="flag-item">
-            <img src="https://placehold.co/120x80/1f2937/e2e8f0?text=Uzbekistan" alt="Uzbekistan" class="flag-img">
+            <span class="flag-emoji">🇺🇿</span>
             <span class="flag-label">Узбекистан</span>
           </div>
         </div>
@@ -1328,19 +1457,23 @@ body {
     </section>
 
     <!-- Slide 4: Author -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-4">
-      <div class="slide__inner">
-        <div class="split split--author">
-          <div class="split__col">
-            <div class="photo-card" aria-hidden="true">
-              <div class="photo-card__figure photo-card__figure--author" id="author-photo"></div>
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-4">
+      <div class="slide__inner" style="align-items: center;">
+        <div class="author-slide">
+          <div class="author-slide__text">
+            <span class="author-slide__role">Автор системы</span>
+            <h2 class="author-slide__name"><em>Нурсултан</em> Адильханов</h2>
+            <p class="author-slide__bio">Основатель Recrutu & SmartWorker. Провёл более 8 лет в США, изучив культуру найма изнутри. Эти практики позволили ему получить должность виртуального ассистента у доктора Эрика Берга, чьи YouTube-каналы насчитывают более 14 миллионов подписчиков.</p>
+            <div class="author-slide__tags">
+              <span class="author-slide__tag">8+ лет в США</span>
+              <span class="author-slide__tag">Recrutu</span>
+              <span class="author-slide__tag">SmartWorker</span>
             </div>
           </div>
-          <div class="split__col">
-            <div class="stack">
-              <div class="kicker">Автор системы</div>
-              <h2 class="title title--lg">Нурсултан Адильханов<br>(Основатель Recrutu & SmartWorker)</h2>
-              <p class="body body--dark">Наш основатель — Нурсултан Адильханов. Он провел более 8 лет в США, изучив культуру найма изнутри. Эти практики позволили ему получить должность виртуального ассистента у доктора Эрика Берга, чьи YouTube-каналы насчитывают более 14 миллионов подписчиков.</p>
+          <div class="author-slide__photo">
+            <div class="author-slide__glow" aria-hidden="true"></div>
+            <div class="author-slide__img-wrap">
+              <img src="https://d8j0ntlcm91z4.cloudfront.net/user_2zhNfDMPAvhOC1BPXAA1PY900xl/hf_20260125_085601_21dbc3d4-78d8-4321-85ca-2aba34b58ec4.png" alt="Нурсултан Адильханов" class="author-slide__img">
             </div>
           </div>
         </div>
