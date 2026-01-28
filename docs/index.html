@@ -2327,162 +2327,341 @@ body {
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4);
 }
 
-/* ============ MODULE RIPPLE UNLOCK ============ */
-.module-unlock {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-  overflow: hidden;
+/* ============ BONUS SLIDES STYLING ============ */
+.bonus-visual {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(20px, 3vw, 32px);
 }
 
-.module-unlock__overlay {
+.bonus-icon {
+  width: clamp(80px, 12vw, 120px);
+  height: clamp(80px, 12vw, 120px);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Bonus 1: Showcase/Stage Icon */
+.bonus-icon--showcase {
+  background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
+}
+
+.bonus-icon--showcase::before {
+  content: '';
+  width: 50%;
+  height: 35%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px 4px 0 0;
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1);
+  bottom: 28%;
 }
 
-.module-unlock.unlocked .module-unlock__overlay {
-  opacity: 0;
-  pointer-events: none;
+.bonus-icon--showcase::after {
+  content: '';
+  width: 70%;
+  height: 8%;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  position: absolute;
+  bottom: 20%;
 }
 
-.module-unlock__lock {
-  width: 72px;
-  height: 72px;
+.bonus-icon--showcase .icon-person {
+  position: absolute;
+  width: 16%;
+  height: 28%;
+  bottom: 36%;
+}
+
+.bonus-icon--showcase .icon-person::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 40%;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent, #7dd3fc) 0%, rgba(255, 255, 255, 0.2) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.module-unlock__lock:hover {
-  transform: scale(1.1);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-}
-
-.module-unlock__lock-icon {
-  width: 32px;
-  height: 32px;
-  position: relative;
-}
-
-/* Lock body */
-.module-unlock__lock-icon::after {
+.bonus-icon--showcase .icon-person::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 14px;
-  background: #1a1a2e;
-  border-radius: 3px;
+  width: 120%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50% 50% 0 0;
 }
 
-/* Lock shackle */
-.module-unlock__lock-icon::before {
+/* Bonus 2: Database/List Icon */
+.bonus-icon--database {
+  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+}
+
+.bonus-icon--database::before {
+  content: '';
+  width: 55%;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 6px;
+  position: relative;
+}
+
+.bonus-icon--database .db-lines {
+  position: absolute;
+  width: 35%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bonus-icon--database .db-lines span {
+  display: block;
+  height: 12%;
+  background: #7c3aed;
+  border-radius: 2px;
+}
+
+.bonus-icon--database .db-lines span:nth-child(2) { width: 80%; }
+.bonus-icon--database .db-lines span:nth-child(3) { width: 60%; }
+
+/* Bonus 3: Telegram Icon */
+.bonus-icon--telegram {
+  background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
+}
+
+.bonus-icon--telegram::before {
+  content: '';
+  width: 55%;
+  height: 45%;
+  background: rgba(255, 255, 255, 0.95);
+  clip-path: polygon(0 50%, 100% 0, 75% 50%, 100% 100%);
+  transform: rotate(-5deg);
+}
+
+.bonus-icon--telegram::after {
   content: '';
   position: absolute;
-  top: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 12px;
-  border: 3px solid #1a1a2e;
-  border-bottom: none;
-  border-radius: 10px 10px 0 0;
-  transition: transform 0.3s ease;
+  width: 20%;
+  height: 25%;
+  background: rgba(255, 255, 255, 0.7);
+  bottom: 22%;
+  right: 28%;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: rotate(45deg);
 }
 
-.module-unlock.unlocked .module-unlock__lock-icon::before {
-  transform: translateX(-50%) rotate(-30deg) translateY(-4px);
+/* Bonus number badge */
+.bonus-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1a1a2e;
+  font-weight: 800;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.module-unlock__hint {
-  color: white;
-  font-size: clamp(14px, 1.5vw, 16px);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0.9;
+/* Bonus card enhancements */
+.bonus-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: clamp(24px, 3vw, 36px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-/* Ripple container */
-.module-unlock__ripple-container {
+.bonus-highlight {
+  display: inline-block;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, var(--accent-soft, rgba(255,255,255,0.1)) 0%, var(--accent-strong, rgba(255,255,255,0.2)) 100%);
+  border-radius: 8px;
+  margin-top: 12px;
+  border: 1px solid var(--accent, #fff);
+}
+
+/* ============ Q&A SLIDE ============ */
+.qa-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #050507;
+}
+
+.qa-slide__shader {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 5;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.module-unlock__ripple {
+.qa-slide__fade {
   position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent, #7dd3fc) 0%, transparent 70%);
-  opacity: 0.4;
-  transform: scale(0);
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(5,5,7,0.55) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(5,5,7,0.7) 0%, transparent 30%),
+    linear-gradient(0deg, rgba(5,5,7,0.85) 0%, transparent 40%),
+    radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.75) 100%);
 }
 
-.module-unlock__ripple.animating {
-  animation: rippleUnlock 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+.qa-slide__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(24px, 4vw, 48px);
+  max-width: min(800px, 90vw);
+  padding: clamp(24px, 4vw, 48px);
 }
 
-@keyframes rippleUnlock {
-  0% {
-    transform: scale(0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
+.qa-slide__title {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
 
-/* Content reveal animation */
-.module-unlock__content {
-  opacity: 0.3;
-  filter: blur(4px);
-  transform: scale(0.98);
-  transition: all 0.6s cubic-bezier(0.2, 0, 0, 1) 0.2s;
+.qa-slide__sub {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+  max-width: 600px;
 }
 
-.module-unlock.unlocked .module-unlock__content {
+/* Timer styles */
+.qa-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.qa-timer__display {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.qa-timer.active .qa-timer__display {
   opacity: 1;
-  filter: blur(0);
   transform: scale(1);
 }
 
-/* State layer for hover effect */
-.module-unlock__state-layer {
-  position: absolute;
-  inset: 0;
-  background: var(--accent, #7dd3fc);
+.qa-timer__label {
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
   opacity: 0;
-  z-index: 3;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
+  transition: opacity 0.5s ease 0.2s;
 }
 
-.module-unlock:hover .module-unlock__state-layer {
-  opacity: 0.04;
+.qa-timer.active .qa-timer__label {
+  opacity: 1;
 }
 
-.module-unlock:active .module-unlock__state-layer {
-  opacity: 0.08;
+/* Start button */
+.qa-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(16px, 2vw, 24px) clamp(32px, 4vw, 56px);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 700;
+  color: #1a1a2e;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.qa-start-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(251, 191, 36, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.qa-start-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.qa-start-btn.hidden {
+  display: none;
+}
+
+.qa-start-btn__icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(26, 26, 46, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qa-start-btn__icon::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #1a1a2e;
+  margin-left: 2px;
+}
+
+/* Timer warning states */
+.qa-timer__display.warning {
+  color: #fbbf24;
+  animation: timerPulse 1s ease-in-out infinite;
+}
+
+.qa-timer__display.danger {
+  color: #ef4444;
+  animation: timerPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
 }
 
 /* ============ FIRST 30 DAYS REDESIGN ============ */
@@ -4150,22 +4329,12 @@ body {
 
     <!-- Slide 48: Module 1 -->
     <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-48">
-      <div class="slide__inner module-unlock">
-        <div class="module-unlock__state-layer"></div>
-        <div class="module-unlock__ripple-container"></div>
-        <div class="module-unlock__overlay">
-          <div class="module-unlock__lock">
-            <div class="module-unlock__lock-icon"></div>
-          </div>
-          <span class="module-unlock__hint">Нажмите, чтобы открыть</span>
-        </div>
-        <div class="module-unlock__content">
-          <div class="kicker">Модуль 1</div>
-          <h2 class="title title--lg">Обучение</h2>
-          <div class="card">
-            <p class="body">Сначала мы дадим вам профессию. Вы пройдете полный курс "Executive Virtual Assistant", где освоите все главные платформы и задачи, которые требуются прямо сейчас на рынке США.</p>
-            <p class="body body--accent">Вы станете специалистом, за которым охотятся.</p>
-          </div>
+      <div class="slide__inner">
+        <div class="kicker">Модуль 1</div>
+        <h2 class="title title--lg">Обучение</h2>
+        <div class="card">
+          <p class="body">Сначала мы дадим вам профессию. Вы пройдете полный курс "Executive Virtual Assistant", где освоите все главные платформы и задачи, которые требуются прямо сейчас на рынке США.</p>
+          <p class="body body--accent">Вы станете специалистом, за которым охотятся.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4177,22 +4346,12 @@ body {
 
     <!-- Slide 49: Module 2 -->
     <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-49">
-      <div class="slide__inner module-unlock">
-        <div class="module-unlock__state-layer"></div>
-        <div class="module-unlock__ripple-container"></div>
-        <div class="module-unlock__overlay">
-          <div class="module-unlock__lock">
-            <div class="module-unlock__lock-icon"></div>
-          </div>
-          <span class="module-unlock__hint">Нажмите, чтобы открыть</span>
-        </div>
-        <div class="module-unlock__content">
-          <div class="kicker">Модуль 2</div>
-          <h2 class="title title--lg">Сопровождение</h2>
-          <div class="card">
-            <p class="body">Мы не бросим вас после обучения. Вы получаете персональное ведение от команды Smartworker.</p>
-            <p class="body">Наша задача — довести вас до результата. Полная поддержка в чате и по email, разбор ваших резюме, помощь в переговорах.</p>
-          </div>
+      <div class="slide__inner">
+        <div class="kicker">Модуль 2</div>
+        <h2 class="title title--lg">Сопровождение</h2>
+        <div class="card">
+          <p class="body">Мы не бросим вас после обучения. Вы получаете персональное ведение от команды Smartworker.</p>
+          <p class="body">Наша задача — довести вас до результата. Полная поддержка в чате и по email, разбор ваших резюме, помощь в переговорах.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4203,13 +4362,19 @@ body {
 
     <!-- Slide 50: Bonus 1 -->
     <section class="slide slide--dark" data-variant="iris" style="--accent: #c4b5fd; --accent-soft: rgba(196, 181, 253, 0.10); --accent-strong: rgba(196, 181, 253, 0.28);" id="slide-50">
-      <div class="slide__inner">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="bonus-visual">
+          <div class="bonus-icon bonus-icon--showcase">
+            <div class="icon-person"></div>
+            <span class="bonus-badge">1</span>
+          </div>
+        </div>
         <div class="kicker">БОНУС #1</div>
-        <h2 class="title title--lg">Прямой Мост к Работодателям: Эксклюзивные Showcase Ивенты</h2>
-        <div class="card card--accent">
+        <h2 class="title title--lg" style="text-align:center;">Прямой Мост к Работодателям:<br>Эксклюзивные Showcase Ивенты</h2>
+        <div class="bonus-card" style="max-width:640px; text-align:center;">
           <p class="body">Это наша «секретная разработка». Мы сами организуем ивенты, куда приводим американских работодателей, жаждущих нанять таланты.</p>
           <p class="body">А вы получаете эксклюзивную возможность представить себя и свои навыки напрямую этим CEO.</p>
-          <p class="body body--accent">Это самый короткий путь к офферу.</p>
+          <p class="body bonus-highlight">Это самый короткий путь к офферу.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4220,13 +4385,23 @@ body {
 
     <!-- Slide 51: Bonus 2 -->
     <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-51">
-      <div class="slide__inner">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="bonus-visual">
+          <div class="bonus-icon bonus-icon--database">
+            <div class="db-lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span class="bonus-badge">2</span>
+          </div>
+        </div>
         <div class="kicker">БОНУС #2</div>
-        <h2 class="title title--lg">Доступ к нашей закрытой базе вакансий</h2>
-        <div class="card">
-          <p class="body">Мы не просто учим вас, 'где искать'. Мы даем вам рыбу.</p>
+        <h2 class="title title--lg" style="text-align:center;">Доступ к нашей закрытой<br>базе вакансий</h2>
+        <div class="bonus-card" style="max-width:640px; text-align:center;">
+          <p class="body">Мы не просто учим вас, «где искать». Мы даем вам рыбу.</p>
           <p class="body">Вы получаете полный доступ к нашей внутренней базе американских работодателей, с которыми мы уже работаем.</p>
-          <p class="body body--accent">Это проверенные компании, которые доверяют нам и ищут именно наших выпускников.</p>
+          <p class="body bonus-highlight">Это проверенные компании, которые доверяют нам и ищут именно наших выпускников.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4238,13 +4413,18 @@ body {
 
     <!-- Slide 52: Bonus 3 -->
     <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-52">
-      <div class="slide__inner">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="bonus-visual">
+          <div class="bonus-icon bonus-icon--telegram">
+            <span class="bonus-badge">3</span>
+          </div>
+        </div>
         <div class="kicker">БОНУС #3</div>
-        <h2 class="title title--lg">Закрытый Telegram-канал Ассистентов</h2>
-        <div class="card">
+        <h2 class="title title--lg" style="text-align:center;">Закрытый Telegram-канал<br>Ассистентов</h2>
+        <div class="bonus-card" style="max-width:640px; text-align:center;">
           <p class="body">В одиночку идти сложно. Поэтому мы немедленно добавим вас в наше сообщество.</p>
           <p class="body">Это закрытый Telegram-канал, где «старички», которые уже работают в США, делятся опытом и поддерживают «новичков».</p>
-          <p class="body body--accent">Вы найдете партнеров, получите инсайды и поймете, что вы не одни.</p>
+          <p class="body bonus-highlight">Вы найдете партнеров, получите инсайды и поймете, что вы не одни.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4257,14 +4437,15 @@ body {
     <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-53">
       <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
         <div class="kicker">БОНУС #4</div>
-        <h2 class="title title--lg" style="text-align:center;">Авторская книга-гайд Нурсултана (PDF)</h2>
-        <div class="book-display">
+        <h2 class="title title--lg" style="text-align:center;">Авторская книга-гайд<br>Нурсултана (PDF)</h2>
+        <div class="book-display" style="position:relative;">
           <img src="book.webp" alt="Книга-гайд Нурсултана" class="book-display__img">
+          <span class="bonus-badge" style="top:-5px; right:calc(50% - 150px);">4</span>
         </div>
-        <div class="card" style="max-width:640px; text-align:center;">
+        <div class="bonus-card" style="max-width:640px; text-align:center;">
           <p class="body">Чтобы у вас с первого дня была полная ясность, вы получаете личный учебник от Нурсултана.</p>
           <p class="body">Это пошаговый план действий, все наши проверенные стратегии и шаблоны писем.</p>
-          <p class="body body--accent">Вы не будете гадать, что делать дальше — у вас будет чёткая дорожная карта.</p>
+          <p class="body bonus-highlight">Вы не будете гадать, что делать дальше — у вас будет чёткая дорожная карта.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4363,6 +4544,24 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
+    <!-- Slide 58: Q&A Session -->
+    <section class="slide qa-slide" id="slide-58">
+      <canvas class="qa-slide__shader" id="qa-shader" aria-hidden="true"></canvas>
+      <div class="qa-slide__fade" aria-hidden="true"></div>
+      <div class="qa-slide__content">
+        <h2 class="qa-slide__title">Вопросы & Ответы</h2>
+        <p class="qa-slide__sub">Задавайте ваши вопросы. У нас есть 15 минут, чтобы ответить на все.</p>
+        <button class="qa-start-btn" id="qa-start-btn">
+          <span class="qa-start-btn__icon"></span>
+          Начать Сессию Вопросов Ответов
+        </button>
+        <div class="qa-timer" id="qa-timer">
+          <div class="qa-timer__display" id="qa-timer-display">15:00</div>
+          <span class="qa-timer__label">осталось времени</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Navigation dots (hidden on mobile, shows slide count) -->
     <div class="deck__nav" aria-hidden="true">
       <a href="#slide-1"><span></span></a><a href="#slide-2"><span></span></a><a href="#slide-3"><span></span></a><a href="#slide-4"><span></span></a><a href="#slide-5"><span></span></a>
@@ -4376,12 +4575,12 @@ body {
       <a href="#slide-41"><span></span></a><a href="#slide-42"><span></span></a><a href="#slide-43"><span></span></a><a href="#slide-44"><span></span></a><a href="#slide-45"><span></span></a>
       <a href="#slide-46"><span></span></a><a href="#slide-47"><span></span></a><a href="#slide-48"><span></span></a><a href="#slide-49"><span></span></a><a href="#slide-50"><span></span></a>
       <a href="#slide-51"><span></span></a><a href="#slide-52"><span></span></a><a href="#slide-53"><span></span></a><a href="#slide-54"><span></span></a><a href="#slide-55"><span></span></a>
-      <a href="#slide-56"><span></span></a><a href="#slide-57"><span></span></a>
+      <a href="#slide-56"><span></span></a><a href="#slide-57"><span></span></a><a href="#slide-58"><span></span></a>
     </div>
 
     <!-- Slide Counter -->
     <div class="slide-counter">
-      <span class="slide-counter__current">1</span> / 57
+      <span class="slide-counter__current">1</span> / 58
     </div>
 
     <!-- Navigation Hint -->
@@ -4482,6 +4681,147 @@ body {
   </script>
 
   <script>
+    // Q&A slide shader background (similar to hero)
+    (function() {
+      var canvas = document.getElementById('qa-shader');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      var scene = new THREE.Scene();
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: false });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(new THREE.Color(0x000000));
+
+      var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
+
+      var uniforms = {
+        resolution: { value: [canvas.clientWidth, canvas.clientHeight] },
+        time: { value: 0.0 },
+        xScale: { value: 1.2 },
+        yScale: { value: 0.4 },
+        distortion: { value: 0.08 }
+      };
+
+      var vertexShader = [
+        'attribute vec3 position;',
+        'void main() {',
+        '  gl_Position = vec4(position, 1.0);',
+        '}'
+      ].join('\n');
+
+      var fragmentShader = [
+        'precision highp float;',
+        'uniform vec2 resolution;',
+        'uniform float time;',
+        'uniform float xScale;',
+        'uniform float yScale;',
+        'uniform float distortion;',
+        '',
+        'void main() {',
+        '  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);',
+        '  float d = length(p) * distortion;',
+        '  float rx = p.x * (1.0 + d);',
+        '  float gx = p.x;',
+        '  float bx = p.x * (1.0 - d);',
+        '  float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);',
+        '  float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);',
+        '  float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);',
+        '  gl_FragColor = vec4(r, g, b, 1.0);',
+        '}'
+      ].join('\n');
+
+      var positions = new Float32Array([
+        -1, -1, 0,  1, -1, 0,  -1, 1, 0,
+         1, -1, 0, -1,  1, 0,   1, 1, 0
+      ]);
+      var geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      var material = new THREE.RawShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        uniforms: uniforms,
+        side: THREE.DoubleSide
+      });
+
+      var mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      function resize() {
+        var w = canvas.clientWidth;
+        var h = canvas.clientHeight;
+        renderer.setSize(w, h, false);
+        uniforms.resolution.value = [w, h];
+      }
+
+      function animate() {
+        uniforms.time.value += 0.008;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      resize();
+      animate();
+      window.addEventListener('resize', resize);
+    })();
+  </script>
+
+  <script>
+    // Q&A Timer functionality
+    (function() {
+      var startBtn = document.getElementById('qa-start-btn');
+      var timerEl = document.getElementById('qa-timer');
+      var displayEl = document.getElementById('qa-timer-display');
+
+      if (!startBtn || !timerEl || !displayEl) return;
+
+      var totalSeconds = 15 * 60; // 15 minutes
+      var remainingSeconds = totalSeconds;
+      var timerInterval = null;
+
+      function formatTime(seconds) {
+        var mins = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+      }
+
+      function updateDisplay() {
+        displayEl.textContent = formatTime(remainingSeconds);
+
+        // Warning at 3 minutes
+        if (remainingSeconds <= 180 && remainingSeconds > 60) {
+          displayEl.classList.add('warning');
+          displayEl.classList.remove('danger');
+        }
+        // Danger at 1 minute
+        else if (remainingSeconds <= 60) {
+          displayEl.classList.remove('warning');
+          displayEl.classList.add('danger');
+        }
+        else {
+          displayEl.classList.remove('warning', 'danger');
+        }
+      }
+
+      function startTimer() {
+        startBtn.classList.add('hidden');
+        timerEl.classList.add('active');
+
+        timerInterval = setInterval(function() {
+          remainingSeconds--;
+          updateDisplay();
+
+          if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            displayEl.textContent = '00:00';
+          }
+        }, 1000);
+      }
+
+      startBtn.addEventListener('click', startTimer);
+    })();
+  </script>
+
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       const deck = document.getElementById('deck');
       const slides = document.querySelectorAll('.slide');
@@ -4552,48 +4892,6 @@ body {
 
       // Initial state
       updateCounter();
-
-      // Module Ripple Unlock functionality
-      document.querySelectorAll('.module-unlock').forEach(module => {
-        module.addEventListener('click', function(e) {
-          if (this.classList.contains('unlocked')) return;
-
-          const rect = this.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          // Create ripple element
-          const ripple = document.createElement('div');
-          ripple.className = 'module-unlock__ripple';
-
-          // Calculate ripple size (should cover the whole element)
-          const maxDim = Math.max(rect.width, rect.height);
-          const rippleSize = maxDim * 2.5;
-
-          ripple.style.width = rippleSize + 'px';
-          ripple.style.height = rippleSize + 'px';
-          ripple.style.left = (x - rippleSize / 2) + 'px';
-          ripple.style.top = (y - rippleSize / 2) + 'px';
-
-          const container = this.querySelector('.module-unlock__ripple-container');
-          container.appendChild(ripple);
-
-          // Trigger animation
-          requestAnimationFrame(() => {
-            ripple.classList.add('animating');
-          });
-
-          // Mark as unlocked
-          setTimeout(() => {
-            this.classList.add('unlocked');
-          }, 150);
-
-          // Remove ripple after animation
-          setTimeout(() => {
-            ripple.remove();
-          }, 800);
-        });
-      });
     });
   </script>
 </body>
