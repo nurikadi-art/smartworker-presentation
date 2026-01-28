@@ -2062,6 +2062,173 @@ body {
   .secret-weapon__visual { order: -1; }
 }
 
+/* ============ HANDSHAKE CSS ELEMENT ============ */
+.handshake-css {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin: clamp(16px, 2vw, 24px) auto;
+}
+
+.handshake-css__hand {
+  font-size: clamp(48px, 7vw, 72px);
+  line-height: 1;
+  animation: handshakeMove 2.5s ease-in-out infinite;
+}
+
+.handshake-css__hand--left {
+  animation-direction: normal;
+}
+
+.handshake-css__hand--right {
+  animation-direction: reverse;
+}
+
+@keyframes handshakeMove {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(6px) rotate(5deg); }
+  75% { transform: translateX(-6px) rotate(-5deg); }
+}
+
+/* ============ SOCIAL LOGOS CSS ============ */
+.social-logos-css {
+  display: flex;
+  justify-content: center;
+  gap: clamp(28px, 4vw, 48px);
+  margin-top: clamp(20px, 2.5vw, 32px);
+}
+
+.social-logo-css {
+  width: clamp(72px, 10vw, 100px);
+  height: clamp(72px, 10vw, 100px);
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-logo-css:hover {
+  transform: scale(1.08);
+}
+
+.social-logo-css::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 26px;
+  z-index: -1;
+  opacity: 0.4;
+  filter: blur(16px);
+  animation: socialGlow 3s ease-in-out infinite;
+}
+
+.social-logo-css--fb {
+  background: linear-gradient(135deg, #1877f2, #4267b2);
+  box-shadow: 0 12px 32px rgba(24, 119, 242, 0.3);
+}
+
+.social-logo-css--fb::before {
+  content: 'f';
+  font-family: inherit;
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.social-logo-css--fb::after {
+  background: linear-gradient(135deg, #1877f2, #4267b2);
+}
+
+.social-logo-css--ig {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  box-shadow: 0 12px 32px rgba(220, 39, 67, 0.3);
+}
+
+.social-logo-css--ig::after {
+  background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+}
+
+.social-logo-css__ig-icon {
+  width: clamp(36px, 5vw, 50px);
+  height: clamp(36px, 5vw, 50px);
+  border: 3px solid #ffffff;
+  border-radius: clamp(10px, 1.5vw, 14px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-logo-css__ig-icon::before {
+  content: '';
+  width: clamp(16px, 2.2vw, 22px);
+  height: clamp(16px, 2.2vw, 22px);
+  border: 2.5px solid #ffffff;
+  border-radius: 50%;
+}
+
+.social-logo-css__ig-icon::after {
+  content: '';
+  position: absolute;
+  top: clamp(5px, 0.8vw, 7px);
+  right: clamp(5px, 0.8vw, 7px);
+  width: clamp(5px, 0.7vw, 7px);
+  height: clamp(5px, 0.7vw, 7px);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+@keyframes socialGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* ============ STAR METHOD BG ============ */
+.star-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star-bg__letter {
+  position: absolute;
+  font-size: clamp(200px, 30vw, 400px);
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.03;
+  color: var(--accent, #a78bfa);
+  user-select: none;
+}
+
+.star-bg__letter--s { top: -5%; left: -3%; }
+.star-bg__letter--t { top: -5%; right: 10%; }
+.star-bg__letter--a { bottom: -10%; left: 15%; }
+.star-bg__letter--r { bottom: -10%; right: -3%; }
+
+.star-bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(167, 139, 250, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167, 139, 250, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.star-bg__glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-soft, rgba(167, 139, 250, 0.08)), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 /* ============ iPHONE MOCKUP ============ */
 .iphone-mockup {
   width: min(280px, 90%);
@@ -3376,8 +3543,8 @@ body {
           <div class="card"><p class="body"><strong>3. Контакт</strong><br>Обходим HR через Connections.</p></div>
           <div class="card"><p class="body"><strong>4. Доверие</strong><br>Профиль и видео снимают возражения.</p></div>
         </div>
-        <div class="image-container">
-          <img src="https://placehold.co/280x200/1f2937/e2e8f0?text=Handshake" alt="Partnership Handshake" class="handshake-img">
+        <div class="handshake-css" aria-hidden="true">
+          <span class="handshake-css__hand handshake-css__hand--left">🤝</span>
         </div>
         <p class="highlight">Вы получаете ответ, потому что вы — не один из тысяч, а предложенное решение.</p>
       </div>
@@ -3387,23 +3554,25 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 36: Facebook & Instagram (with image) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-36">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">Facebook и Instagram: Поиск в неформальной среде</h2>
-          <p class="body body--dark"><strong>Facebook:</strong> Ищите тематические группы ("Coaches & Consultants")</p>
-          <p class="body body--dark"><strong>Instagram:</strong> Ищите по хэштегам (#businesscoach, #realestateagent)</p>
-          <p class="body body--dark"><strong>Стратегия та же:</strong> Будьте полезны, а не навязчивы.</p>
-          <div class="social-logos">
-            <span class="logo logo--fb"></span>
-            <span class="logo logo--ig"></span>
+    <!-- Slide 36: Facebook & Instagram -->
+    <section class="slide slide--dark" data-variant="iris" style="--accent: #e6683c; --accent-soft: rgba(230, 104, 60, 0.10); --accent-strong: rgba(230, 104, 60, 0.28);" id="slide-36">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="social-logos-css">
+          <div class="social-logo-css social-logo-css--fb"></div>
+          <div class="social-logo-css social-logo-css--ig">
+            <div class="social-logo-css__ig-icon"></div>
           </div>
+        </div>
+        <h2 class="title title--lg" style="text-align:center;">Facebook и Instagram: Поиск в неформальной среде</h2>
+        <div style="display:flex; flex-direction:column; gap:14px; max-width:640px; text-align:center;">
+          <p class="body"><strong>Facebook:</strong> Ищите тематические группы ("Coaches & Consultants")</p>
+          <p class="body"><strong>Instagram:</strong> Ищите по хэштегам (#businesscoach, #realestateagent)</p>
+          <p class="body"><strong>Стратегия та же:</strong> Будьте полезны, а не навязчивы.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 37: Interview Intro -->
@@ -3457,20 +3626,27 @@ body {
 
     <!-- Slide 40: STAR Method -->
     <section class="slide slide--dark" data-variant="prism" style="--accent: #a78bfa; --accent-soft: rgba(167, 139, 250, 0.10); --accent-strong: rgba(167, 139, 250, 0.28);" id="slide-40">
-      <div class="slide__inner">
-        <h2 class="title title--lg">Что говорить, если опыт ЕСТЬ? Формула STAR</h2>
+      <div class="star-bg" aria-hidden="true">
+        <span class="star-bg__letter star-bg__letter--s">S</span>
+        <span class="star-bg__letter star-bg__letter--t">T</span>
+        <span class="star-bg__letter star-bg__letter--a">A</span>
+        <span class="star-bg__letter star-bg__letter--r">R</span>
+        <div class="star-bg__grid"></div>
+        <div class="star-bg__glow"></div>
+      </div>
+      <div class="slide__inner" style="position:relative; z-index:1;">
+        <h2 class="title title--lg" style="text-align:center;">Что говорить, если опыт ЕСТЬ? Формула STAR</h2>
         <div class="card-grid">
           <div class="card"><p class="body"><strong>S (Situation):</strong> Кратко опишите ситуацию.</p></div>
           <div class="card"><p class="body"><strong>T (Task):</strong> Опишите задачу (свяжите с их проблемой!).</p></div>
           <div class="card"><p class="body"><strong>A (Action):</strong> Опишите свои действия.</p></div>
           <div class="card"><p class="body"><strong>R (Result):</strong> Измеримый результат ("снизил время на 15%").</p></div>
         </div>
-        <p class="highlight">Работодателей интересуют не ваши обязанности, а ваши достижения.</p>
+        <p class="highlight" style="text-align:center;">Работодателей интересуют не ваши обязанности, а ваши достижения.</p>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 41: Talking Money -->
