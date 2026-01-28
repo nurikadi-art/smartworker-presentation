@@ -2327,6 +2327,164 @@ body {
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4);
 }
 
+/* ============ MODULE RIPPLE UNLOCK ============ */
+.module-unlock {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.module-unlock__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.module-unlock.unlocked .module-unlock__overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.module-unlock__lock {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent, #7dd3fc) 0%, rgba(255, 255, 255, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module-unlock__lock:hover {
+  transform: scale(1.1);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.module-unlock__lock-icon {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+
+/* Lock body */
+.module-unlock__lock-icon::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 14px;
+  background: #1a1a2e;
+  border-radius: 3px;
+}
+
+/* Lock shackle */
+.module-unlock__lock-icon::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 12px;
+  border: 3px solid #1a1a2e;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.module-unlock.unlocked .module-unlock__lock-icon::before {
+  transform: translateX(-50%) rotate(-30deg) translateY(-4px);
+}
+
+.module-unlock__hint {
+  color: white;
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.9;
+}
+
+/* Ripple container */
+.module-unlock__ripple-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.module-unlock__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent, #7dd3fc) 0%, transparent 70%);
+  opacity: 0.4;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.module-unlock__ripple.animating {
+  animation: rippleUnlock 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+@keyframes rippleUnlock {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Content reveal animation */
+.module-unlock__content {
+  opacity: 0.3;
+  filter: blur(4px);
+  transform: scale(0.98);
+  transition: all 0.6s cubic-bezier(0.2, 0, 0, 1) 0.2s;
+}
+
+.module-unlock.unlocked .module-unlock__content {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* State layer for hover effect */
+.module-unlock__state-layer {
+  position: absolute;
+  inset: 0;
+  background: var(--accent, #7dd3fc);
+  opacity: 0;
+  z-index: 3;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.module-unlock:hover .module-unlock__state-layer {
+  opacity: 0.04;
+}
+
+.module-unlock:active .module-unlock__state-layer {
+  opacity: 0.08;
+}
+
 /* ============ FIRST 30 DAYS REDESIGN ============ */
 .days-cards {
   display: grid;
@@ -3992,12 +4150,22 @@ body {
 
     <!-- Slide 48: Module 1 -->
     <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-48">
-      <div class="slide__inner">
-        <div class="kicker">Модуль 1</div>
-        <h2 class="title title--lg">Обучение</h2>
-        <div class="card">
-          <p class="body">Сначала мы дадим вам профессию. Вы пройдете полный курс "Executive Virtual Assistant", где освоите все главные платформы и задачи, которые требуются прямо сейчас на рынке США.</p>
-          <p class="body body--accent">Вы станете специалистом, за которым охотятся.</p>
+      <div class="slide__inner module-unlock">
+        <div class="module-unlock__state-layer"></div>
+        <div class="module-unlock__ripple-container"></div>
+        <div class="module-unlock__overlay">
+          <div class="module-unlock__lock">
+            <div class="module-unlock__lock-icon"></div>
+          </div>
+          <span class="module-unlock__hint">Нажмите, чтобы открыть</span>
+        </div>
+        <div class="module-unlock__content">
+          <div class="kicker">Модуль 1</div>
+          <h2 class="title title--lg">Обучение</h2>
+          <div class="card">
+            <p class="body">Сначала мы дадим вам профессию. Вы пройдете полный курс "Executive Virtual Assistant", где освоите все главные платформы и задачи, которые требуются прямо сейчас на рынке США.</p>
+            <p class="body body--accent">Вы станете специалистом, за которым охотятся.</p>
+          </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4009,12 +4177,22 @@ body {
 
     <!-- Slide 49: Module 2 -->
     <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-49">
-      <div class="slide__inner">
-        <div class="kicker">Модуль 2</div>
-        <h2 class="title title--lg">Сопровождение</h2>
-        <div class="card">
-          <p class="body">Мы не бросим вас после обучения. Вы получаете персональное ведение от команды Smartworker.</p>
-          <p class="body">Наша задача — довести вас до результата. Полная поддержка в чате и по email, разбор ваших резюме, помощь в переговорах.</p>
+      <div class="slide__inner module-unlock">
+        <div class="module-unlock__state-layer"></div>
+        <div class="module-unlock__ripple-container"></div>
+        <div class="module-unlock__overlay">
+          <div class="module-unlock__lock">
+            <div class="module-unlock__lock-icon"></div>
+          </div>
+          <span class="module-unlock__hint">Нажмите, чтобы открыть</span>
+        </div>
+        <div class="module-unlock__content">
+          <div class="kicker">Модуль 2</div>
+          <h2 class="title title--lg">Сопровождение</h2>
+          <div class="card">
+            <p class="body">Мы не бросим вас после обучения. Вы получаете персональное ведение от команды Smartworker.</p>
+            <p class="body">Наша задача — довести вас до результата. Полная поддержка в чате и по email, разбор ваших резюме, помощь в переговорах.</p>
+          </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
@@ -4374,6 +4552,48 @@ body {
 
       // Initial state
       updateCounter();
+
+      // Module Ripple Unlock functionality
+      document.querySelectorAll('.module-unlock').forEach(module => {
+        module.addEventListener('click', function(e) {
+          if (this.classList.contains('unlocked')) return;
+
+          const rect = this.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          // Create ripple element
+          const ripple = document.createElement('div');
+          ripple.className = 'module-unlock__ripple';
+
+          // Calculate ripple size (should cover the whole element)
+          const maxDim = Math.max(rect.width, rect.height);
+          const rippleSize = maxDim * 2.5;
+
+          ripple.style.width = rippleSize + 'px';
+          ripple.style.height = rippleSize + 'px';
+          ripple.style.left = (x - rippleSize / 2) + 'px';
+          ripple.style.top = (y - rippleSize / 2) + 'px';
+
+          const container = this.querySelector('.module-unlock__ripple-container');
+          container.appendChild(ripple);
+
+          // Trigger animation
+          requestAnimationFrame(() => {
+            ripple.classList.add('animating');
+          });
+
+          // Mark as unlocked
+          setTimeout(() => {
+            this.classList.add('unlocked');
+          }, 150);
+
+          // Remove ripple after animation
+          setTimeout(() => {
+            ripple.remove();
+          }, 800);
+        });
+      });
     });
   </script>
 </body>
