@@ -2229,6 +2229,200 @@ body {
   transform: translate(-50%, -50%);
 }
 
+/* ============ VIDEO TESTIMONIALS ============ */
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  width: 100%;
+  max-width: 700px;
+}
+
+.testimonial-video {
+  position: relative;
+  aspect-ratio: 9/16;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.testimonial-video:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.testimonial-video__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.testimonial-video__play-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-video__play-icon::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent #09090b;
+  margin-left: 4px;
+}
+
+.testimonial-video.playing .testimonial-video__play {
+  opacity: 0;
+}
+
+/* ============ BOOK IMAGE ============ */
+.book-display {
+  display: flex;
+  justify-content: center;
+  margin: clamp(20px, 2.5vw, 32px) 0;
+}
+
+.book-display__img {
+  max-width: min(280px, 60%);
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-display__img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* ============ BUNDLE IMAGE ============ */
+.bundle-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bundle-display__img {
+  max-width: min(400px, 90%);
+  border-radius: 20px;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4);
+}
+
+/* ============ FIRST 30 DAYS REDESIGN ============ */
+.days-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  width: 100%;
+}
+
+.days-card {
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.days-card--do {
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.days-card--dont {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.days-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.days-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.days-card--do .days-card__icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.days-card--dont .days-card__icon {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.days-card__title {
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.days-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.days-card__list li {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.5;
+  color: #ffffff;
+  padding-left: 24px;
+  position: relative;
+}
+
+.days-card--do .days-card__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.days-card--dont .days-card__list li::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .days-cards { grid-template-columns: 1fr; }
+  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ============ iPHONE MOCKUP ============ */
 .iphone-mockup {
   width: min(280px, 90%);
@@ -3682,38 +3876,38 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 43: First 30 Days (with bg image) -->
+    <!-- Slide 43: First 30 Days -->
     <section class="slide slide--dark" data-variant="aurora" style="--accent: #7dd3fc; --accent-soft: rgba(125, 211, 252, 0.10); --accent-strong: rgba(125, 211, 252, 0.28);" id="slide-43">
-      <div class="slide__bg-image slide__bg-image--remote" aria-hidden="true"></div>
       <div class="slide__inner">
-        <h2 class="title title--lg">Ваши первые 30 дней: Как стать незаменимым</h2>
-        <div class="split">
-          <div class="split__col">
-            <div class="card">
-              <div class="card__title">Do ✓</div>
-              <ul class="list">
-                <li>Сдавайте работу на час раньше срока</li>
-                <li>Вопросы о результате, а не о процессе</li>
-                <li>Говорите: "Разберусь и вернусь с решением"</li>
-              </ul>
+        <h2 class="title title--lg" style="text-align:center; margin-bottom:clamp(20px,2.5vw,32px);">Ваши первые 30 дней: Как стать незаменимым</h2>
+        <div class="days-cards">
+          <div class="days-card days-card--do">
+            <div class="days-card__header">
+              <span class="days-card__icon">✓</span>
+              <span class="days-card__title">Do</span>
             </div>
+            <ul class="days-card__list">
+              <li>Сдавайте работу на час раньше срока</li>
+              <li>Вопросы о результате, а не о процессе</li>
+              <li>Говорите: «Разберусь и вернусь с решением»</li>
+            </ul>
           </div>
-          <div class="split__col">
-            <div class="card card--accent">
-              <div class="card__title">Don't ✗</div>
-              <ul class="list">
-                <li>Никогда не нарушайте дедлайн</li>
-                <li>Не пропадайте без предупреждения</li>
-                <li>Не говорите: "Это невозможно"</li>
-              </ul>
+          <div class="days-card days-card--dont">
+            <div class="days-card__header">
+              <span class="days-card__icon">✗</span>
+              <span class="days-card__title">Don't</span>
             </div>
+            <ul class="days-card__list">
+              <li>Никогда не нарушайте дедлайн</li>
+              <li>Не пропадайте без предупреждения</li>
+              <li>Не говорите: «Это невозможно»</li>
+            </ul>
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 44: Scaling Growth -->
@@ -3733,22 +3927,34 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 45: Success Stories (with images) -->
-    <section class="slide slide--light" data-variant="oasis" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-45">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--lg">Истории успеха</h2>
-          <p class="body body--dark">Они уже смогли. Теперь ваша очередь.</p>
-          <div class="story-grid">
-            <div class="story-card story-card--woman"></div>
-            <div class="story-card story-card--man"></div>
-            <div class="story-card story-card--team"></div>
+    <!-- Slide 45: Success Stories (with videos) -->
+    <section class="slide slide--dark" data-variant="ember" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-45">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <h2 class="title title--lg" style="text-align:center;">Истории успеха</h2>
+        <p class="body" style="text-align:center; margin-bottom:clamp(20px,2.5vw,32px);">Они уже смогли. Теперь ваша очередь.</p>
+        <div class="testimonial-grid">
+          <div class="testimonial-video" onclick="this.classList.toggle('playing'); this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause();">
+            <video playsinline preload="metadata">
+              <source src="testimonial1.MOV" type="video/quicktime">
+              <source src="testimonial1.MOV" type="video/mp4">
+            </video>
+            <div class="testimonial-video__play">
+              <div class="testimonial-video__play-icon"></div>
+            </div>
+          </div>
+          <div class="testimonial-video" onclick="this.classList.toggle('playing'); this.querySelector('video').paused ? this.querySelector('video').play() : this.querySelector('video').pause();">
+            <video playsinline preload="metadata">
+              <source src="Testimonial2.mp4" type="video/mp4">
+            </video>
+            <div class="testimonial-video__play">
+              <div class="testimonial-video__play-icon"></div>
+            </div>
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 46: Problems -->
@@ -3772,18 +3978,16 @@ body {
 
     <!-- Slide 47: Package Title -->
     <section class="slide slide--dark" data-variant="ember" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-47">
-      <div class="slide__inner">
-        <div class="stack center">
-          <h2 class="title title--xl">Smartworker Package</h2>
-          <h3 class="title title--lg">Карьера в США:<br>Executive Virtual Assistant</h3>
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
+        <h2 class="title title--xl" style="text-align:center;">Smartworker Package</h2>
+        <h3 class="title title--lg" style="text-align:center;">Карьера в США:<br>Executive Virtual Assistant</h3>
+        <div class="bundle-display" style="margin-top:clamp(24px,3vw,40px);">
+          <img src="Bundle.webp" alt="Smartworker Bundle" class="bundle-display__img">
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--a" aria-hidden="true"></div>
-      <div class="slide__orb slide__orb--b" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 48: Module 1 -->
@@ -3873,19 +4077,21 @@ body {
 
     <!-- Slide 53: Bonus 4 -->
     <section class="slide slide--dark" data-variant="neon" style="--accent: #d4a574; --accent-soft: rgba(212, 165, 116, 0.10); --accent-strong: rgba(212, 165, 116, 0.28);" id="slide-53">
-      <div class="slide__inner">
+      <div class="slide__inner" style="display:flex; flex-direction:column; align-items:center;">
         <div class="kicker">БОНУС #4</div>
-        <h2 class="title title--lg">Авторская книга-гайд Нурсултана (PDF)</h2>
-        <div class="card">
+        <h2 class="title title--lg" style="text-align:center;">Авторская книга-гайд Нурсултана (PDF)</h2>
+        <div class="book-display">
+          <img src="book.webp" alt="Книга-гайд Нурсултана" class="book-display__img">
+        </div>
+        <div class="card" style="max-width:640px; text-align:center;">
           <p class="body">Чтобы у вас с первого дня была полная ясность, вы получаете личный учебник от Нурсултана.</p>
           <p class="body">Это пошаговый план действий, все наши проверенные стратегии и шаблоны писем.</p>
-          <p class="body body--accent">Вы не будете гадать, что делать дальше — у вас будет четкая дорожная карта к быстрому старту.</p>
+          <p class="body body--accent">Вы не будете гадать, что делать дальше — у вас будет чёткая дорожная карта.</p>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 54: Pricing Comparison -->
@@ -3930,30 +4136,25 @@ body {
       <div class="slide__grid" aria-hidden="true"></div>
     </section>
 
-    <!-- Slide 56: Final CTA (with iPhone) -->
+    <!-- Slide 56: Final CTA -->
     <section class="slide slide--dark" data-variant="ember" style="--accent: #e2a37a; --accent-soft: rgba(226, 163, 122, 0.10); --accent-strong: rgba(226, 163, 122, 0.28);" id="slide-56">
       <div class="slide__inner">
-        <div class="split">
+        <div class="split" style="align-items:center;">
           <div class="split__col">
             <h2 class="title title--lg">Последняя возможность</h2>
-            <p class="body">Это лучшее соотношение цены и ценности, которое вы найдете сегодня.</p>
-            <p class="highlight">Цена для участников интенсива - 500$</p>
-            <p class="body">Жизнь наших студентов совершенно поменялась, когда они получили свой первый оффер с оплатой в долларах. Вы можете стать следующими.</p>
-            <p class="body">👉 Пишите в Telegram: @thirsty_invest31<br>👉 Или whatsapp: +7 700 131 0304</p>
-            <p class="body body--accent">Напишите в чат «хочу» + номер телефона (WhatsApp), чтобы забронировать своё место</p>
+            <p class="body">Это лучшее соотношение цены и ценности, которое вы найдёте сегодня.</p>
+            <p class="highlight">Цена для участников интенсива — 500$</p>
+            <p class="body">Жизнь наших студентов совершенно поменялась, когда они получили свой первый оффер с оплатой в долларах.</p>
+            <p class="body body--accent">Вы можете стать следующими.</p>
           </div>
-          <div class="split__col" style="display: flex; justify-content: center;">
-            <div class="iphone-mockup">
-              <div class="iphone-mockup__notch"></div>
-              <div class="iphone-mockup__screen"></div>
-            </div>
+          <div class="split__col bundle-display">
+            <img src="Bundle.webp" alt="Smartworker Bundle" class="bundle-display__img">
           </div>
         </div>
       </div>
       <div class="slide__frame" aria-hidden="true"></div>
       <div class="slide__sweep" aria-hidden="true"></div>
-      <div class="slide__particles" aria-hidden="true"></div>
-      <div class="slide__grid" aria-hidden="true"></div>
+      <div class="slide__noise" aria-hidden="true"></div>
     </section>
 
     <!-- Slide 57: Final Bonus (with iPhone) -->
